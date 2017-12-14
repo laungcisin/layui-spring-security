@@ -1,0 +1,30 @@
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+/target/
+*.zip
+*.tar.gz
+*.rar
+
+# IDEA
+.idea
+*.iml
+target
+
+#eclipse
+.settings
+.classpath
+.project
+
+#log
+*.log
+*.log.*
+logs/
+
+*velocity.log*
