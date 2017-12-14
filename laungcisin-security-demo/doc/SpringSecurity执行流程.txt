@@ -1,0 +1,57 @@
+SpringSecurity过滤器链:
+	-->SecurityContextPersistenceFilter
+	-->UsernamePasswordAuthenticationFilter-[表单处理器]-处理表单提交的username和password
+	-->BasicAuthenticationFilter
+	...
+	(以上过滤器链可以配置)
+	-----------------------------------------
+	(以下过滤器链不可以配置)
+	-->ExeptionTranslationFilter(捕获FilterSecurityInterceptor抛出的异常)
+	-->FilterSecurityInterceptor
+	
+##########################################################################
+1.[处理用户信息获取逻辑-UserDetailService]
+	UserDetailService接口用于用户信息获取,返回UserDetail接口.
+
+
+2.[处理用户校验逻辑-UserDetail]
+	用户校验在UserDetail实现类中实现,
+	密码匹配是由SpringSecurity框架完成的,你只要告诉SpringSecurity框架你的密文即可.
+	
+	如果配置了PasswordEncoder,SpringSecurity框架会用此PasswordEncoder去校验密码.
+
+3.[处理密码加解密-PasswordEncoder]
+
+##########################################################################
+自定义登录页
+
+1. HttpSecurity.loginPage指定的 url 由 UsernamePasswordAuthenticationFilter 处理
+
+
+	SecurityCoreConfig的作用是让SecurityProperties类生效
+
+
+##########################################################################
+认证源码执行流程:
+	-->UsernamePasswordAuthenticationFilter
+		UsernamePasswordAuthenticationFilter.attemptAuthentication
+
+		
+	-->AuthenticationManager 用于管理 AuthenticationProvider
+		ProviderManager.authenticate
+	
+	-->AuthenticationProvider
+		-->[DaoAuthenticationProvider.authenticate]
+		-->[AbstractUserDetailsAuthenticationProvider.authenticate]
+			-- 获取UserDetails
+			-->[DaoAuthenticationProvider.retrieveUser]
+				-->[UserDetailsService.loadUserByUsername]
+		
+			--预检查
+			-->[AbstractUserDetailsAuthenticationProvider.DefaultPreAuthenticationChecks.check]
+			
+			-->[DaoAuthenticationProvider.additionalAuthenticationChecks]
+				--密码匹配
+				(!passwordEncoder.isPasswordValid(UserDetails.getPassword(), presentedPassword, salt)
+	
+	
