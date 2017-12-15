@@ -56,7 +56,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     }
 
     /**
-     * 记住我功能
+     * 记住我功能-数据库存储相关cookies
      *
      * @return
      */
@@ -83,7 +83,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())//过期时间
-                .userDetailsService(userDetailsService)
+                .userDetailsService(userDetailsService)//用于登录
 
                 .and()
                 .sessionManagement()

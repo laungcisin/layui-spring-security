@@ -2,6 +2,7 @@ SpringSecurity过滤器链:
 	-->SecurityContextPersistenceFilter
 	-->UsernamePasswordAuthenticationFilter-[表单处理器]-处理表单提交的username和password
 	-->BasicAuthenticationFilter
+	-->RememberMeAuthenticationFilter
 	...
 	(以上过滤器链可以配置)
 	-----------------------------------------
@@ -59,6 +60,11 @@ ValidateCodeFilter  extends OncePerRequestFilter implements InitializingBean
 	-->初始化要拦截的url配置信息-->存放所有需要校验验证码的url
 
 
+##############################记住我功能源码解析############################################
+--第一次登录+记住我
+UsernamePasswordAuthenticationFilter.attemptAuthentication
+	-->AbstractAuthenticationProcessingFilter.successfulAuthentication
+		[rememberMeServices.loginSuccess(request, response, authResult);]
 
-
-
+--第二次登录[已记住]
+		RememberMeAuthenticationFilter.doFilter

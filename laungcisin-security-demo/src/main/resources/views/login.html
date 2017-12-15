@@ -69,6 +69,11 @@
                                     <img src="/code/image?width=70&height=38" id="imageValidateCode"
                                          onclick="changeValidateCode()"/>
                                     <a href="javascript:void(0);" onclick="changeValidateCode()">换一张</a>
+                                </div>
+                            <div class="layui-form-item">
+                                <div class="layui-input-inline">
+                                    <input type="checkbox" name="remember-me"/>记住我
+                                </div>
                             </div>
                             <div class="layui-form-item">
                                 <button class="layui-btn" type="button" lay-filter="login" lay-submit>立即登录</button>
@@ -116,6 +121,7 @@
                     loginSuccess();
                 } else {
                     loginError(ret.content);
+                    changeValidateCode();
                 }
 
                 $btnLogin.removeClass('layui-btn-disabled').text('立即登录');

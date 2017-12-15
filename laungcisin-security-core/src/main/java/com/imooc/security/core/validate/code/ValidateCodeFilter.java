@@ -104,7 +104,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
             try {
                 validateCodeProcessorHolder.findValidateCodeProcessor(type).validate(new ServletWebRequest(request, response));
                 logger.info("验证码校验通过");
-            } catch (ValidateCodeException exception) {
+            } catch (ValidateCodeException exception) {//校验不通过,抛出异常
                 authenticationFailureHandler.onAuthenticationFailure(request, response, exception);
                 return;
             }
