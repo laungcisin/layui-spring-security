@@ -53,5 +53,12 @@ SpringSecurity过滤器链:
 			-->[DaoAuthenticationProvider.additionalAuthenticationChecks]
 				--密码匹配
 				(!passwordEncoder.isPasswordValid(UserDetails.getPassword(), presentedPassword, salt)
-	
-	
+				
+##############################图形验证码生成逻辑############################################
+ValidateCodeFilter  extends OncePerRequestFilter implements InitializingBean
+	-->初始化要拦截的url配置信息-->存放所有需要校验验证码的url
+
+
+
+
+

@@ -8,8 +8,8 @@ package com.imooc.security.core.properties;
  */
 public class SmsCodeProperties {
 
-    private int length = 6;
-    private int expireIn = 60;
+    private int length = 6;//验证码长度
+    private int expireIn = 60;//过期秒数
 
     private String url;
 

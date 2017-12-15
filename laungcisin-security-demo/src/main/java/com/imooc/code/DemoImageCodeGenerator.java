@@ -8,6 +8,7 @@ import com.imooc.security.core.validate.code.image.ImageCode;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
+ *
  * @author laungcisin
  */
 //@Component("imageCodeGenerator")

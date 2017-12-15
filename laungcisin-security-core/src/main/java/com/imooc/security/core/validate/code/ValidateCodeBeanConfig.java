@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * 验证码生成逻辑可配置
  * @author laungcisin
  */
 @Configuration
