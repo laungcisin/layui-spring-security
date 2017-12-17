@@ -46,7 +46,7 @@
             <td>短信验证码:</td>
             <td>
                 <input type="text" name="smsCode">
-                <a href="/code/sms?mobile=13012345678">发送验证码</a>
+                <a href="javascript:void(0);" onclick="sendCode()">发送验证码</a>
             </td>
         </tr>
         <tr>
@@ -61,5 +61,15 @@
 <a href="/qqLogin/callback.do">QQ登录</a>
 &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="/qqLogin/weixin">微信登录</a>
+
+<script type='text/javascript' src="https://cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
+
+<script type='text/javascript'>
+    function sendCode() {
+        $.get("/code/sms?mobile=13012345678", {time: new Date()}, function (result) {
+            alert('短信发送成功!');
+        });
+    }
+</script>
 </body>
 </html>

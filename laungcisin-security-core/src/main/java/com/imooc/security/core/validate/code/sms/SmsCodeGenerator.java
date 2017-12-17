@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
+ * 短信验证码生成器
  * @author laungcisin
  */
 @Component("smsValidateCodeGenerator")
@@ -19,6 +20,14 @@ public class SmsCodeGenerator implements ValidateCodeGenerator {
 
     @Autowired
     private SecurityProperties securityProperties;
+
+    public SecurityProperties getSecurityProperties() {
+        return securityProperties;
+    }
+
+    public void setSecurityProperties(SecurityProperties securityProperties) {
+        this.securityProperties = securityProperties;
+    }
 
     /*
      * (non-Javadoc)
@@ -29,17 +38,12 @@ public class SmsCodeGenerator implements ValidateCodeGenerator {
      */
     @Override
     public ValidateCode generate(ServletWebRequest request) {
+        //生成验证码
         String code = RandomStringUtils.randomNumeric(securityProperties.getCode().getSms().getLength());
         return new ValidateCode(code, securityProperties.getCode().getSms().getExpireIn());
     }
 
-    public SecurityProperties getSecurityProperties() {
-        return securityProperties;
-    }
 
-    public void setSecurityProperties(SecurityProperties securityProperties) {
-        this.securityProperties = securityProperties;
-    }
 
 
 }

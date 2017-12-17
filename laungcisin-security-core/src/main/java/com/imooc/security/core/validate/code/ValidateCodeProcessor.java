@@ -3,6 +3,7 @@ package com.imooc.security.core.validate.code;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
+ * 处理验证码整个流程:生成(create)和校验(validate)
  * 校验码处理器，封装不同校验码的处理逻辑
  *
  * @author laungcisin

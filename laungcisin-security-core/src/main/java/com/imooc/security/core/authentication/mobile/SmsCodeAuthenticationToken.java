@@ -19,6 +19,7 @@ public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
     // ~ Instance fields
     // ================================================================================================
 
+    //认证前放手机号,认证后放认证了的用户信息
     private final Object principal;
 
     // ~ Constructors

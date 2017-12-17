@@ -21,6 +21,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
 import javax.sql.DataSource;
 
 /**
+ * 浏览器相关配置类
  * @author laungcisin
  */
 @Configuration//通过该注解来表明该类是一个Spring的配置，相当于一个xml文件
@@ -72,9 +73,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     protected void configure(HttpSecurity http) throws Exception {
         applyPasswordAuthenticationConfig(http);
 
-        http.apply(validateCodeSecurityConfig)
+        http.apply(validateCodeSecurityConfig)//验证码校验配置[图形|短信]
                 .and()
-                .apply(smsCodeAuthenticationSecurityConfig)
+                .apply(smsCodeAuthenticationSecurityConfig)//短信验证码登录配置
                 .and()
                 .apply(imoocSocialSecurityConfig)
                 .and()
@@ -84,8 +85,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())//过期时间
                 .userDetailsService(userDetailsService)//用于登录
-
                 .and()
+
+                //session相关
                 .sessionManagement()
                 .invalidSessionStrategy(invalidSessionStrategy)
                 .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
@@ -93,6 +95,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .expiredSessionStrategy(sessionInformationExpiredStrategy)
                 .and()
                 .and()
+
                 .authorizeRequests()
                 // 以下url不用授权验证
                 .antMatchers("/css/**", "/images/**", "/js/**",
@@ -106,6 +109,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                         securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
                         securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
                         "/user/regist").permitAll()
+
                 // 任何尚未匹配的URL只需要验证用户即可访问
                 .anyRequest().authenticated()
                 .and()

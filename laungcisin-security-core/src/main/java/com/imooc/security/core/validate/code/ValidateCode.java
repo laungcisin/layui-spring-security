@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 
 /**
- * 校验码
+ * 校验码(短信验证码)
  * @author laungcisin
  */
 public class ValidateCode {

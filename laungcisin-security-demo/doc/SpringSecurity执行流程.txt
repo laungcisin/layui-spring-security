@@ -1,6 +1,6 @@
 SpringSecurity过滤器链:
 	-->SecurityContextPersistenceFilter
-	-->UsernamePasswordAuthenticationFilter-[表单处理器]-处理表单提交的username和password
+	-->UsernamePasswordAuthenticationFilter-[form表单处理器]-处理表单提交的username和password
 	-->BasicAuthenticationFilter
 	-->RememberMeAuthenticationFilter
 	...
@@ -10,7 +10,7 @@ SpringSecurity过滤器链:
 	-->ExeptionTranslationFilter(捕获FilterSecurityInterceptor抛出的异常)
 	-->FilterSecurityInterceptor
 	
-##########################################################################
+##########################################################################################
 1.[处理用户信息获取逻辑-UserDetailService]
 	UserDetailService接口用于用户信息获取,返回UserDetail接口.
 
@@ -23,16 +23,13 @@ SpringSecurity过滤器链:
 
 3.[处理密码加解密-PasswordEncoder]
 
-##########################################################################
+##########################################################################################
 自定义登录页
 
 1. HttpSecurity.loginPage指定的 url 由 UsernamePasswordAuthenticationFilter 处理
-
-
 	SecurityCoreConfig的作用是让SecurityProperties类生效
 
-
-##########################################################################
+##########################################################################################
 认证源码执行流程:
 	-->UsernamePasswordAuthenticationFilter
 		UsernamePasswordAuthenticationFilter.attemptAuthentication
@@ -55,12 +52,20 @@ SpringSecurity过滤器链:
 				--密码匹配
 				(!passwordEncoder.isPasswordValid(UserDetails.getPassword(), presentedPassword, salt)
 				
-##############################图形验证码生成逻辑############################################
+############################################################################################################################				
+ValidateCodeFilter.afterPropertiesSet 方法中指定图形|短信url由 ValidateCodeFilter.doFilterInternal 校验
+	urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM, ValidateCodeType.IMAGE);
+	urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE, ValidateCodeType.SMS);
+############################################################################################################################	
+
+
+##############################图形验证码生成逻辑-begin##############################################################
 ValidateCodeFilter  extends OncePerRequestFilter implements InitializingBean
 	-->初始化要拦截的url配置信息-->存放所有需要校验验证码的url
+##############################图形验证码生成逻辑-end##############################################################
 
-
-##############################记住我功能源码解析############################################
+	
+##############################记住我功能源码解析-begin##############################################################
 --第一次登录+记住我
 UsernamePasswordAuthenticationFilter.attemptAuthentication
 	-->AbstractAuthenticationProcessingFilter.successfulAuthentication
@@ -68,3 +73,46 @@ UsernamePasswordAuthenticationFilter.attemptAuthentication
 
 --第二次登录[已记住]
 		RememberMeAuthenticationFilter.doFilter
+##############################记住我功能源码解析-end##############################################################
+		
+
+##############################短信验证码发送短信功能源码解析-begin############################################
+发送短信验证码请求:/code/sms
+-->ValidateCodeController.createCode	
+	-->ValidateCodeProcessorHolder.findValidateCodeProcessor
+		--> 从 urlMap 中根据url取相应的ValidateCodeProcessor--->SmsCodeProcessor
+		-->SmsCodeProcessor 继承 AbstractValidateCodeProcessor
+			-->SmsCodeProcessor.create
+				-->AbstractValidateCodeProcessor.generate
+				-->AbstractValidateCodeProcessor.save
+				-->send由具体子类来实现
+				
+-->ValidateCodeController.createCode-->ValidateCodeProcessorHolder.findValidateCodeProcessor
+-->AbstractValidateCodeProcessor.create[SmsCodeProcessor]
+	-->AbstractValidateCodeProcessor.generate[SmsCodeProcessor]
+	-->AbstractValidateCodeProcessor.save
+	-->SmsCodeProcessor.send[由具体子类来实现]
+
+
+ValidateCodeController-验证码生成Controller
+
+ValidateCodeBeanConfig-验证码生成配置类[图像验证码|短信验证码]
+ValidateCode-短信验证码
+SmsCodeGenerator-短信验证码生成器
+##############################短信验证码发送短信功能源码解析-end############################################
+
+
+##############################短信验证码校验短信功能源码解析-begin##########################################
+在UsernamePasswordAuthenticationFilter前添加 ValidateCodeFilter
+-->ValidateCodeFilter.doFilterInternal
+	-->ValidateCodeProcessorHolder.findValidateCodeProcessor
+	-->AbstractValidateCodeProcessor.validate
+##############################短信验证码校验短信功能源码解析-end############################################
+
+
+##############################短信验证码登录源码解析-begin##################################################
+SmsCodeAuthenticationSecurityConfig连接SmsCodeAuthenticationFilter|SmsCodeAuthenticationProvider|SmsCodeAuthenticationToken等类
+##############################短信验证码登录源码解析-end####################################################
+
+
+

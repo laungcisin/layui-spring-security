@@ -26,7 +26,7 @@ public class ValidateCodeController {
      * 根据验证码类型不同，调用不同的 {@link ValidateCodeProcessor}接口实现
      *
      * @param request
-     * @param response
+      * @param response
      * @param type
      * @throws Exception
      */

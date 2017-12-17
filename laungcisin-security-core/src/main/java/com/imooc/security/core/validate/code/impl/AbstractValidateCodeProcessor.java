@@ -20,7 +20,9 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      * 操作session的工具类
      */
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
+
     /**
+     *
      * 收集系统中所有的 {@link ValidateCodeGenerator} 接口的实现。
      */
     @Autowired
@@ -49,7 +51,10 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
     @SuppressWarnings("unchecked")
     private C generate(ServletWebRequest request) {
         String type = getValidateCodeType(request).toString().toLowerCase();
-        String generatorName = type + ValidateCodeGenerator.class.getSimpleName();
+
+        // 校验码Generator上Component注解的value为: [type]ValidateCodeGenerator,
+        // 所以拼装的name为[type]ValidateCodeGenerator
+        String generatorName = type + ValidateCodeGenerator.class.getSimpleName();//验证码生成器类名
         ValidateCodeGenerator validateCodeGenerator = validateCodeGenerators.get(generatorName);
         if (validateCodeGenerator == null) {
             throw new ValidateCodeException("验证码生成器" + generatorName + "不存在");
@@ -108,8 +113,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
 
         String codeInRequest;
         try {
-            codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(),
-                    processorType.getParamNameOnValidate());
+            codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), processorType.getParamNameOnValidate());
         } catch (ServletRequestBindingException e) {
             throw new ValidateCodeException("获取验证码的值失败");
         }

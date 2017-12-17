@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 拦截短信请求,组装 SmsCodeAuthenticationToken
  * @author laungcisin
  */
 public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
@@ -40,6 +41,7 @@ public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessin
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
         }
 
+        //获取手机号
         String mobile = obtainMobile(request);
 
         if (mobile == null) {

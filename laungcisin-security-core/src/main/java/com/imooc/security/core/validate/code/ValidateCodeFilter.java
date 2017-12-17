@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * 验证码 Filter:图形|短信
  * 验证码 Filter, 此 Filter 要在过滤器链靠前位置
  *
  * @author laungcisin
@@ -41,7 +42,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     private SecurityProperties securityProperties;
 
     /**
-     * 系统中的校验码处理器
+     * 系统中的校验码处理器--[依赖查找]从map中取相应的处理器
      */
     @Autowired
     private ValidateCodeProcessorHolder validateCodeProcessorHolder;
@@ -62,17 +63,19 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     @Override
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
-        //默认的用户名密码登录请求处理url需要验证码
+        //默认的用户名密码登录请求(form表单请求)处理url需要验证码
         urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM, ValidateCodeType.IMAGE);
+        //application.properties中配置的url
         addUrlToMap(securityProperties.getCode().getImage().getUrl(), ValidateCodeType.IMAGE);
 
-        //默认的手机验证码登录请求处理url需要验证码
+        //默认的手机验证码登录(短信验证码)请求处理url需要验证码
         urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE, ValidateCodeType.SMS);
+        //application.properties中配置的url
         addUrlToMap(securityProperties.getCode().getSms().getUrl(), ValidateCodeType.SMS);
     }
 
     /**
-     * 讲系统中配置的需要校验验证码的URL根据校验的类型放入map
+     * 将系统中配置的需要校验验证码的URL根据校验的类型放入map
      *
      * @param urlString
      * @param type
@@ -87,7 +90,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     }
 
     /*
-     * (non-Javadoc)
+     * (non-Javadoc) 做验证码校验(图形|短信)
      *
      * @see
      * org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(
