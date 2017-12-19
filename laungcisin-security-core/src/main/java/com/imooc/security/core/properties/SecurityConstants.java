@@ -15,7 +15,8 @@ public interface SecurityConstants {
      *
      * @see SecurityController
      */
-    String DEFAULT_UNAUTHENTICATION_URL = "/authentication/require";
+//    String DEFAULT_UNAUTHENTICATION_URL = "/authentication/require";
+    String DEFAULT_UNAUTHENTICATION_URL = "/login";
 
     /**
      * 默认的用户名密码登录请求处理url - UsernamePasswordAuthenticationFilter 处理

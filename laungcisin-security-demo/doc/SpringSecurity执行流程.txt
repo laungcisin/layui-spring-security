@@ -1,6 +1,7 @@
 SpringSecurity过滤器链:
 	-->SecurityContextPersistenceFilter
 	-->UsernamePasswordAuthenticationFilter-[form表单处理器]-处理表单提交的username和password
+	-->SocialAuthenticationFilter
 	-->BasicAuthenticationFilter
 	-->RememberMeAuthenticationFilter
 	...

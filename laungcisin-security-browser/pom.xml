@@ -15,6 +15,7 @@
             <artifactId>laungcisin-security-core</artifactId>
             <version>${laungcisin.security.version}</version>
         </dependency>
+        <!-- session集群管理 -->
         <dependency>
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session</artifactId>

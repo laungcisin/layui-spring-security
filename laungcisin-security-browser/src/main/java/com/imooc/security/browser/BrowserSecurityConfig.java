@@ -1,10 +1,12 @@
 package com.imooc.security.browser;
 
+import com.imooc.security.browser.logout.ImoocLogoutSuccessHandler;
 import com.imooc.security.core.authentication.AbstractChannelSecurityConfig;
 import com.imooc.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.imooc.security.core.properties.SecurityConstants;
 import com.imooc.security.core.properties.SecurityProperties;
 import com.imooc.security.core.validate.code.ValidateCodeSecurityConfig;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.InvalidSessionStrategy;
@@ -51,6 +54,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private InvalidSessionStrategy invalidSessionStrategy;
 
+    @Autowired
+    private LogoutSuccessHandler logoutSuccessHandler;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -77,14 +83,20 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .and()
                 .apply(smsCodeAuthenticationSecurityConfig)//短信验证码登录配置
                 .and()
-                .apply(imoocSocialSecurityConfig)
+                .apply(imoocSocialSecurityConfig)//第三方账号登录
                 .and()
 
                 //记住我功能
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())//过期时间
-                .userDetailsService(userDetailsService)//用于登录
+                .userDetailsService(userDetailsService)
+                .and()
+
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessHandler(logoutSuccessHandler)
+                .deleteCookies("JSESSIONID")
                 .and()
 
                 //session相关
@@ -101,19 +113,20 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .antMatchers("/css/**", "/images/**", "/js/**",
                         "/json/**", "/layui/**", "/plugin/**", "/webjars/**", "**/favicon.ico", "/index").permitAll()
                 .antMatchers(
-                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,//指定登录页
+                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
                         securityProperties.getBrowser().getSignUpUrl(),
+                        securityProperties.getBrowser().getSignOutUrl(),
                         securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".json",
                         securityProperties.getBrowser().getSession().getSessionInvalidUrl() + ".html",
-                        "/user/regist").permitAll()
+                        "/user/regist"
+                ).permitAll()
 
                 // 任何尚未匹配的URL只需要验证用户即可访问
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable();
-
     }
 }
