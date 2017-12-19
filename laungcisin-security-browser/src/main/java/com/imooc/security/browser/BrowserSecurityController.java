@@ -1,10 +1,9 @@
 package com.imooc.security.browser;
 
-import com.imooc.security.browser.support.SimpleResponse;
 import com.imooc.security.browser.support.SocialUserInfo;
 import com.imooc.security.core.properties.SecurityConstants;
 import com.imooc.security.core.properties.SecurityProperties;
-import org.apache.commons.lang.StringUtils;
+import com.imooc.security.core.support.SimpleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

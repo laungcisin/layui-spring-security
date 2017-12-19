@@ -1,4 +1,4 @@
-package com.imooc.security.browser.authentication;
+package com.imooc.security.app.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imooc.security.core.properties.LoginResponseType;

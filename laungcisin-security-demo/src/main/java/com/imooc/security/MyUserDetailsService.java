@@ -73,7 +73,7 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
 
         return new SocialUser(userId, password,
                 enabled, accountNonExpired, credentialsNonExpired, accountNonLocked,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));//ROLE_USER-OAuth协议用到
     }
 
 }

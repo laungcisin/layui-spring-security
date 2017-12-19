@@ -10,9 +10,16 @@
     </parent>
 
     <dependencies>
-        <dependency>
+<!--        <dependency>
             <groupId>com.laungcisin.security</groupId>
             <artifactId>laungcisin-security-browser</artifactId>
+            <version>${laungcisin.security.version}</version>
+        </dependency>
+        -->
+
+        <dependency>
+            <groupId>com.laungcisin.security</groupId>
+            <artifactId>laungcisin-security-app</artifactId>
             <version>${laungcisin.security.version}</version>
         </dependency>
 
