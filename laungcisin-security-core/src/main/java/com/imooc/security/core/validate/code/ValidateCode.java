@@ -1,5 +1,6 @@
 package com.imooc.security.core.validate.code;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 
@@ -7,7 +8,7 @@ import java.time.LocalDateTime;
  * 校验码(短信验证码)
  * @author laungcisin
  */
-public class ValidateCode {
+public class ValidateCode implements Serializable {
 
     //校验码 code
     private String code;
