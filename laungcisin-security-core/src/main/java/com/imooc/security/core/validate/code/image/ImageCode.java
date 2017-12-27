@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 /**
  * 图像验证码
- * @author laungcisin
+ * @author imooc
  */
 public class ImageCode extends ValidateCode {
 

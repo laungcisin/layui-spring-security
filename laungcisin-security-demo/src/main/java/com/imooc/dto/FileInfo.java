@@ -4,7 +4,7 @@
 package com.imooc.dto;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class FileInfo {
 

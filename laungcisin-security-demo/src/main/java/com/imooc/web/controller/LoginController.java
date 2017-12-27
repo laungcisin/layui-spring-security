@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 登录 Controller
  *
- * @author laungcisin
+ * @author imooc
  */
 @Controller
 @RequestMapping("/login")

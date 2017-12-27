@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.nio.charset.Charset;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class QQOAuth2Template extends OAuth2Template {
 

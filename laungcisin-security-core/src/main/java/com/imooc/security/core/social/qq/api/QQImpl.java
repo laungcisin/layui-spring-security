@@ -9,7 +9,7 @@ import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.TokenStrategy;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class QQImpl extends AbstractOAuth2ApiBinding implements QQ {
 

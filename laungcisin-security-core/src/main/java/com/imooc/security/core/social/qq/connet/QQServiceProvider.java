@@ -8,7 +8,7 @@ import com.imooc.security.core.social.qq.api.QQImpl;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class QQServiceProvider extends AbstractOAuth2ServiceProvider<QQ> {
 

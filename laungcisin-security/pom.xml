@@ -46,6 +46,7 @@
 
     <modules>
         <module>../laungcisin-security-app</module>
+        <module>../laungcisin-security-authorize</module>
         <module>../laungcisin-security-browser</module>
         <module>../laungcisin-security-core</module>
         <module>../laungcisin-security-demo</module>

@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 /**
  * 图片验证码处理器
  *
- * @author laungcisin
+ * @author imooc
  */
 @Component("imageValidateCodeProcessor")
 public class ImageCodeProcessor extends AbstractValidateCodeProcessor<ImageCode> {

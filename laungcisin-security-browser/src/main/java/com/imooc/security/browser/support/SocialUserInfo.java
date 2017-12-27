@@ -4,7 +4,7 @@
 package com.imooc.security.browser.support;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class SocialUserInfo {
 

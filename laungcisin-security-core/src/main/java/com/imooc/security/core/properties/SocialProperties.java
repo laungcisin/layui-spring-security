@@ -4,7 +4,7 @@
 package com.imooc.security.core.properties;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class SocialProperties {
 

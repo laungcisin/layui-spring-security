@@ -4,7 +4,7 @@
 package com.imooc.security.core.social.qq.api;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public interface QQ {
 

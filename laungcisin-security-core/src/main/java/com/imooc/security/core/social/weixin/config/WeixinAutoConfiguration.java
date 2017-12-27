@@ -19,7 +19,7 @@ import org.springframework.web.servlet.View;
 /**
  * 微信登录配置
  *
- * @author laungcisin
+ * @author imooc
  */
 @Configuration
 @ConditionalOnProperty(prefix = "imooc.security.social.weixin", name = "app-id")

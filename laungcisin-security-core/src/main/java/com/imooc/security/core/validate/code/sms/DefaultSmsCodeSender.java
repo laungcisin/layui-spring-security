@@ -5,7 +5,7 @@ package com.imooc.security.core.validate.code.sms;
 
 /**
  * 短信发送器
- * @author laungcisin
+ * @author imooc
  */
 public class DefaultSmsCodeSender implements SmsCodeSender {
 

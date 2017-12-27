@@ -2,7 +2,7 @@ package com.imooc.security.core.properties;
 
 /**
  * 图形验证码基本配置
- * @author laungcisin
+ * @author imooc
  */
 public class ImageCodeProperties extends SmsCodeProperties {
 

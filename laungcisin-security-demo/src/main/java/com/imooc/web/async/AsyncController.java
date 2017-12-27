@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 @RestController
 public class AsyncController {

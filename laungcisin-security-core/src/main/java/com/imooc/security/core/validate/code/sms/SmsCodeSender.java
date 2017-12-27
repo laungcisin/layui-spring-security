@@ -4,7 +4,7 @@
 package com.imooc.security.core.validate.code.sms;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public interface SmsCodeSender {
 

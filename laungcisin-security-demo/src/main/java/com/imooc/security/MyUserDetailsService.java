@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 @Component
 public class MyUserDetailsService implements UserDetailsService, SocialUserDetailsService {

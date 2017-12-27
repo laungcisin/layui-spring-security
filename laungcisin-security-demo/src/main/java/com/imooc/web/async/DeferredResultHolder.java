@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 @Component
 public class DeferredResultHolder {

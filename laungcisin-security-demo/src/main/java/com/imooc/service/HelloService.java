@@ -4,7 +4,7 @@
 package com.imooc.service;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public interface HelloService {
 

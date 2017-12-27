@@ -20,7 +20,7 @@ import org.springframework.social.security.SpringSocialConfigurer;
 import javax.sql.DataSource;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 @Configuration
 @EnableSocial

@@ -6,7 +6,7 @@ package com.imooc.security.core.social.weixin.api;
 /**
  * 微信用户信息
  *
- * @author laungcisin
+ * @author imooc
  */
 public class WeixinUserInfo {
 

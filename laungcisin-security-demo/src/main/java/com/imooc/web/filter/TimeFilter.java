@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 //@Component
 public class TimeFilter implements Filter {

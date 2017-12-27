@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class ImoocConnectView extends AbstractView {
 

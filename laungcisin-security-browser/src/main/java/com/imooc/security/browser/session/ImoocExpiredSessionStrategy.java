@@ -10,7 +10,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class ImoocExpiredSessionStrategy extends AbstractSessionStrategy implements SessionInformationExpiredStrategy {
 

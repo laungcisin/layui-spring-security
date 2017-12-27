@@ -7,7 +7,7 @@ import com.imooc.security.core.social.qq.api.QQ;
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class QQConnectionFactory extends OAuth2ConnectionFactory<QQ> {
 

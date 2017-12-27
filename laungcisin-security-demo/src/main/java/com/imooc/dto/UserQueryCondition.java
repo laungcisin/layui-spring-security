@@ -6,7 +6,7 @@ package com.imooc.dto;
 import io.swagger.annotations.ApiModelProperty;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class UserQueryCondition {
 

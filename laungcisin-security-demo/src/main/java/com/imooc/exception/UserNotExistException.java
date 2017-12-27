@@ -4,7 +4,7 @@
 package com.imooc.exception;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class UserNotExistException extends RuntimeException {
 

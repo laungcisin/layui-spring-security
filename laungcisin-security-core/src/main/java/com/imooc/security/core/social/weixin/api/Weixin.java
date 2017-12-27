@@ -6,7 +6,7 @@ package com.imooc.security.core.social.weixin.api;
 /**
  * 微信API调用接口
  *
- * @author laungcisin
+ * @author imooc
  */
 public interface Weixin {
 

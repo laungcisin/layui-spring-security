@@ -12,7 +12,7 @@ import javax.validation.constraints.Past;
 import java.util.Date;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class User {
 

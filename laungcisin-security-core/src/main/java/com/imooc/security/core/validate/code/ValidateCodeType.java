@@ -3,7 +3,7 @@ package com.imooc.security.core.validate.code;
 import com.imooc.security.core.properties.SecurityConstants;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public enum ValidateCodeType {
 

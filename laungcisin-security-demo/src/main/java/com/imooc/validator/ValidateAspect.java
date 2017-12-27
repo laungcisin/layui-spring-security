@@ -8,7 +8,7 @@ import org.aspectj.lang.annotation.Around;
 import org.springframework.validation.BindingResult;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 //@Aspect
 //@Component

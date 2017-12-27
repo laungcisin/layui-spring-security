@@ -7,7 +7,7 @@ import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionSignUp;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 //@Component
 public class DemoConnectionSignUp implements ConnectionSignUp {

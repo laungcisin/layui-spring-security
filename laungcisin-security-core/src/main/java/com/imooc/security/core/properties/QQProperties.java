@@ -6,7 +6,7 @@ package com.imooc.security.core.properties;
 import org.springframework.boot.autoconfigure.social.SocialProperties;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class QQProperties extends SocialProperties {
 

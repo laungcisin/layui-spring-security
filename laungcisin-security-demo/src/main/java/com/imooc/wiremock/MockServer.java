@@ -12,7 +12,7 @@ import java.io.IOException;
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class MockServer {
 

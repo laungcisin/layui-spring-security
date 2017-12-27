@@ -17,13 +17,13 @@ import java.io.OutputStream;
 import java.util.Date;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 @RestController
 @RequestMapping("/file")
 public class FileController {
 
-    private String folder = "/Users/laungcisin/Documents/my/muke/inaction/java/workspace/github/imooc-security-demo/src/main/java/com/imooc/web/controller";
+    private String folder = "/Users/imooc/Documents/my/muke/inaction/java/workspace/github/imooc-security-demo/src/main/java/com/imooc/web/controller";
 
     @PostMapping
     public FileInfo upload(MultipartFile file) throws Exception {

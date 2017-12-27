@@ -10,18 +10,25 @@
     </parent>
 
     <dependencies>
-<!--        <dependency>
+        <dependency>
             <groupId>com.laungcisin.security</groupId>
             <artifactId>laungcisin-security-browser</artifactId>
             <version>${laungcisin.security.version}</version>
         </dependency>
-        -->
 
         <dependency>
             <groupId>com.laungcisin.security</groupId>
-            <artifactId>laungcisin-security-app</artifactId>
+            <artifactId>laungcisin-security-authorize</artifactId>
             <version>${laungcisin.security.version}</version>
         </dependency>
+
+<!--
+        <dependency>
+            <groupId>com.imoocrity</groupId>
+            <artifactId>imooc-security-app</artifactId>
+            <version>${imooc.security.version}</version>
+        </dependency>
+-->
 
         <!-- spring boot devtools 依赖包. -->
         <dependency>
@@ -77,6 +84,7 @@
 
     <build>
         <plugins>
+<!--
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -89,6 +97,7 @@
                     </execution>
                 </executions>
             </plugin>
+-->
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>

@@ -15,7 +15,7 @@ import org.springframework.social.oauth2.OAuth2ServiceProvider;
 /**
  * 微信连接工厂
  *
- * @author laungcisin
+ * @author imooc
  */
 public class WeixinConnectionFactory extends OAuth2ConnectionFactory<Weixin> {
 

@@ -25,7 +25,7 @@ import java.io.IOException;
 /**
  * 登录失败 handler
  *
- * @author laungcisin
+ * @author imooc
  */
 @Component("imoocAuthenctiationFailureHandler")
 public class ImoocAuthenctiationFailureHandler extends SimpleUrlAuthenticationFailureHandler {

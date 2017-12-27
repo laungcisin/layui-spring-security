@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 退出 Controller
  *
- * @author laungcisin
+ * @author imooc
  */
 @Controller
 @RequestMapping("/logout")

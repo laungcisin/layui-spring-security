@@ -10,7 +10,7 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class MyConstraintValidator implements ConstraintValidator<MyConstraint, Object> {
 

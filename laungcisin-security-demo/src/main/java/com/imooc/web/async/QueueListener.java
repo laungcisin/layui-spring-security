@@ -12,7 +12,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 @Component
 public class QueueListener implements ApplicationListener<ContextRefreshedEvent> {

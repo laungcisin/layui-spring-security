@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.social.connect.ConnectionFactory;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 @Configuration
 @ConditionalOnProperty(prefix = "imooc.security.social.qq", name = "app-id")

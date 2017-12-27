@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest

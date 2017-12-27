@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 @Configuration
 public class WebConfig extends WebMvcConfigurerAdapter {

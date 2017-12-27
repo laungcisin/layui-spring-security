@@ -7,7 +7,7 @@ import com.imooc.service.HelloService;
 import org.springframework.stereotype.Service;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 @Service
 public class HelloServiceImpl implements HelloService {

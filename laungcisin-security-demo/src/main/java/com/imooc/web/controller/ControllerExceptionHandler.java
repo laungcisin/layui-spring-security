@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 @ControllerAdvice
 public class ControllerExceptionHandler {

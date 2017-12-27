@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 @Component
 public class TimeInterceptor implements HandlerInterceptor {

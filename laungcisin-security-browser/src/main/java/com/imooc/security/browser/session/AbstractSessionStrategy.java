@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class AbstractSessionStrategy {
 

@@ -1,7 +1,7 @@
 package com.imooc.security.core.support;
 
 /**
- * @author laungcisin
+ * @author imooc
  */
 public class SimpleResponse {
 
