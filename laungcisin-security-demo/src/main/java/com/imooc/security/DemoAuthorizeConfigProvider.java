@@ -11,6 +11,11 @@ import org.springframework.stereotype.Component;
 public class DemoAuthorizeConfigProvider implements AuthorizeConfigProvider {
     @Override
     public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
-        config.anyRequest().access("@rbacService.hasPermission(request, authentication)");
+        config.antMatchers("/css/**", "/images/**", "/js/**",
+                "/json/**", "/layui/**", "/plugin/**", "/webjars/**", "**/favicon.ico", "/index",
+                "/pages/*",
+                "/menu/*"
+        ).permitAll()
+        .anyRequest().access("@rbacService.hasPermission(request, authentication)");
     }
 }

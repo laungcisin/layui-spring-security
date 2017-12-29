@@ -17,9 +17,7 @@ public class ImoocAuthorizeConfigProvider implements AuthorizeConfigProvider {
     @Override
     public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
         // 以下web资源不用授权验证
-        config.antMatchers("/css/**", "/images/**", "/js/**",
-                "/json/**", "/layui/**", "/plugin/**", "/webjars/**", "**/favicon.ico", "/index", "/").permitAll().
-                antMatchers(
+        config.antMatchers(
                         SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
                         SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
                         securityProperties.getBrowser().getLoginPage(),

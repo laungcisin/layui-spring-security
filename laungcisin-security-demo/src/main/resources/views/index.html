@@ -14,15 +14,15 @@
 			    <ul class="layui-nav top_menu">
 			    	
 			    	<li class="layui-nav-item" mobile>
-			    		<a href="/logout.html"><i class="iconfont icon-loginout"></i> 退出</a>
+			    		<a href="/logout"><i class="iconfont icon-loginout"></i> 退出</a>
 			    	</li>
 					<li class="layui-nav-item" pc>
-						<a href="javascript:;">
-							<cite>${session_user.userName!"游客"}</cite>
+						<a href="javascript:void(0);">
+							<cite>${session.SPRING_SECURITY_CONTEXT.authentication.principal.username!"游客"}</cite>
 						</a>
 						<dl class="layui-nav-child">
-							<dd><a href="javascript:;" data-url="page/user/userInfo.html"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
-							<dd><a href="javascript:;" data-url="page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>修改密码</cite></a></dd>
+							<dd><a href="javascript:void(0);" data-url="page/user/userInfo.html"><i class="iconfont icon-zhanghu" data-icon="icon-zhanghu"></i><cite>个人资料</cite></a></dd>
+							<dd><a href="javascript:void(0);" data-url="page/user/changePwd.html"><i class="iconfont icon-shezhi1" data-icon="icon-shezhi1"></i><cite>修改密码</cite></a></dd>
 							<dd><a href="/logout"><i class="iconfont icon-loginout"></i><cite>退出</cite></a></dd>
 						</dl>
 					</li>
@@ -32,7 +32,7 @@
 		<!-- 左侧导航 -->
 		<div class="layui-side layui-bg-black">
 			<div class="user-photo">
-				<a class="img" title="我的头像" ><img src="${session_user.userImg!"/images/face.jpg"}"></a>
+				<a class="img" title="我的头像" ><img src="${session.SPRING_SECURITY_CONTEXT.authentication.principal.imgs!"/images/face.jpg"}"></a>
 				<p>你好！<span class="userName">${session_user.userName!"游客"}</span>, 欢迎登录</p>
 			</div>
 			<div class="navBar layui-side-scroll"></div>
@@ -45,7 +45,7 @@
 				</ul>
 				<div class="layui-tab-content clildFrame">
 					<div class="layui-tab-item layui-show">
-						<iframe src="/pages/main.html"></iframe>
+						<!--<iframe src="/pages/main"></iframe>-->
 					</div>
 				</div>
 			</div>

@@ -33,8 +33,8 @@ public interface SecurityConstants {
      *
      * @see SecurityController
      */
-    String DEFAULT_LOGIN_PAGE_URL = "/imooc-signIn.html";
-//    String DEFAULT_LOGIN_PAGE_URL = "/login";
+//    String DEFAULT_LOGIN_PAGE_URL = "/imooc-signIn.html";
+    String DEFAULT_LOGIN_PAGE_URL = "/login";
 
     /**
      * 验证图片验证码时，http请求中默认的携带图片验证码信息的参数的名称

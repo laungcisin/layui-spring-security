@@ -4,16 +4,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.imooc.security.core.properties.LoginResponseType;
 import com.imooc.security.core.properties.SecurityProperties;
 import com.imooc.security.core.support.SimpleResponse;
+import com.imooc.security.core.validate.code.ValidateCodeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.authentication.AccountExpiredException;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.LockedException;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
@@ -63,6 +62,10 @@ public class ImoocAuthenctiationFailureHandler extends SimpleUrlAuthenticationFa
                 message = "无效账户,请联系管理员";
             } else if (exception instanceof AccountExpiredException) {
                 message = "账户过期,请联系管理员";
+            } else if (exception instanceof ValidateCodeException) {
+                message = "验证码不正确";
+            } else if (exception instanceof InternalAuthenticationServiceException) {
+                message = "服务器内部错误,请联系管理员";
             } else {
                 message = exception.getMessage();
             }
@@ -72,6 +75,13 @@ public class ImoocAuthenctiationFailureHandler extends SimpleUrlAuthenticationFa
             super.onAuthenticationFailure(request, response, exception);
         }
 
+    }
+
+    public static void main(String[] args) {
+        String password = "123456";
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedPassword = passwordEncoder.encode(password);
+        System.out.println(hashedPassword);
     }
 
 }

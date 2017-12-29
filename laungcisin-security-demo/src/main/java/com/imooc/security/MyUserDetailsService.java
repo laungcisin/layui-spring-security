@@ -1,11 +1,14 @@
 package com.imooc.security;
 
-import org.apache.commons.collections.CollectionUtils;
+import com.imooc.security.rbac.role.Role;
+import com.imooc.security.rbac.user.User;
+import com.imooc.security.rbac.user.UserDao;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,9 +17,10 @@ import org.springframework.social.security.SocialUser;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author imooc
@@ -31,13 +35,12 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    private UserDao userDao;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.springframework.security.core.userdetails.UserDetailsService#
-     * loadUserByUsername(java.lang.String)
+    /**
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -52,10 +55,12 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
     }
 
     private SocialUserDetails buildUser(String userId) {
-        //TODO:修改成从数据库中获取用户信息
         // 1.查找用户信息
-        List<Map<String, Object>> list = jdbcTemplate.queryForList("select * from user where username = ? limit 1", userId);
-        String password = CollectionUtils.size(list) > 0 ? (String) list.get(0).get("password") : "";
+        User user = userDao.findUserByUsername(userId);
+
+        if (user == null || StringUtils.isEmpty(user.getUserId())) {
+            throw new UsernameNotFoundException("用户不存在");
+        }
 
         //2.判断账户是否被删除
         boolean enabled = true;
@@ -71,9 +76,24 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
 
 //        password = passwordEncoder.encode(password);
 
-        return new SocialUser(userId, password,
+        //获取所有请求的url
+        List<Role> roleList = userDao.findRolesByUsername(user.getUsername());
+
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        if(!CollectionUtils.isEmpty(roleList)) {
+            for (Role role : roleList) {
+                //封装用户信息和角色信息 到 SecurityContextHolder全局缓存中
+                grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+            }
+        }
+
+        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));//ROLE_USER-OAuth协议用到
+        MySocialUser mySocialUser = new MySocialUser(user.getUsername(), user.getPassword(),
                 enabled, accountNonExpired, credentialsNonExpired, accountNonLocked,
-                AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_USER"));//ROLE_USER-OAuth协议用到
+                grantedAuthorities);
+        mySocialUser.setImgs(user.getImgs());
+
+        return mySocialUser;
     }
 
 }
