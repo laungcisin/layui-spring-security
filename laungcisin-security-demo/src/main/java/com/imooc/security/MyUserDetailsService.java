@@ -1,9 +1,10 @@
 package com.imooc.security;
 
-import com.imooc.security.rbac.role.Role;
-import com.imooc.security.rbac.user.User;
+import com.imooc.security.rbac.mybatis.entity.SysRole;
+import com.imooc.security.rbac.mybatis.entity.SysUser;
+import com.imooc.security.rbac.mybatis.mapper.SysRoleMapper;
+import com.imooc.security.rbac.mybatis.mapper.SysUserMapper;
 import com.imooc.security.rbac.user.UserDao;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,12 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private SysUserMapper sysUserMapper;
+
+    @Autowired
+    private SysRoleMapper sysRoleMapper;
+
     /**
      * @param username
      * @return
@@ -54,11 +61,11 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
         return buildUser(userId);
     }
 
-    private SocialUserDetails buildUser(String userId) {
+    private SocialUserDetails buildUser(String userIdOrUsername) {
         // 1.查找用户信息
-        User user = userDao.findUserByUsername(userId);
+        SysUser user = sysUserMapper.getUserByUsername(userIdOrUsername);
 
-        if (user == null || StringUtils.isEmpty(user.getUserId())) {
+        if (user == null || user.getUserId() < 0) {
             throw new UsernameNotFoundException("用户不存在");
         }
 
@@ -74,26 +81,23 @@ public class MyUserDetailsService implements UserDetailsService, SocialUserDetai
         //4.判断账户是否被锁定
         boolean accountNonLocked = true;
 
-//        password = passwordEncoder.encode(password);
-
         //获取所有请求的url
-        List<Role> roleList = userDao.findRolesByUsername(user.getUsername());
+        List<SysRole> roleList = sysRoleMapper.getRoleListByUserId(user.getUserId());
 
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        if(!CollectionUtils.isEmpty(roleList)) {
-            for (Role role : roleList) {
+        if (!CollectionUtils.isEmpty(roleList)) {
+            for (SysRole role : roleList) {
                 //封装用户信息和角色信息 到 SecurityContextHolder全局缓存中
-                grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+                grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleCode()));
             }
         }
 
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));//ROLE_USER-OAuth协议用到
-        MySocialUser mySocialUser = new MySocialUser(user.getUsername(), user.getPassword(),
+        SocialUser socialUser = new MySocialUser(user.getUsername(), user.getPassword(),
                 enabled, accountNonExpired, credentialsNonExpired, accountNonLocked,
                 grantedAuthorities);
-        mySocialUser.setImgs(user.getImgs());
 
-        return mySocialUser;
+        return socialUser;
     }
 
 }

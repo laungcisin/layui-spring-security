@@ -24,7 +24,7 @@ public class IndexController {
         return "welcome";
     }
 
-    @RequestMapping("/pages/main")
+    @RequestMapping("/main")
     public String main() {
         logger.info("访问欢迎页");
         return "/pages/main";

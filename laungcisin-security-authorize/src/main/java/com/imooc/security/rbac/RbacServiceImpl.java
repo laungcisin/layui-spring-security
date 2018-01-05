@@ -1,7 +1,7 @@
 package com.imooc.security.rbac;
 
-import com.imooc.security.rbac.permissioin.Permission;
-import com.imooc.security.rbac.user.UserDao;
+import com.imooc.security.rbac.mybatis.entity.SysMenu;
+import com.imooc.security.rbac.mybatis.mapper.SysMenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +19,7 @@ public class RbacServiceImpl implements RbacService {
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
     @Autowired
-    private UserDao uerDao;
+    private SysMenuMapper sysMenuMapper;
 
     @Override
     public boolean hasPermission(HttpServletRequest request, Authentication authentication) {
@@ -30,12 +30,12 @@ public class RbacServiceImpl implements RbacService {
             String username = ((UserDetails) principal).getUsername();
 
             //读取用户所拥有权限的所有URL
-            List<Permission> permissionList = uerDao.findPermissionsByUsername(username);
-            if (!CollectionUtils.isEmpty(permissionList)) {
+            List<SysMenu> menuList = sysMenuMapper.getAllMenuByUsername(username);
+            if (!CollectionUtils.isEmpty(menuList)) {
                 //TODO:根据自己的数据库改成相应的逻辑
                 Set<String> urls = new HashSet<>();
-                for (Permission permission : permissionList) {
-                    urls.add(permission.getUrl());
+                for (SysMenu menu : menuList) {
+                    urls.add(menu.getUrl());
                 }
 
                 urls.add("/");

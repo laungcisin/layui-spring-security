@@ -50,5 +50,6 @@
         <module>../laungcisin-security-browser</module>
         <module>../laungcisin-security-core</module>
         <module>../laungcisin-security-demo</module>
+        <module>../laungcisin-security-web</module>
     </modules>
 </project>
