@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
@@ -35,7 +36,9 @@ public class RbacServiceImpl implements RbacService {
                 //TODO:根据自己的数据库改成相应的逻辑
                 Set<String> urls = new HashSet<>();
                 for (SysMenu menu : menuList) {
-                    urls.add(menu.getUrl());
+                    if(!StringUtils.isEmpty(menu.getPermission())) {
+                        urls.add(menu.getPermission());
+                    }
                 }
 
                 urls.add("/");
