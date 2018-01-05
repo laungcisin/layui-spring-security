@@ -36,8 +36,8 @@ public class RbacServiceImpl implements RbacService {
                 //TODO:根据自己的数据库改成相应的逻辑
                 Set<String> urls = new HashSet<>();
                 for (SysMenu menu : menuList) {
-                    if(!StringUtils.isEmpty(menu.getPermission())) {
-                        urls.add(menu.getPermission());
+                    if(!StringUtils.isEmpty(menu.getPermissions())) {
+                        urls.add(menu.getPermissions());
                     }
                 }
 

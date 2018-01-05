@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component;
 @Order(Integer.MAX_VALUE)
 public class LaungcisinAuthorizeConfigProvider implements AuthorizeConfigProvider {
     @Override
-    public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
+    public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) throws Exception {
+        config.and().headers().frameOptions().disable().and();
         config.antMatchers(
                 "**/favicon.ico",
                 "/busi-js/**",
@@ -21,7 +22,6 @@ public class LaungcisinAuthorizeConfigProvider implements AuthorizeConfigProvide
                 "/js/**",
                 "/lib/**",
                 "/noPermission/**"
-        ).permitAll()
-                .anyRequest().access("@rbacService.hasPermission(request, authentication)");
+        ).permitAll().anyRequest().access("@rbacService.hasPermission(request, authentication)");
     }
 }

@@ -48,7 +48,7 @@ public class IndexController {
         LaungcisinSocialUser laungcisinSocialUser = (LaungcisinSocialUser) user;
         List<SysMenu> list = sysMenuMapper.getAllMenuByUserId(laungcisinSocialUser.getId());
 
-        if(!CollectionUtils.isEmpty(list)) {
+        if (!CollectionUtils.isEmpty(list)) {
             List<TreeBuilder.Node> treeNode = new ArrayList<>();
             for (SysMenu menu : list) {
                 TreeBuilder.Node node = new TreeBuilder.Node();

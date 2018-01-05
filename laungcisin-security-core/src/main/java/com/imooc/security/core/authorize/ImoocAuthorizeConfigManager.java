@@ -15,7 +15,7 @@ public class ImoocAuthorizeConfigManager implements AuthorizeConfigManager {
     private List<AuthorizeConfigProvider> authorizeConfigProviders;
 
     @Override
-    public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
+    public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) throws Exception {
         for (AuthorizeConfigProvider authorizeConfigProvider : authorizeConfigProviders) {
             authorizeConfigProvider.config(config);
         }

@@ -11,9 +11,7 @@ public class SysMenu implements Serializable{
 
     private String url;
 
-    private String permission;
-
-    private String perms;
+    private String permissions;
 
     private Integer type;
 
@@ -55,20 +53,12 @@ public class SysMenu implements Serializable{
         this.url = url;
     }
 
-    public String getPermission() {
-        return permission;
+    public String getPermissions() {
+        return permissions;
     }
 
-    public void setPermission(String permission) {
-        this.permission = permission;
-    }
-
-    public String getPerms() {
-        return perms;
-    }
-
-    public void setPerms(String perms) {
-        this.perms = perms;
+    public void setPermissions(String permissions) {
+        this.permissions = permissions;
     }
 
     public Integer getType() {
