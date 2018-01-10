@@ -42,6 +42,7 @@ function showWindows(title, url, w, h) {
 function closeWindows() {
     var index = parent.layer.getFrameIndex(window.name);
     parent.layer.close(index);
+    return false;
 }
 
 

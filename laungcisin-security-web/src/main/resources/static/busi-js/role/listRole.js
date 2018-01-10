@@ -31,8 +31,7 @@ layui.use(['form', 'table'], function () {
             last: true //显示尾页
         },
         cols: [[ //表头
-            {type: 'checkbox', fixed: true},
-            {field: 'roleId', title: 'ID', width: 50, align: 'center'},
+            {type: 'numbers', fixed: true},
             {field: 'roleName', title: '角色名称', width: 200, align: 'center'},
             {field: 'roleCode', title: '角色代码', width: 200, align: 'center'},
             {
@@ -67,7 +66,20 @@ layui.use(['form', 'table'], function () {
                 //向服务端发送删除指令
             });
         } else if (layEvent === 'edit') { //编辑
-            showWindows('修改角色', '/role/updateRolePage/' + data.roleId, '893', '600');
+            parent.layer.open({
+                type: 2,
+                area: ['793px', '500px'],
+                fix: true, //固定
+                maxmin: false,
+                resize: false,
+                shadeClose: false,
+                shade: [0.3, '#000'],
+                title: '修改角色',
+                content: '/role/updateRolePage/' + data.roleId,
+                end: function () {
+                    $('.search-btn').click();
+                }
+            });
         }
     });
 });

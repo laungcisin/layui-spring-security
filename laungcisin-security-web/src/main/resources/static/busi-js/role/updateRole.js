@@ -12,13 +12,10 @@ layui.use(['form', 'layer'], function () {
             async: false,
             dataType: "json",
             success: function (R) {
-                debugger;
                 if (R.code === 0) {
                     parent.layer.msg("操作成功", {icon: 1});
-                    var frameIndex = parent.layer.getFrameIndex(window.name);
-                    parent.layer.close(frameIndex);
-                    var parent_iframe = $(parent.document).find("iframe.cy-show")[0] || $(parent.document).find("iframe")[0];
-                    $(parent_iframe).contents().find(".search-btn").click();
+                    var frameIndex = parent.layer.getFrameIndex(window.name);//获取窗口索引
+                    parent.layer.close(frameIndex);//关闭弹出的子页面窗口
                 } else {
                     parent.layer.alert(R.msg);
                 }
