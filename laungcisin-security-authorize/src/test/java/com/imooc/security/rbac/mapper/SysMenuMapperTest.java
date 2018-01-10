@@ -36,4 +36,16 @@ public class SysMenuMapperTest {
         System.out.println(treeBuilder.buildJSONTree());
     }
 
+    @Test
+    public void getAllSubMenuByParentId() {
+        List<SysMenu> list = sysMenuMapper.getAllSubMenuByParentId(2L);
+        System.out.println(list.size());
+    }
+
+    @Test
+    public void getMenuByRelRoleId() {
+        List<SysMenu> list = sysMenuMapper.getMenuByRelRoleId(21L);
+        System.out.println(list.size());
+    }
+
 }

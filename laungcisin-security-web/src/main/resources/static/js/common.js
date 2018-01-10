@@ -28,3 +28,23 @@ layui.define(['layer'], function (exports) {
 
     exports('common', common);
 });
+
+//选择一条记录
+function getSelectedRow(table_id) {
+    var checked = $("#" + table_id + " tbody .layui-form-checked");
+    if (checked.length == 0) {
+        parent.layer.msg("请选择一条记录", {icon: 5});
+        return;
+    }
+    var selectedIDs = [];
+    for (var i = 0; i < checked.length; i++) {
+        var _this = $(checked[i]).prev();
+        selectedIDs.push($(_this).attr("primary"));
+
+    }
+    if (selectedIDs.length > 1) {
+        parent.layer.msg("只能选择一条记录", {icon: 5});
+        return;
+    }
+    return selectedIDs[0];
+}

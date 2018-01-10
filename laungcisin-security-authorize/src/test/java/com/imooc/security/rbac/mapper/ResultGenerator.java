@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class ResultGenerator {
 
     public static void main(String[] args) {
-        System.out.println((new ResultGenerator()).getResultsStr(SysMenu.class));
+        System.out.println((new ResultGenerator()).getResultsStr(SysRole.class));
 //        fuLu(0.022);
     }
 

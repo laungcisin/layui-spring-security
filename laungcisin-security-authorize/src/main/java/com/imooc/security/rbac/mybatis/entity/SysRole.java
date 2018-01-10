@@ -2,6 +2,7 @@ package com.imooc.security.rbac.mybatis.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class SysRole implements Serializable {
     private Long roleId;
@@ -86,4 +87,5 @@ public class SysRole implements Serializable {
                 ", createTime=" + createTime +
                 '}';
     }
+
 }

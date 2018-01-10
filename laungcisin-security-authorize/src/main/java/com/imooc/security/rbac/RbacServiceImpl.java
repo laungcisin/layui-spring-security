@@ -36,8 +36,13 @@ public class RbacServiceImpl implements RbacService {
                 //TODO:根据自己的数据库改成相应的逻辑
                 Set<String> urls = new HashSet<>();
                 for (SysMenu menu : menuList) {
-                    if(!StringUtils.isEmpty(menu.getPermissions())) {
-                        urls.add(menu.getPermissions());
+                    if (!StringUtils.isEmpty(menu.getPermissions())) {
+                        String[] permissionArray = menu.getPermissions().split(",");
+                        if (permissionArray == null || permissionArray.length < 1) {
+                            continue;
+                        }
+
+                        urls.addAll(CollectionUtils.arrayToList(permissionArray));
                     }
                 }
 
@@ -48,6 +53,10 @@ public class RbacServiceImpl implements RbacService {
                         hasPermission = true;
                         break;
                     }
+                }
+            } else {
+                if (antPathMatcher.match("/", request.getRequestURI())) {
+                    hasPermission = true;
                 }
             }
         }

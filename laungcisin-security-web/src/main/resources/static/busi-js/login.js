@@ -17,7 +17,6 @@ layui.use(['layer', 'form'], function () {
     //监听提交
     form.on('submit(login)', function (data) {
         $.post('/authentication/form', data.field, function (ret) {
-            debugger;
             if (ret.code === 200) {
                 loginSuccess();
             } else {

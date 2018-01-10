@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>修改角色</title>
+    <#include "/common/resource-css.html"/>
+</head>
+
+<body>
+<div class="layui-field-box">
+
+    <form class="layui-form" action="">
+        <input type="hidden" id="roleId" name="roleId" value="${role.roleId}">
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色名称<span class="span_must">*</span></label>
+            <div class="layui-input-inline">
+                <input type="text" name="roleName" value="${role.roleName}" maxlength="10" lay-verify="required" placeholder="请输入角色名称"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">角色编码<span class="span_must">*</span></label>
+            <div class="layui-input-inline">
+                <input type="text" name="roleCode" value="${role.roleCode}" maxlength="10" lay-verify="required" placeholder="请输入角色编码"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-inline">
+                <textarea placeholder="请输入备注" name="remark" lay-verify="required" class="layui-textarea">${role.remark}</textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">授权<span class="label_span">:</span></label>
+            <div class="layui-input-inline">
+                <ul id="menuTree" class="ztree"></ul>
+            </div>
+        </div>
+
+        <div class="page-footer">
+            <div class="btn-list">
+                <div class="btnlist">
+                    <button class="layui-btn" lay-submit="" lay-filter="roleSubmit">
+                        <i class="fa fa-floppy-o">&nbsp;</i>保存
+                    </button>
+                    <button class="layui-btn" onclick="closeWindows();">
+                        <i class="fa fa-undo">&nbsp;</i>关闭
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<#include "/common/resource-js.html"/>
+<script src="/busi-js/role/updateRole.js" charset="utf-8"></script>
+</body>
+
+</html>

@@ -1,14 +1,5 @@
-package com.imooc.web.controller;
+//package com.imooc.web.controller;
 //
-//import com.baomidou.mybatisplus.mapper.EntityWrapper;
-//import com.baomidou.mybatisplus.plugins.Page;
-//import org.alex.admin.core.anno.Log;
-//import org.alex.admin.core.anno.Resource;
-//import org.alex.admin.core.bean.Rest;
-//import org.alex.admin.core.controller.CrudController;
-//import org.alex.admin.web.entity.SysMenu;
-//import org.alex.admin.web.entity.SysUser;
-//import org.alex.admin.web.service.ISysMenuService;
 //import org.apache.commons.lang.StringUtils;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.stereotype.Controller;
@@ -24,29 +15,28 @@ package com.imooc.web.controller;
 //import java.util.List;
 //import java.util.Map;
 //
-///**
-// * 标准的Rest接口,实例控制器
-// * Created by Gaojun.Zhou 2017年6月8日
-// */
-
-import com.imooc.security.rbac.user.UserDao;
-import com.imooc.support.Rest;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Map;
-
-@RestController
-public class MenuController {
-    @Autowired
-    private UserDao userDao;
+//
+//import com.imooc.security.rbac.mybatis.entity.SysMenu;
+//import com.imooc.security.rbac.user.UserDao;
+//import com.imooc.support.Rest;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.data.domain.Page;
+//import org.springframework.security.core.annotation.AuthenticationPrincipal;
+//import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.stereotype.Controller;
+//import org.springframework.validation.BindingResult;
+//import org.springframework.web.bind.annotation.*;
+//
+//import javax.annotation.Resource;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.validation.Valid;
+//import java.util.List;
+//import java.util.Map;
+//
+//@RestController
+//public class MenuController {
+//    @Autowired
+//    private UserDao userDao;
 //
 //	@Autowired
 //    private ISysMenuService sysMenuService;
@@ -77,7 +67,7 @@ public class MenuController {
 //	@Resource("addMenu")
 //	@ResponseBody
 //	@RequestMapping("/doAdd")
-//	public Rest doAdd(@Valid SysMenu menu,BindingResult result){
+//	public Rest doAdd(@Valid SysMenu menu, BindingResult result){
 //
 //		if(result.hasErrors()){
 //			String firstError = result.getFieldErrors().get(0).getDefaultMessage();
@@ -185,20 +175,20 @@ public class MenuController {
 //		return Rest.ok("添加成功!");
 //	}
 //
-
-    /**
-     * 获取当前用户的菜单
-     *
-     * @return
-     */
-    @GetMapping("/menu/leftmenu")
-    public Rest leftmenu(@AuthenticationPrincipal UserDetails user) {
-        String username = user.getUsername();
-        List<Map<String, Object>> list = userDao.findPermissionsByPidAndUsername(username, "0");
-        for (Map<String, Object> m : list) {
-            m.put("children", userDao.findPermissionsByPidAndUsername(username, m.get("id").toString()));
-        }
-        return Rest.okData(list);
-    }
 //
-}
+//    /**
+//     * 获取当前用户的菜单
+//     *
+//     * @return
+//     */
+//    @GetMapping("/menu/leftmenu")
+//    public Rest leftmenu(@AuthenticationPrincipal UserDetails user) {
+//        String username = user.getUsername();
+//        List<Map<String, Object>> list = userDao.findPermissionsByPidAndUsername(username, "0");
+//        for (Map<String, Object> m : list) {
+//            m.put("children", userDao.findPermissionsByPidAndUsername(username, m.get("id").toString()));
+//        }
+//        return Rest.okData(list);
+//    }
+////
+//}

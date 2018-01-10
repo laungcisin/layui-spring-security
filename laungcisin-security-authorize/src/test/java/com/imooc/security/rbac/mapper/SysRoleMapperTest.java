@@ -25,4 +25,33 @@ public class SysRoleMapperTest {
         }
     }
 
+    @Test
+    public void getRolePageData() {
+        List<SysRole> list = sysRoleMapper.getRolePageData(1, 10, "管理");
+        System.out.println(list);
+    }
+
+    @Test
+    public void getAllRoleCount() {
+        Integer count = sysRoleMapper.getAllRoleCount();
+        System.out.println(count);
+    }
+
+    @Test
+    public void getRoleByRoleId() {
+        SysRole sysRole = sysRoleMapper.getRoleByRoleId(21L);
+        System.out.println(sysRole);
+    }
+
+    @Test
+    public void update() {
+        SysRole sysRole = new SysRole();
+        sysRole.setRoleId(21L);
+        sysRole.setRoleName("管理员21");
+        sysRole.setRoleCode("ADMIN21");
+        sysRole.setRemark("ADMIN21");
+        int result = sysRoleMapper.update(sysRole);
+        System.out.println(result);
+    }
+
 }

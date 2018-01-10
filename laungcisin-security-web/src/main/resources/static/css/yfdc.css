@@ -1,0 +1,48 @@
+#percentInput{
+    width: 90px!important;
+    display: inline;
+}
+
+.percent-input{
+    width: 120px!important;
+    display: inline;
+}
+/*字体大小*/
+.boxes{
+    font-size:15px;
+}
+
+.layui-input-span{
+    height:38px;
+    line-height: 38px;
+}
+.order-accept{
+    display: none;
+}
+
+.float-left{
+    float: left;
+    display: inline-block;
+}
+
+.layui-upload-list {
+    margin-top: 5px;
+}
+
+.container{
+    /*text-align: center;*/
+    margin: 20px;
+    background-color: #ffffff;
+}
+
+.layui-label-right {
+    height: auto!important;
+
+}
+
+.nowrap td{
+    max-width: 300px;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    overflow:hidden;
+}

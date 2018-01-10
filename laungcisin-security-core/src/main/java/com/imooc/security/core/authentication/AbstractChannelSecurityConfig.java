@@ -23,7 +23,9 @@ public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter 
                 .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)// 指定登录页面
                 .loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM)//UsernamePasswordAuthenticationFilter处理此url
                 .successHandler(imoocAuthenticationSuccessHandler)
-                .failureHandler(imoocAuthenticationFailureHandler);
+                .failureHandler(imoocAuthenticationFailureHandler)
+                .and().headers().frameOptions().disable()// 解决IFrame拒绝的问题
+        ;
     }
 
 }

@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 public class LaungcisinAuthorizeConfigProvider implements AuthorizeConfigProvider {
     @Override
     public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) throws Exception {
-        config.and().headers().frameOptions().disable().and();
         config.antMatchers(
                 "**/favicon.ico",
                 "/busi-js/**",

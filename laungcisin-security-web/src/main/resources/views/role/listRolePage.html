@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>角色管理</title>
+    <#include "/common/resource-css.html"/>
+</head>
+
+<body>
+
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">角色名称:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="roleName" placeholder="请输入角色名称" class="layui-input">
+        </div>
+        <div class="layui-input-inline">
+            <button class="layui-btn search-btn" table-id="roleListTable" lay-submit="" lay-filter="search">
+                <i class="fa fa-search">&nbsp;</i>查询
+            </button>
+            <button type="reset" class="layui-btn layui-btn-primary"><i class="fa fa-refresh">&nbsp;</i>重置</button>
+        </div>
+    </div>
+</form>
+
+<div class="layui-btn-group">
+    <button class="layui-btn" onclick="showWindows('新增角色','/role/addRolePage', '893', '600')"
+            style="margin-left: 5px!important;">
+        <i class="fa fa-plus">&nbsp;</i>新增
+    </button>
+</div>
+
+<div class="layui-form ">
+    <table id="roleListTable" lay-filter="roleTable"></table>
+</div>
+
+<#include "/common/resource-js.html"/>
+<script src="/busi-js/role/listRole.js" charset="utf-8"></script>
+
+<script type="text/html" id="roleBar">
+    <a class="layui-btn ayui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+</script>
+
+</body>
+
+</html>

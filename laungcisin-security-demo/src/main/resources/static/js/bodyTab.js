@@ -37,7 +37,6 @@ layui.define(["element", "jquery", "layer"], function (exports) {
                 return false;
             },
             success: function (ret) {
-                debugger;
                 layer.close(l);
                 if (ret.status == 200) {
                     $(".navBar").html(navBar(ret.data)).height($(window).height() - 230);
