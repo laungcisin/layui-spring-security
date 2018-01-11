@@ -1,8 +1,6 @@
 package com.imooc.security.rbac.mapper;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
-import com.imooc.security.rbac.mybatis.entity.SysMenu;
-import com.imooc.security.rbac.mybatis.entity.SysRole;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -11,8 +9,8 @@ import java.util.Scanner;
 public class ResultGenerator {
 
     public static void main(String[] args) {
-        System.out.println((new ResultGenerator()).getResultsStr(SysRole.class));
-//        fuLu(0.022);
+//        System.out.println((new ResultGenerator()).getResultsStr(SysRole.class));
+        fuLu(0.022);
     }
 
 
@@ -40,7 +38,11 @@ public class ResultGenerator {
             int days = scanner.nextInt();//数据类型为int
 
             System.out.println("----------------------方式一--------------------");
-            double a[] = {306.6, 307.1, 307.1, 305.39, 679.38};
+//            double a[] = {373.02, 374.98, 374.98, 349.32, 705.74};
+//            double b[] = {373.02, 374.98, 374.98, 349.32, 705.74};
+
+            double a[] = {505.89, 508.55, 508.55, 503.74, 924.11};
+            double b[] = {505.89, 508.55, 508.55, 503.74, 924.11};
 
             for (int i = 1; i <= days; i++) {
                 for (int j = 0; j < a.length; j++) {
@@ -49,7 +51,7 @@ public class ResultGenerator {
                     a[j] = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
                 }
 
-                for (int k = 0; k < a.length - 2; k++) {
+                for (int k = 0; k < a.length - 1; k++) {
                     if (a[k] >= 311.0) {
                         a[k] -= 11.0;
                         a[a.length - 1] += 10;
@@ -67,8 +69,6 @@ public class ResultGenerator {
             }
             System.out.println("求和:" + sum);
             System.out.println("----------------------方式二--------------------");
-
-            double b[] = {306.6, 307.1, 307.1, 305.39, 679.38};
 
             for (int i = 1; i <= days; i++) {
                 for (int j = 0; j < b.length; j++) {
