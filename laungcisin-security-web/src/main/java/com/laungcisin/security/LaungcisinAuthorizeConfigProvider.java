@@ -16,6 +16,7 @@ public class LaungcisinAuthorizeConfigProvider implements AuthorizeConfigProvide
                 "/busi-js/**",
                 "/css/**",
                 "/datas/**",
+                "/error/**",
                 "/fonts/**",
                 "/images/**",
                 "/js/**",

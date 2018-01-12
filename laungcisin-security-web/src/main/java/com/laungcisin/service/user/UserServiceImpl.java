@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
         try {
             pageData.setCount(sysUserMapper.getAllUserCount());
             List<SysUser> list = sysUserMapper.getUserPageData(param.getPage(), param.getLimit());
+            pageData.setData(list);
         } catch (Exception e) {
             pageData.setCode(200);
             pageData.setMsg("查询数据出错");

@@ -89,21 +89,6 @@
 
     <build>
         <plugins>
-            <!--
-                        <plugin>
-                            <groupId>org.springframework.boot</groupId>
-                            <artifactId>spring-boot-maven-plugin</artifactId>
-                            <version>1.3.3.RELEASE</version>
-                            <executions>
-                                <execution>
-                                    <goals>
-                                        <goal>repackage</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
-            -->
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -112,6 +97,23 @@
                     <fork>true</fork>
                 </configuration>
             </plugin>
+
+            <!--springboot-web打包插件-->
+            <!--开发时，注释此插件-->
+<!--
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.3.3.RELEASE</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+-->
         </plugins>
         <finalName>web</finalName>
     </build>

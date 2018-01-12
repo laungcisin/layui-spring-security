@@ -10,6 +10,7 @@
         <laungcisin.security.version>1.0.0-SNAPSHOT</laungcisin.security.version>
     </properties>
 
+    <!--dependencyManagement的作用其实相当于一个对所依赖jar包进行版本管理的管理器-->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -49,7 +50,6 @@
         <module>../laungcisin-security-authorize</module>
         <module>../laungcisin-security-browser</module>
         <module>../laungcisin-security-core</module>
-        <module>../laungcisin-security-demo</module>
         <module>../laungcisin-security-web</module>
     </modules>
 </project>
