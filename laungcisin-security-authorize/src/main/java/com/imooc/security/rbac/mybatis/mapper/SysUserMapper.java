@@ -17,7 +17,10 @@ public interface SysUserMapper {
             @Result(property = "status", column = "status"),
             @Result(property = "createUserId", column = "create_user_id"),
             @Result(property = "createTime", column = "create_time"),
-            @Result(property = "orgId", column = "org_id"),
+            @Result(property = "accountExpiredTime", column = "account_expired_time"),
+            @Result(property = "passwordExpiredTime", column = "password_expired_time"),
+            @Result(property = "isLocked", column = "is_locked"),
+            @Result(property = "isDeleted", column = "is_deleted"),
     })
     SysUser getUserByUsername(@Param("username") String username);
 
@@ -31,9 +34,12 @@ public interface SysUserMapper {
             @Result(property = "status", column = "status"),
             @Result(property = "createUserId", column = "create_user_id"),
             @Result(property = "createTime", column = "create_time"),
-            @Result(property = "orgId", column = "org_id"),
+            @Result(property = "accountExpiredTime", column = "account_expired_time"),
+            @Result(property = "passwordExpiredTime", column = "password_expired_time"),
+            @Result(property = "isLocked", column = "is_locked"),
+            @Result(property = "isDeleted", column = "is_deleted"),
     })
-    List<SysUser> getUserPageData(@Param("page") Integer page, @Param("limit")Integer limit);
+    List<SysUser> getUserPageData(@Param("page") Integer page, @Param("limit") Integer limit);
 
     @Select("select count(*) from sys_user ")
     Integer getAllUserCount();

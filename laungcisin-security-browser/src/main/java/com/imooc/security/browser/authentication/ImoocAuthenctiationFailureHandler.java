@@ -61,11 +61,13 @@ public class ImoocAuthenctiationFailureHandler extends SimpleUrlAuthenticationFa
             } else if (exception instanceof DisabledException) {
                 message = "无效账户,请联系管理员";
             } else if (exception instanceof AccountExpiredException) {
-                message = "账户过期,请联系管理员";
+                message = "账户已过期,请联系管理员";
             } else if (exception instanceof ValidateCodeException) {
                 message = "验证码不正确";
             } else if (exception instanceof InternalAuthenticationServiceException) {
                 message = "服务器内部错误,请联系管理员";
+            } else if (exception instanceof CredentialsExpiredException) {
+                message = "密码已过期,请联系管理员";
             } else {
                 message = exception.getMessage();
             }

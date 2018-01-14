@@ -13,13 +13,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.social.security.SocialUser;
 import org.springframework.social.security.SocialUserDetails;
 import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,17 +67,19 @@ public class LaungcisinUserDetailsService implements UserDetailsService, SocialU
             throw new UsernameNotFoundException("用户不存在");
         }
 
+        long now = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+
         //2.判断账户是否被删除
-        boolean enabled = true;
+        boolean enabled = user.getIsDeleted() == 0;
 
         //3.判断账户是否过期
-        boolean accountNonExpired = true;
+        boolean accountNonExpired = now < user.getAccountExpiredTime().getTime();
 
         //3.判断密码是否过期
-        boolean credentialsNonExpired = true;
+        boolean credentialsNonExpired = now < user.getPasswordExpiredTime().getTime();
 
         //4.判断账户是否被锁定
-        boolean accountNonLocked = true;
+        boolean accountNonLocked = user.getIsLocked() == 0;
 
         //获取所有请求的url
         List<SysRole> roleList = sysRoleMapper.getRoleListByUserId(user.getUserId());

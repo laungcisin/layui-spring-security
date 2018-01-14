@@ -20,7 +20,13 @@ public class SysUser implements Serializable {
 
     private Date createTime;
 
-    private Long orgId;
+    private Date accountExpiredTime;
+
+    private Date passwordExpiredTime;
+
+    private Integer isLocked;
+
+    private Integer isDeleted;
 
     public Long getUserId() {
         return userId;
@@ -86,27 +92,35 @@ public class SysUser implements Serializable {
         this.createTime = createTime;
     }
 
-
-    public Long getOrgId() {
-        return orgId;
+    public Date getAccountExpiredTime() {
+        return accountExpiredTime;
     }
 
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
+    public void setAccountExpiredTime(Date accountExpiredTime) {
+        this.accountExpiredTime = accountExpiredTime;
     }
 
-    @Override
-    public String toString() {
-        return "SysUser{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", status=" + status +
-                ", createUserId=" + createUserId +
-                ", createTime=" + createTime +
-                ", orgId=" + orgId +
-                '}';
+    public Date getPasswordExpiredTime() {
+        return passwordExpiredTime;
+    }
+
+    public void setPasswordExpiredTime(Date passwordExpiredTime) {
+        this.passwordExpiredTime = passwordExpiredTime;
+    }
+
+    public Integer getIsLocked() {
+        return isLocked;
+    }
+
+    public void setIsLocked(Integer isLocked) {
+        this.isLocked = isLocked;
+    }
+
+    public Integer getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(Integer isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

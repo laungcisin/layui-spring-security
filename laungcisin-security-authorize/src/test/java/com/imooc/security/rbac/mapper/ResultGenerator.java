@@ -1,6 +1,8 @@
 package com.imooc.security.rbac.mapper;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.imooc.security.rbac.mybatis.entity.SysRole;
+import com.imooc.security.rbac.mybatis.entity.SysUser;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -9,8 +11,8 @@ import java.util.Scanner;
 public class ResultGenerator {
 
     public static void main(String[] args) {
-//        System.out.println((new ResultGenerator()).getResultsStr(SysRole.class));
-        fuLu(0.022);
+        System.out.println((new ResultGenerator()).getResultsStr(SysUser.class));
+//        fuLu(0.022);
     }
 
 
