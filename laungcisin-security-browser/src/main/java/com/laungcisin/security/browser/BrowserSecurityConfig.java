@@ -1,10 +1,10 @@
 package com.laungcisin.security.browser;
 
-import com.imooc.security.core.authentication.AbstractChannelSecurityConfig;
-import com.imooc.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
-import com.imooc.security.core.authorize.AuthorizeConfigManager;
-import com.imooc.security.core.properties.SecurityProperties;
-import com.imooc.security.core.validate.code.ValidateCodeSecurityConfig;
+import com.laungcisin.security.core.authentication.AbstractChannelSecurityConfig;
+import com.laungcisin.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.laungcisin.security.core.authorize.AuthorizeConfigManager;
+import com.laungcisin.security.core.properties.SecurityProperties;
+import com.laungcisin.security.core.validate.code.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,9 +1,9 @@
 package com.laungcisin.security.browser;
 
 import com.laungcisin.security.browser.support.SocialUserInfo;
-import com.imooc.security.core.properties.SecurityConstants;
-import com.imooc.security.core.properties.SecurityProperties;
-import com.imooc.security.core.support.SimpleResponse;
+import com.laungcisin.security.core.properties.SecurityConstants;
+import com.laungcisin.security.core.properties.SecurityProperties;
+import com.laungcisin.security.core.support.SimpleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +57,7 @@ public class BrowserSecurityController {
     public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
 
-        SavedRequest savedRequest = requestCache.getRequest(request, response);
+        SavedRequest savedRequest = requestCache.getRequest(request, response);//引发跳转的请求
 
         if (savedRequest != null) {
             String targetUrl = savedRequest.getRedirectUrl();

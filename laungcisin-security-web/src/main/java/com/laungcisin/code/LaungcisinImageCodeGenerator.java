@@ -4,9 +4,9 @@
 package com.laungcisin.code;
 
 import com.google.code.kaptcha.Producer;
-import com.imooc.security.core.properties.SecurityProperties;
-import com.imooc.security.core.validate.code.ValidateCodeGenerator;
-import com.imooc.security.core.validate.code.image.ImageCode;
+import com.laungcisin.security.core.properties.SecurityProperties;
+import com.laungcisin.security.core.validate.code.ValidateCodeGenerator;
+import com.laungcisin.security.core.validate.code.image.ImageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestUtils;

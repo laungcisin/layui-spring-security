@@ -1,7 +1,6 @@
 package com.laungcisin.security.browser.session;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.imooc.security.core.support.SimpleResponse;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

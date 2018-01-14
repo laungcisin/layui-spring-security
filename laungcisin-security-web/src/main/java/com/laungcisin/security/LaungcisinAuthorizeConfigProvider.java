@@ -1,6 +1,6 @@
 package com.laungcisin.security;
 
-import com.imooc.security.core.authorize.AuthorizeConfigProvider;
+import com.laungcisin.security.core.authorize.AuthorizeConfigProvider;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;

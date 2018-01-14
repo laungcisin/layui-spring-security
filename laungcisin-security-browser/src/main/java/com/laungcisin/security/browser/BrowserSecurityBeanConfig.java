@@ -6,7 +6,7 @@ package com.laungcisin.security.browser;
 import com.laungcisin.security.browser.logout.ImoocLogoutSuccessHandler;
 import com.laungcisin.security.browser.session.ImoocExpiredSessionStrategy;
 import com.laungcisin.security.browser.session.ImoocInvalidSessionStrategy;
-import com.imooc.security.core.properties.SecurityProperties;
+import com.laungcisin.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
