@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.Filter;
 
 /**
- * @author imooc
+ * @author laungcisin
  */
 @Component("validateCodeSecurityConfig")
 public class ValidateCodeSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {

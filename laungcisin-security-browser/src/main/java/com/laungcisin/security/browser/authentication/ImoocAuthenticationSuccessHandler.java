@@ -20,7 +20,7 @@ import java.io.IOException;
 /**
  * 登录成功 handler
  *
- * @author imooc
+ * @author laungcisin
  */
 @Component("imoocAuthenticationSuccessHandler")
 public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {

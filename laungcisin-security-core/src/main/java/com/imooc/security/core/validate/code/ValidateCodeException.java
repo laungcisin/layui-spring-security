@@ -3,7 +3,7 @@ package com.imooc.security.core.validate.code;
 import org.springframework.security.core.AuthenticationException;
 
 /**
- * @author imooc
+ * @author laungcisin
  */
 public class ValidateCodeException extends AuthenticationException {
 

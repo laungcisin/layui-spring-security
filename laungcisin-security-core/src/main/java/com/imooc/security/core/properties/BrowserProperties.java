@@ -1,7 +1,7 @@
 package com.imooc.security.core.properties;
 
 /**
- * @author imooc
+ * @author laungcisin
  */
 public class BrowserProperties {
 

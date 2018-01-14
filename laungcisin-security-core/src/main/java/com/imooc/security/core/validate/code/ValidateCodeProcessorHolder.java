@@ -7,7 +7,7 @@ import java.util.Map;
 
 /**
  * 可以理解为service层
- * @author imooc
+ * @author laungcisin
  */
 @Component
 public class ValidateCodeProcessorHolder {

@@ -24,7 +24,7 @@ import java.util.Set;
  * 验证码 Filter:图形|短信
  * 验证码 Filter, 此 Filter 要在过滤器链靠前位置
  *
- * @author imooc
+ * @author laungcisin
  */
 @Component("validateCodeFilter")
 public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {

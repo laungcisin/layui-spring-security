@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 
 /**
  * 浏览器相关配置类
- * @author imooc
+ * @author laungcisin
  */
 @Configuration//通过该注解来表明该类是一个Spring的配置，相当于一个xml文件
 public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {

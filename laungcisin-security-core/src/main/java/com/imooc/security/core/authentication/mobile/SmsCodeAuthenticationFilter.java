@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * 拦截短信请求,组装 SmsCodeAuthenticationToken
- * @author imooc
+ * @author laungcisin
  */
 public class SmsCodeAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
     // ~ Static fields/initializers

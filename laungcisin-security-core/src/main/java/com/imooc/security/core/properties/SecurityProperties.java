@@ -3,7 +3,7 @@ package com.imooc.security.core.properties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * @author imooc
+ * @author laungcisin
  */
 @ConfigurationProperties(prefix = "imooc.security")
 public class SecurityProperties {

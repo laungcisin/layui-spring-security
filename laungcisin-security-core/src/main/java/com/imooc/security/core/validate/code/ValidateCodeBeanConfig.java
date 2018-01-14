@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 验证码生成逻辑可配置
- * @author imooc
+ * @author laungcisin
  */
 @Configuration
 public class ValidateCodeBeanConfig {

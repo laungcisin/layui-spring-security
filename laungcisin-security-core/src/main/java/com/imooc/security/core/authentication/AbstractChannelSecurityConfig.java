@@ -8,7 +8,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
- * @author imooc
+ * @author laungcisin
  */
 public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter {
 

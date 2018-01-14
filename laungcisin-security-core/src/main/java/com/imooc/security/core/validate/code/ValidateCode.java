@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 
 /**
  * 校验码(短信验证码)
- * @author imooc
+ * @author laungcisin
  */
 public class ValidateCode implements Serializable {
 

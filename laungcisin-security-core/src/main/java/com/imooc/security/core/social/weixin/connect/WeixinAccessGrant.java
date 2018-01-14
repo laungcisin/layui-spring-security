@@ -10,7 +10,7 @@ import org.springframework.social.oauth2.AccessGrant;
  * <p>
  * 所以在这里继承了标准AccessGrant，添加了openId字段，作为对微信access_token信息的封装。
  *
- * @author imooc
+ * @author laungcisin
  */
 public class WeixinAccessGrant extends AccessGrant {
 

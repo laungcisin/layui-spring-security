@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 校验码生成 Controller
  *
- * @author imooc
+ * @author laungcisin
  */
 @RestController
 public class ValidateCodeController {

@@ -26,7 +26,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * @author imooc
+ * @author laungcisin
  */
 @RestController
 public class BrowserSecurityController {

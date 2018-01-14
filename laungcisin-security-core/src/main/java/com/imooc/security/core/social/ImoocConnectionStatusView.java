@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @author imooc
+ * @author laungcisin
  */
 @Component("connect/status")
 public class ImoocConnectionStatusView extends AbstractView {

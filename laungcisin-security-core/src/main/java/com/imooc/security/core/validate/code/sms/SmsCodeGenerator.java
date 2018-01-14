@@ -13,7 +13,7 @@ import org.springframework.web.context.request.ServletWebRequest;
 
 /**
  * 短信验证码生成器
- * @author imooc
+ * @author laungcisin
  */
 @Component("smsValidateCodeGenerator")
 public class SmsCodeGenerator implements ValidateCodeGenerator {

@@ -8,7 +8,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * @author imooc
+ * @author laungcisin
  */
 @Configuration
 @EnableConfigurationProperties(SecurityProperties.class)

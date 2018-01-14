@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 /**
  * 放在core模块下,手机端和浏览器端都可以使用
  * 短信验证码配置类-连接SmsCodeAuthenticationFilter|SmsCodeAuthenticationProvider|SmsCodeAuthenticationToken等类
- * @author imooc
+ * @author laungcisin
  */
 @Component
 public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {

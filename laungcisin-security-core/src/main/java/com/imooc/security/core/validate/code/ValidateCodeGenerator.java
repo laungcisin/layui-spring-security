@@ -3,7 +3,7 @@ package com.imooc.security.core.validate.code;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
- * @author imooc
+ * @author laungcisin
  */
 public interface ValidateCodeGenerator {
 

@@ -15,7 +15,7 @@ import java.util.Random;
 
 /**
  * 图形验证码生产器
- * @author imooc
+ * @author laungcisin
  */
 public class ImageCodeGenerator implements ValidateCodeGenerator {
 
