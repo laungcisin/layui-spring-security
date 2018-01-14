@@ -1,6 +1,6 @@
 package com.laungcisin.web.controller;
 
-import com.imooc.security.rbac.mybatis.entity.SysRole;
+import com.laungcisin.security.rbac.mybatis.entity.SysRole;
 import com.laungcisin.bean.ZtreeBean;
 import com.laungcisin.security.LaungcisinSocialUser;
 import com.laungcisin.service.menu.MenuService;

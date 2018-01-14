@@ -1,8 +1,8 @@
 package com.laungcisin.web.controller;
 
-import com.imooc.security.rbac.mybatis.entity.SysMenu;
-import com.imooc.security.rbac.mybatis.mapper.SysMenuMapper;
-import com.imooc.security.rbac.utils.TreeBuilder;
+import com.laungcisin.security.rbac.mybatis.entity.SysMenu;
+import com.laungcisin.security.rbac.mybatis.mapper.SysMenuMapper;
+import com.laungcisin.security.rbac.utils.TreeBuilder;
 import com.laungcisin.bean.ZtreeBean;
 import com.laungcisin.security.LaungcisinSocialUser;
 import com.laungcisin.service.menu.MenuService;
@@ -13,8 +13,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;

@@ -1,7 +1,7 @@
 package com.laungcisin.service.menu;
 
-import com.imooc.security.rbac.mybatis.entity.SysMenu;
-import com.imooc.security.rbac.mybatis.mapper.SysMenuMapper;
+import com.laungcisin.security.rbac.mybatis.entity.SysMenu;
+import com.laungcisin.security.rbac.mybatis.mapper.SysMenuMapper;
 import com.laungcisin.bean.ZtreeBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,11 +1,10 @@
 package com.laungcisin.service.role;
 
-import com.imooc.security.rbac.mybatis.entity.SysRole;
-import com.imooc.security.rbac.mybatis.entity.SysRoleMenu;
-import com.imooc.security.rbac.mybatis.mapper.SysRoleMapper;
-import com.imooc.security.rbac.mybatis.mapper.SysRoleMenuMapper;
+import com.laungcisin.security.rbac.mybatis.entity.SysRole;
+import com.laungcisin.security.rbac.mybatis.entity.SysRoleMenu;
+import com.laungcisin.security.rbac.mybatis.mapper.SysRoleMapper;
+import com.laungcisin.security.rbac.mybatis.mapper.SysRoleMenuMapper;
 import com.laungcisin.utils.PageData;
-import com.laungcisin.utils.PageDataRequestParam;
 import com.laungcisin.utils.role.RoleRequestParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

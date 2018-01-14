@@ -1,17 +1,14 @@
 package com.laungcisin.service.user;
 
-import com.imooc.security.rbac.mybatis.entity.SysUser;
-import com.imooc.security.rbac.mybatis.mapper.SysUserMapper;
+import com.laungcisin.security.rbac.mybatis.entity.SysUser;
+import com.laungcisin.security.rbac.mybatis.mapper.SysUserMapper;
 import com.laungcisin.utils.PageData;
 import com.laungcisin.utils.PageDataRequestParam;
-import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service("userService")
