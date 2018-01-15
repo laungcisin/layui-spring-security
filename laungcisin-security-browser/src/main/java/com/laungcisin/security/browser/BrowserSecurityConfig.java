@@ -30,9 +30,6 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     private SecurityProperties securityProperties;
 
     @Autowired
-    private DataSource dataSource;
-
-    @Autowired
     private UserDetailsService userDetailsService;
 
     @Autowired
@@ -56,6 +53,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private AuthorizeConfigManager authorizeConfigManager;
 
+    @Autowired
+    private DataSource dataSource;
+
     /**
      * 记住我功能-数据库存储相关cookies
      *
@@ -65,7 +65,6 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
         tokenRepository.setDataSource(dataSource);
-//		tokenRepository.setCreateTableOnStartup(true);
         return tokenRepository;
     }
 
@@ -73,7 +72,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     protected void configure(HttpSecurity http) throws Exception {
         applyPasswordAuthenticationConfig(http);
 
-        http.apply(validateCodeSecurityConfig)//验证码校验配置[图形|短信]
+        http.apply(validateCodeSecurityConfig)//验证码校验配置[图形|短信]--在认证Filter前先做校验
                 .and()
                 .apply(smsCodeAuthenticationSecurityConfig)//短信验证码登录配置
                 .and()
@@ -83,8 +82,8 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 //记住我功能
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())//过期时间
-                .userDetailsService(userDetailsService)
+                .tokenValiditySeconds(securityProperties.getBrowser().getRememberMeSeconds())//过期秒数
+                .userDetailsService(userDetailsService)//获取到用户名后，用userDetailsService做登录
                 .and()
 
                 .logout()

@@ -24,18 +24,21 @@ SpringSecurity过滤器链:
 
 3.[处理密码加解密-PasswordEncoder]
 
-##########################################################################################
+####################################################################################################################
 自定义登录页
 
-1. HttpSecurity.loginPage指定的 url 由 UsernamePasswordAuthenticationFilter 处理
-	SecurityCoreConfig的作用是让SecurityProperties类生效
+1. HttpSecurity.loginPage指定的url，当需要身份认证时，跳转到BrowserSecurityController.requireAuthentication方法处理，
+   HttpSecurity.loginProcessingUrl指定的url由UsernamePasswordAuthenticationFilter处理认证，
+   SecurityCoreConfig的作用是让SecurityProperties类生效。
 
-##########################################################################################
+   HttpSecurity.successHandler()//登录成功时由此handler处理
+   HttpSecurity.failureHandler()//登录失败时由此handler处理
+
+####################################################################################################################
 认证源码执行流程:
 	-->UsernamePasswordAuthenticationFilter
 		UsernamePasswordAuthenticationFilter.attemptAuthentication
 
-		
 	-->AuthenticationManager 用于管理 AuthenticationProvider
 		ProviderManager.authenticate
 	
@@ -44,15 +47,41 @@ SpringSecurity过滤器链:
 		-->[AbstractUserDetailsAuthenticationProvider.authenticate]
 			-- 获取UserDetails
 			-->[DaoAuthenticationProvider.retrieveUser]
-				-->[UserDetailsService.loadUserByUsername]
+				-->密码[UserDetailsService.loadUserByUsername]
 		
 			--预检查
 			-->[AbstractUserDetailsAuthenticationProvider.DefaultPreAuthenticationChecks.check]
 			
 			-->[DaoAuthenticationProvider.additionalAuthenticationChecks]
 				--密码匹配
+				--UserDetails对象是从数据库中读取的，
+				--UsernamePasswordAuthenticationToken由前端传进来，
+				    String presentedPassword = UsernamePasswordAuthenticationToken.getCredentials().toString();
+
 				(!passwordEncoder.isPasswordValid(UserDetails.getPassword(), presentedPassword, salt)
-				
+				DaoAuthenticationProvider.setPasswordEncoder.isPasswordValid
+				最后由BCrypt.checkpw(rawPassword.toString(), encodedPassword)完成认证
+
+##########################################图形校验码校验逻辑-begin#####################################################################
+    1.在 AbstractPreAuthenticatedProcessingFilter 过滤器前加一个ValidateCodeFilter过滤器：
+    ValidateCodeSecurityConfig类中配置：
+        @Override
+        public void configure(HttpSecurity http) throws Exception {
+            http.addFilterBefore(validateCodeFilter, AbstractPreAuthenticatedProcessingFilter.class);
+        }
+
+    2.图形校验码验证先到ValidateCodeFilter过滤器，如果通过了继续走剩下的Filter过滤器;没有通过抛出ValidateCodeException异常。
+
+    3.alidateCodeFilter实现InitializingBean接口实现afterPropertiesSet方法，目的在于等其它参数都初始化了后，
+    初始化要拦截的url配置信息，将所有需要校验验证码的url放到urlMap中。
+
+    4.图形验证码生成可配置：
+        定义ValidateCodeGenerator接口，
+        定义验证码生成配置类ValidateCodeBeanConfig，在获取生成校验码类上加上@ConditionalOnMissingBean(name = "imageValidateCodeGenerator")注解
+        如果系统有名称为imageValidateCodeGenerator的类，就用此类；否则使用系统默认配置的。
+
+##########################################图形校验码校验逻辑-end#######################################################################
+
 ############################################################################################################################				
 ValidateCodeFilter.afterPropertiesSet 方法中指定图形|短信url由 ValidateCodeFilter.doFilterInternal 校验
 	urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM, ValidateCodeType.IMAGE);
@@ -60,17 +89,12 @@ ValidateCodeFilter.afterPropertiesSet 方法中指定图形|短信url由 Validat
 ############################################################################################################################	
 
 
-##############################图形验证码生成逻辑-begin##############################################################
-ValidateCodeFilter  extends OncePerRequestFilter implements InitializingBean
-	-->初始化要拦截的url配置信息-->存放所有需要校验验证码的url
-##############################图形验证码生成逻辑-end##############################################################
-
 	
 ##############################记住我功能源码解析-begin##############################################################
 --第一次登录+记住我
 UsernamePasswordAuthenticationFilter.attemptAuthentication
 	-->AbstractAuthenticationProcessingFilter.successfulAuthentication
-		[rememberMeServices.loginSuccess(request, response, authResult);]
+		[PersistentTokenBasedRememberMeServices.loginSuccess(request, response, authResult);]
 
 --第二次登录[已记住]
 		RememberMeAuthenticationFilter.doFilter
