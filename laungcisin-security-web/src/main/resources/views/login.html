@@ -15,40 +15,60 @@
 </head>
 <body class="login-bg">
 
-<div class="login">
-    <div class="message">x-admin2.0-管理登录</div>
-    <div id="darkbannerwrap"></div>
+<div class="layui-tab layui-tab-card login">
+    <ul class="layui-tab-title">
+        <li class="layui-this">密码登录</li>
+        <li>手机验证码登录</li>
+    </ul>
+    <div class="layui-tab-content" style="height: 100px;">
+        <div class="layui-tab-item layui-show">
+            <form method="post" class="layui-form">
+                <div class="layui-form-item">
+                    <input name="username" placeholder="用户名" type="text" lay-verify="required" autocomplete="off" class="layui-input" value="admin">
+                </div>
 
-    <form method="post" class="layui-form">
-        <div class="layui-form-item">
-            <input name="username" placeholder="用户名" lay-verify="required" autocomplete="off" class="layui-input" value="admin">
-        </div>
-        <hr class="hr15">
+                <div class="layui-form-item">
+                    <input name="password" placeholder="密码" type="password" lay-verify="required" autocomplete="off" class="layui-input" value="123456">
+                </div>
 
-        <div class="layui-form-item">
-            <input name="password" placeholder="密码" type="password" lay-verify="required" autocomplete="off" class="layui-input" value="123456">
-        </div>
-        <hr class="hr15">
+                <div class="layui-form-item">
+                    <div class="layui-input-inline">
+                        <input name="imageCode" placeholder="请输入验证码" type="text" lay-verify="required" autocomplete="off" class="layui-input">
+                    </div>
 
-        <div class="layui-form-item">
-            <div class="layui-input-inline">
-                <input name="imageCode" placeholder="请输入验证码" lay-verify="required" autocomplete="off" class="layui-input">
-            </div>
-            
-            <img id="captcha" src="/code/image?width=100&height=38" style="width: 100px; height: 38px" onclick="refreshCode()">
-        </div>
-        <hr class="hr15">
+                    <img id="captcha" src="/code/image?width=100&height=38" style="width: 100px; height: 38px; cursor:hand;" onclick="refreshCode()">
+                </div>
 
-        <div class="layui-form-item">
-            <input type="checkbox" lay-skin="primary" name="remember-me" title="记住我" checked/>
-        </div>
-        <hr class="hr15">
+                <div class="layui-form-item">
+                    <input type="checkbox" lay-skin="primary" name="remember-me" title="记住我"/>
+                </div>
 
-        <div class="layui-form-item">
-            <input value="登录" lay-submit lay-filter="login" style="width:100%;" type="submit">
+                <div class="layui-form-item">
+                    <input value="登录" lay-submit lay-filter="login-password" style="width:100%;" type="submit">
+                </div>
+            </form>
         </div>
-        <hr class="hr20">
-    </form>
+
+        <div class="layui-tab-item">
+            <form method="post" class="layui-form">
+                <div class="layui-form-item">
+                    <input name="mobile" id="mobile" placeholder="请输入手机号" type="text" lay-verify="required" autocomplete="off" class="layui-input" value="13812345678">
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-input-inline">
+                        <input name="smsCode" placeholder="请输入验证码" type="text" lay-verify="required" autocomplete="off" class="layui-input">
+                    </div>
+
+                    <button class="layui-btn layui-btn-normal" onclick="getSmsCode();return false;">发送验证码</button>
+                </div>
+
+                <div class="layui-form-item">
+                    <input value="登录" lay-submit lay-filter="login-sms" style="width:100%;" type="submit">
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 
 <script src="/lib/jquery/3.2.1/jquery.min.js"></script>

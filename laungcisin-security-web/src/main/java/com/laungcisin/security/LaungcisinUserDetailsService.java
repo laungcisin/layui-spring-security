@@ -41,14 +41,14 @@ public class LaungcisinUserDetailsService implements UserDetailsService, SocialU
     private SysRoleMapper sysRoleMapper;
 
     /**
-     * @param username
+     * @param usernameOrMobile
      * @return
      * @throws UsernameNotFoundException
      */
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.info("表单登录用户名:" + username);
-        return buildUser(username);
+    public UserDetails loadUserByUsername(String usernameOrMobile) throws UsernameNotFoundException {
+        logger.info("登录用户名:" + usernameOrMobile);
+        return buildUser(usernameOrMobile);
     }
 
     @Override
@@ -57,9 +57,9 @@ public class LaungcisinUserDetailsService implements UserDetailsService, SocialU
         return buildUser(userId);
     }
 
-    private SocialUserDetails buildUser(String userIdOrUsername) {
+    private SocialUserDetails buildUser(String userIdOrUsernameOrMobile) {
         // 1.查找用户信息
-        SysUser user = sysUserMapper.getUserByUsername(userIdOrUsername);
+        SysUser user = sysUserMapper.getUserByUserIdOrUsernameOrMobile(userIdOrUsernameOrMobile);
 
         if (user == null || user.getUserId() < 0) {
             throw new UsernameNotFoundException("用户不存在");

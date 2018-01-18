@@ -18,8 +18,8 @@ public class SysUserMapperTest {
     private SysUserMapper sysUserMapper;
 
     @Test
-    public void getUserByUsername() {
-        SysUser sysUser = sysUserMapper.getUserByUsername("admin1");
+    public void getUserByUserIdOrUsernameOrMobile() {
+        SysUser sysUser = sysUserMapper.getUserByUserIdOrUsernameOrMobile("13412345678");
         System.out.println(sysUser);
     }
 

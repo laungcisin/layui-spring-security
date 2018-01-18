@@ -55,4 +55,7 @@ public interface SecurityConstants {
      */
     String DEFAULT_SESSION_INVALID_URL = "/session/invalid";
 
+    //根据请求的url获取校验码的类型--字符分割依据
+    String VALIDATE_CODE_SEPARATOR_WORD = "ValidateCodeProcessor";
+
 }

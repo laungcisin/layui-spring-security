@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.*;
 import java.util.List;
 
 public interface SysUserMapper {
-    @Select("select * from sys_user where username = #{username} limit 1")
+    @Select("select * from sys_user where user_id = #{userIdOrUsernameOrMobile} or username = #{userIdOrUsernameOrMobile} or mobile = #{userIdOrUsernameOrMobile} limit 1")
     @Results({
             @Result(property = "userId", column = "user_id"),
             @Result(property = "username", column = "username"),
@@ -22,7 +22,7 @@ public interface SysUserMapper {
             @Result(property = "isLocked", column = "is_locked"),
             @Result(property = "isDeleted", column = "is_deleted"),
     })
-    SysUser getUserByUsername(@Param("username") String username);
+    SysUser getUserByUserIdOrUsernameOrMobile(@Param("userIdOrUsernameOrMobile") String userIdOrUsernameOrMobile);
 
     @SelectProvider(type = SysUserSqlProvider.class, method = "getUserPageData")
     @Results({

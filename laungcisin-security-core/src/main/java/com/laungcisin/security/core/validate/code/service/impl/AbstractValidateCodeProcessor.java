@@ -1,5 +1,6 @@
 package com.laungcisin.security.core.validate.code.service.impl;
 
+import com.laungcisin.security.core.properties.SecurityConstants;
 import com.laungcisin.security.core.validate.code.bean.ValidateCode;
 import com.laungcisin.security.core.validate.code.bean.ValidateCodeType;
 import com.laungcisin.security.core.validate.code.exception.ValidateCodeException;
@@ -108,7 +109,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
      * @return
      */
     private ValidateCodeType getValidateCodeType(ServletWebRequest request) {
-        String type = StringUtils.substringBefore(getClass().getSimpleName(), "CodeProcessor");
+        String type = StringUtils.substringBefore(getClass().getSimpleName(), SecurityConstants.VALIDATE_CODE_SEPARATOR_WORD);
         return ValidateCodeType.valueOf(type.toUpperCase());
     }
 

@@ -53,7 +53,7 @@ public class ImoocAuthenctiationFailureHandler extends SimpleUrlAuthenticationFa
             //根据exception类型,翻译相应的出错信息
             String message;
             if (exception instanceof UsernameNotFoundException) {
-                message = "用户名或者密码错误";
+                message = "用户不存在";
             } else if (exception instanceof BadCredentialsException) {
                 message = "用户名或者密码错误";
             } else if (exception instanceof LockedException) {

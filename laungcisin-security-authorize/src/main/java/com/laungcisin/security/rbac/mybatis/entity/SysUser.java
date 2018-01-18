@@ -123,4 +123,22 @@ public class SysUser implements Serializable {
     public void setIsDeleted(Integer isDeleted) {
         this.isDeleted = isDeleted;
     }
+
+    @Override
+    public String toString() {
+        return "SysUser{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", status=" + status +
+                ", createUserId=" + createUserId +
+                ", createTime=" + createTime +
+                ", accountExpiredTime=" + accountExpiredTime +
+                ", passwordExpiredTime=" + passwordExpiredTime +
+                ", isLocked=" + isLocked +
+                ", isDeleted=" + isDeleted +
+                '}';
+    }
 }
