@@ -1,8 +1,8 @@
 package com.laungcisin.security.browser.validate.code.impl;
 
-import com.laungcisin.security.core.validate.code.ValidateCode;
-import com.laungcisin.security.core.validate.code.ValidateCodeRepository;
-import com.laungcisin.security.core.validate.code.ValidateCodeType;
+import com.laungcisin.security.core.validate.code.bean.ValidateCode;
+import com.laungcisin.security.core.validate.code.repository.ValidateCodeRepository;
+import com.laungcisin.security.core.validate.code.bean.ValidateCodeType;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.stereotype.Component;

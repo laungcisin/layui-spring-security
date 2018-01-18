@@ -1,7 +1,10 @@
-package com.laungcisin.security.core.validate.code;
+package com.laungcisin.security.core.validate.code.filter;
 
 import com.laungcisin.security.core.properties.SecurityConstants;
 import com.laungcisin.security.core.properties.SecurityProperties;
+import com.laungcisin.security.core.validate.code.bean.ValidateCodeType;
+import com.laungcisin.security.core.validate.code.exception.ValidateCodeException;
+import com.laungcisin.security.core.validate.code.service.ValidateCodeProcessorHolder;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +24,8 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * 验证码 Filter:图形|短信
- * 验证码 Filter, 此 Filter 要在过滤器链靠前位置
+ * 验证码过滤器:图形|短信
+ * 验证码过滤器, 此过滤器要在过滤器链靠前位置
  *
  * @author laungcisin
  */
@@ -87,13 +90,14 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         }
     }
 
-    /*
-     * (non-Javadoc) 做验证码校验(图形|短信)
+    /**
+     * 做验证码校验(图形|短信)
      *
-     * @see
-     * org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(
-     * javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
+     * @param request
+     * @param response
+     * @param chain
+     * @throws ServletException
+     * @throws IOException
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)

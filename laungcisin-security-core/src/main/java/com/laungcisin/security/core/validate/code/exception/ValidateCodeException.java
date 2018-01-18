@@ -1,4 +1,4 @@
-package com.laungcisin.security.core.validate.code;
+package com.laungcisin.security.core.validate.code.exception;
 
 import org.springframework.security.core.AuthenticationException;
 

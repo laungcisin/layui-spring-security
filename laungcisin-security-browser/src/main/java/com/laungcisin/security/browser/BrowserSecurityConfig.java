@@ -4,7 +4,7 @@ import com.laungcisin.security.core.authentication.AbstractChannelSecurityConfig
 import com.laungcisin.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.laungcisin.security.core.authorize.AuthorizeConfigManager;
 import com.laungcisin.security.core.properties.SecurityProperties;
-import com.laungcisin.security.core.validate.code.ValidateCodeSecurityConfig;
+import com.laungcisin.security.core.validate.code.config.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -39,7 +39,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
     @Autowired
-    private SpringSocialConfigurer imoocSocialSecurityConfig;
+    private SpringSocialConfigurer laungcisinSocialSecurityConfig;
 
     @Autowired
     private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
@@ -74,9 +74,9 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
         http.apply(validateCodeSecurityConfig)//验证码校验配置[图形|短信]--在认证Filter前先做校验
                 .and()
-                .apply(smsCodeAuthenticationSecurityConfig)//短信验证码登录配置
+                .apply(smsCodeAuthenticationSecurityConfig)//短信登录配置
                 .and()
-                .apply(imoocSocialSecurityConfig)//第三方账号登录
+                .apply(laungcisinSocialSecurityConfig)//第三方账号登录
                 .and()
 
                 //记住我功能

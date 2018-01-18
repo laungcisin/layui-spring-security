@@ -3,7 +3,7 @@ package com.laungcisin.security.app;
 import com.laungcisin.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.laungcisin.security.core.authorize.AuthorizeConfigManager;
 import com.laungcisin.security.core.properties.SecurityProperties;
-import com.laungcisin.security.core.validate.code.ValidateCodeSecurityConfig;
+import com.laungcisin.security.core.validate.code.config.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;

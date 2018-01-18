@@ -14,17 +14,9 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
 
     private UserDetailsService userDetailsService;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.springframework.security.authentication.AuthenticationProvider#
-     * authenticate(org.springframework.security.core.Authentication)
-     */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-
         SmsCodeAuthenticationToken authenticationToken = (SmsCodeAuthenticationToken) authentication;
-
         UserDetails user = userDetailsService.loadUserByUsername((String) authenticationToken.getPrincipal());
 
         if (user == null) {
@@ -38,12 +30,6 @@ public class SmsCodeAuthenticationProvider implements AuthenticationProvider {
         return authenticationResult;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.springframework.security.authentication.AuthenticationProvider#
-     * supports(java.lang.Class)
-     */
     @Override
     public boolean supports(Class<?> authentication) {
         return SmsCodeAuthenticationToken.class.isAssignableFrom(authentication);

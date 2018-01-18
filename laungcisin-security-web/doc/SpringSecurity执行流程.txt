@@ -111,7 +111,8 @@ UsernamePasswordAuthenticationFilter.attemptAuthentication
 				-->AbstractValidateCodeProcessor.generate
 				-->AbstractValidateCodeProcessor.save
 				-->send由具体子类来实现
-				
+
+以上代码等同于
 -->ValidateCodeController.createCode-->ValidateCodeProcessorHolder.findValidateCodeProcessor
 -->AbstractValidateCodeProcessor.create[SmsCodeProcessor]
 	-->AbstractValidateCodeProcessor.generate[SmsCodeProcessor]

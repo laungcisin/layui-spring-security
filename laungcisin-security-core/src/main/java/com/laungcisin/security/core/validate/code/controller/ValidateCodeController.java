@@ -1,6 +1,8 @@
-package com.laungcisin.security.core.validate.code;
+package com.laungcisin.security.core.validate.code.controller;
 
 import com.laungcisin.security.core.properties.SecurityConstants;
+import com.laungcisin.security.core.validate.code.service.ValidateCodeProcessor;
+import com.laungcisin.security.core.validate.code.service.ValidateCodeProcessorHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,13 +28,12 @@ public class ValidateCodeController {
      * 根据验证码类型不同，调用不同的 {@link ValidateCodeProcessor}接口实现
      *
      * @param request
-      * @param response
+     * @param response
      * @param type
      * @throws Exception
      */
     @GetMapping(SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/{type}")
-    public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type)
-            throws Exception {
+    public void createCode(HttpServletRequest request, HttpServletResponse response, @PathVariable String type) throws Exception {
         validateCodeProcessorHolder.findValidateCodeProcessor(type).create(new ServletWebRequest(request, response));
     }
 

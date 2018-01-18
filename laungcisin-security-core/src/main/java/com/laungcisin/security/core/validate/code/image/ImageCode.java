@@ -1,6 +1,6 @@
 package com.laungcisin.security.core.validate.code.image;
 
-import com.laungcisin.security.core.validate.code.ValidateCode;
+import com.laungcisin.security.core.validate.code.bean.ValidateCode;
 
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;

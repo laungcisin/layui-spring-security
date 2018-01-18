@@ -1,6 +1,7 @@
-package com.laungcisin.security.core.validate.code;
+package com.laungcisin.security.core.validate.code.config;
 
 import com.laungcisin.security.core.properties.SecurityProperties;
+import com.laungcisin.security.core.validate.code.generator.ValidateCodeGenerator;
 import com.laungcisin.security.core.validate.code.image.ImageCodeGenerator;
 import com.laungcisin.security.core.validate.code.sms.DefaultSmsCodeSender;
 import com.laungcisin.security.core.validate.code.sms.SmsCodeSender;

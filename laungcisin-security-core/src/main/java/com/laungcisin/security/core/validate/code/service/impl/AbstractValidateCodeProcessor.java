@@ -1,6 +1,11 @@
-package com.laungcisin.security.core.validate.code.impl;
+package com.laungcisin.security.core.validate.code.service.impl;
 
-import com.laungcisin.security.core.validate.code.*;
+import com.laungcisin.security.core.validate.code.bean.ValidateCode;
+import com.laungcisin.security.core.validate.code.bean.ValidateCodeType;
+import com.laungcisin.security.core.validate.code.exception.ValidateCodeException;
+import com.laungcisin.security.core.validate.code.generator.ValidateCodeGenerator;
+import com.laungcisin.security.core.validate.code.repository.ValidateCodeRepository;
+import com.laungcisin.security.core.validate.code.service.ValidateCodeProcessor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
@@ -23,6 +28,7 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
 
     /**
      * 收集系统中所有的 {@link ValidateCodeGenerator} 接口的实现。
+     * spring依赖搜索
      */
     @Autowired
     private Map<String, ValidateCodeGenerator> validateCodeGenerators;
@@ -30,17 +36,18 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
     @Autowired
     private ValidateCodeRepository validateCodeRepository;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * com.imooc.security.core.validate.code.ValidateCodeProcessor#create(org.
-     * springframework.web.context.request.ServletWebRequest)
+    /**
+     * 模板方法--主逻辑
+     * 生成校验码，图形验证码或者短信验证码都是需要这3个步骤。
+     * 生成-->存储-->发送
      */
     @Override
-    public void create(ServletWebRequest request) throws Exception {
+    public final void create(ServletWebRequest request) throws Exception {
+        //1.生成校验码
         C validateCode = generate(request);
+        //2.存储校验码
         save(request, validateCode);
+        //3.发送校验码
         send(request, validateCode);
     }
 
@@ -76,6 +83,15 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
     }
 
     /**
+     * 发送校验码，由子类实现
+     *
+     * @param request
+     * @param validateCode
+     * @throws Exception
+     */
+    protected abstract void send(ServletWebRequest request, C validateCode) throws Exception;
+
+    /**
      * 构建验证码放入session时的key
      *
      * @param request
@@ -84,15 +100,6 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
     private String getSessionKey(ServletWebRequest request) {
         return SESSION_KEY_PREFIX + getValidateCodeType(request).toString().toUpperCase();
     }
-
-    /**
-     * 发送校验码，由子类实现
-     *
-     * @param request
-     * @param validateCode
-     * @throws Exception
-     */
-    protected abstract void send(ServletWebRequest request, C validateCode) throws Exception;
 
     /**
      * 根据请求的url获取校验码的类型
@@ -108,12 +115,10 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
     @SuppressWarnings("unchecked")
     @Override
     public void validate(ServletWebRequest request) {
-
         ValidateCodeType codeType = getValidateCodeType(request);
-
         C codeInSession = (C) validateCodeRepository.get(request, codeType);
-
         String codeInRequest;
+
         try {
             codeInRequest = ServletRequestUtils.getStringParameter(request.getRequest(), codeType.getParamNameOnValidate());
         } catch (ServletRequestBindingException e) {

@@ -1,4 +1,4 @@
-package com.laungcisin.security.core.validate.code;
+package com.laungcisin.security.core.validate.code.bean;
 
 
 import com.laungcisin.security.core.properties.SecurityConstants;

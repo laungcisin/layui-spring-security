@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laungcisin.security.core.properties.LoginResponseType;
 import com.laungcisin.security.core.properties.SecurityProperties;
 import com.laungcisin.security.core.support.SimpleResponse;
-import com.laungcisin.security.core.validate.code.ValidateCodeException;
+import com.laungcisin.security.core.validate.code.exception.ValidateCodeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.laungcisin.security.core.validate.code;
+package com.laungcisin.security.core.validate.code.bean;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

@@ -4,8 +4,8 @@
 package com.laungcisin.security.core.validate.code.sms;
 
 import com.laungcisin.security.core.properties.SecurityProperties;
-import com.laungcisin.security.core.validate.code.ValidateCode;
-import com.laungcisin.security.core.validate.code.ValidateCodeGenerator;
+import com.laungcisin.security.core.validate.code.bean.ValidateCode;
+import com.laungcisin.security.core.validate.code.generator.ValidateCodeGenerator;
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

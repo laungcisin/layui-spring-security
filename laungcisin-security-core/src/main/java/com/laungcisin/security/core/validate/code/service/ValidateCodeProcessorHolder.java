@@ -1,5 +1,7 @@
-package com.laungcisin.security.core.validate.code;
+package com.laungcisin.security.core.validate.code.service;
 
+import com.laungcisin.security.core.validate.code.bean.ValidateCodeType;
+import com.laungcisin.security.core.validate.code.exception.ValidateCodeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -13,12 +13,10 @@ import java.util.Collection;
  * @author laungcisin
  */
 public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
-
     private static final long serialVersionUID = SpringSecurityCoreVersion.SERIAL_VERSION_UID;
 
     // ~ Instance fields
     // ================================================================================================
-
     //认证前放手机号,认证后放认证了的用户信息
     private final Object principal;
 
@@ -26,9 +24,9 @@ public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
     // ===================================================================================================
 
     /**
-     * This constructor can be safely used by any code that wishes to create a
-     * <code>UsernamePasswordAuthenticationToken</code>, as the {@link #isAuthenticated()}
-     * will return <code>false</code>.
+     * 未登录前使用此构造函数
+     *
+     * @param mobile - 手机号
      */
     public SmsCodeAuthenticationToken(String mobile) {
         super(null);
@@ -37,17 +35,12 @@ public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
     }
 
     /**
-     * This constructor should only be used by <code>AuthenticationManager</code> or
-     * <code>AuthenticationProvider</code> implementations that are satisfied with
-     * producing a trusted (i.e. {@link #isAuthenticated()} = <code>true</code>)
-     * authentication token.
+     * 登录后使用此构造函数
      *
      * @param principal
-     * @param credentials
      * @param authorities
      */
-    public SmsCodeAuthenticationToken(Object principal,
-                                      Collection<? extends GrantedAuthority> authorities) {
+    public SmsCodeAuthenticationToken(Object principal, Collection<? extends GrantedAuthority> authorities) {
         super(authorities);
         this.principal = principal;
         super.setAuthenticated(true); // must use super, as we override
@@ -66,8 +59,7 @@ public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
 
     public void setAuthenticated(boolean isAuthenticated) throws IllegalArgumentException {
         if (isAuthenticated) {
-            throw new IllegalArgumentException(
-                    "Cannot set this token to trusted - use constructor which takes a GrantedAuthority list instead");
+            throw new IllegalArgumentException("Cannot set this token to trusted - use constructor which takes a GrantedAuthority list instead");
         }
 
         super.setAuthenticated(false);

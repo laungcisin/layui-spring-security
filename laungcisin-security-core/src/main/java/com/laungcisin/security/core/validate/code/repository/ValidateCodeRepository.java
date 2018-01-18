@@ -1,5 +1,7 @@
-package com.laungcisin.security.core.validate.code;
+package com.laungcisin.security.core.validate.code.repository;
 
+import com.laungcisin.security.core.validate.code.bean.ValidateCode;
+import com.laungcisin.security.core.validate.code.bean.ValidateCodeType;
 import org.springframework.web.context.request.ServletWebRequest;
 
 public interface ValidateCodeRepository {

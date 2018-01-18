@@ -1,4 +1,4 @@
-package com.laungcisin.security.core.validate.code;
+package com.laungcisin.security.core.validate.code.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;

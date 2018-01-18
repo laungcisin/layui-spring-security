@@ -3,7 +3,7 @@
  */
 package com.laungcisin.security.core.validate.code.image;
 
-import com.laungcisin.security.core.validate.code.impl.AbstractValidateCodeProcessor;
+import com.laungcisin.security.core.validate.code.service.impl.AbstractValidateCodeProcessor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
