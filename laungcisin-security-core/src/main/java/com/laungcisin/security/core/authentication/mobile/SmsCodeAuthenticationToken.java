@@ -24,7 +24,7 @@ public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
     // ===================================================================================================
 
     /**
-     * 未登录前使用此构造函数
+     * 未认证前使用此构造函数
      *
      * @param mobile - 手机号
      */
@@ -35,7 +35,7 @@ public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
     }
 
     /**
-     * 登录后使用此构造函数
+     * 登认证后使用此构造函数
      *
      * @param principal
      * @param authorities

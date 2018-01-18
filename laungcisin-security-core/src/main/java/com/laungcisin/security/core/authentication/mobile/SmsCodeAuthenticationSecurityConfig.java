@@ -12,10 +12,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.stereotype.Component;
 
 /**
- * 完成短信登录功能
+ * 短信验证码配置类
+ * 将SmsCodeAuthenticationFilter、SmsCodeAuthenticationProvider、SmsCodeAuthenticationToken串接起来
  * 放在core模块下,手机端和浏览器端都可以使用
- * 短信验证码配置类-
- *  连接SmsCodeAuthenticationFilter|SmsCodeAuthenticationProvider|SmsCodeAuthenticationToken类
+ *
  * @author laungcisin
  */
 @Component
@@ -43,9 +43,11 @@ public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapt
         SmsCodeAuthenticationProvider smsCodeAuthenticationProvider = new SmsCodeAuthenticationProvider();
         smsCodeAuthenticationProvider.setUserDetailsService(userDetailsService);
 
-        //3.将SmsCodeAuthenticationFilter和SmsCodeAuthenticationProvider加入到SpringSecurity框架中
-        // 将此 SmsCodeAuthenticationFilter 加在 UsernamePasswordAuthenticationFilter后，顺序无所谓
-        // SpringSecurity是根据AuthenticationToken类型来选择相应的Provider来认证
+        /*
+        3.将SmsCodeAuthenticationProvider放入到AuthenticationManager管理的Provider集合中，
+        SmsCodeAuthenticationFilter在UsernamePasswordAuthenticationFilter过滤前执行，顺序无所谓
+        SpringSecurity是根据AuthenticationToken类型来选择相应的Provider来认证
+         */
         http.authenticationProvider(smsCodeAuthenticationProvider)
                 .addFilterAfter(smsCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 

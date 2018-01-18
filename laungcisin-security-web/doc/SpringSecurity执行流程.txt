@@ -35,12 +35,12 @@ SpringSecurity过滤器链:
    HttpSecurity.failureHandler()//登录失败时由此handler处理
 
 ####################################################################################################################
-认证源码执行流程:
+表单form认证源码执行流程:
 	-->UsernamePasswordAuthenticationFilter
 		UsernamePasswordAuthenticationFilter.attemptAuthentication
 
-	-->AuthenticationManager 用于管理 AuthenticationProvider
-		ProviderManager.authenticate
+	-->ProviderManager.authenticate. ProviderManager是AuthenticationManager的实现类
+	    -->ProviderManager.authenticate循环所有的Providers,遍历查看provider是否supports传入的Authentication认证
 	
 	-->AuthenticationProvider
 		-->[DaoAuthenticationProvider.authenticate]

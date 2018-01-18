@@ -17,6 +17,7 @@ import org.springframework.security.web.session.InvalidSessionStrategy;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 import org.springframework.social.security.SpringSocialConfigurer;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**
@@ -35,7 +36,7 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
 
-    @Autowired
+    @Resource(name = "validateCodeSecurityConfig")
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
 
     @Autowired
