@@ -3,6 +3,7 @@ package com.laungcisin.security.core.properties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
+ * SpringSecurity全局配置
  * @author laungcisin
  */
 @ConfigurationProperties(prefix = "laungcisin.security")

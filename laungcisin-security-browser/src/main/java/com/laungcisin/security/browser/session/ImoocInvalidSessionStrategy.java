@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.laungcisin.security.browser.session;
 
 import org.springframework.security.web.session.InvalidSessionStrategy;
@@ -11,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * session过期处理Strategy
  * @author laungcisin
  */
 public class ImoocInvalidSessionStrategy extends AbstractSessionStrategy implements InvalidSessionStrategy {

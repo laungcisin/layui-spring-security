@@ -93,10 +93,10 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .deleteCookies("JSESSIONID")
                 .and()
 
-                //session相关
+                //session相关配置
                 .sessionManagement()
                 .invalidSessionStrategy(invalidSessionStrategy)
-                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())
+                .maximumSessions(securityProperties.getBrowser().getSession().getMaximumSessions())//最大Session数量---并发控制
                 .maxSessionsPreventsLogin(securityProperties.getBrowser().getSession().isMaxSessionsPreventsLogin())
                 .expiredSessionStrategy(sessionInformationExpiredStrategy)
                 .and()

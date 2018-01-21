@@ -1,10 +1,8 @@
 package com.laungcisin.security.browser.session;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.util.UrlUtils;
@@ -43,13 +41,6 @@ public class AbstractSessionStrategy {
         this.destinationUrl = invalidSessionUrl;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.springframework.security.web.session.InvalidSessionStrategy#
-     * onInvalidSessionDetected(javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse)
-     */
     protected void onSessionInvalid(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         if (createNewSession) {
@@ -60,9 +51,9 @@ public class AbstractSessionStrategy {
         String targetUrl;
 
 //        if (StringUtils.endsWithIgnoreCase(sourceUrl, ".html")) {
-            targetUrl = destinationUrl + ".html";
-            logger.info("session失效,跳转到" + targetUrl);
-            redirectStrategy.sendRedirect(request, response, targetUrl);
+        targetUrl = destinationUrl;
+        logger.info("session失效,跳转到" + targetUrl);
+        redirectStrategy.sendRedirect(request, response, targetUrl);
 //        } else {
 //            String message = "session已失效";
 //            if (isConcurrency()) {
@@ -84,14 +75,6 @@ public class AbstractSessionStrategy {
         return false;
     }
 
-    /**
-     * Determines whether a new session should be created before redirecting (to
-     * avoid possible looping issues where the same session ID is sent with the
-     * redirected request). Alternatively, ensure that the configured URL does
-     * not pass through the {@code SessionManagementFilter}.
-     *
-     * @param createNewSession defaults to {@code true}.
-     */
     public void setCreateNewSession(boolean createNewSession) {
         this.createNewSession = createNewSession;
     }
