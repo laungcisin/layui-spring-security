@@ -46,6 +46,7 @@ public class RoleServiceImpl implements RoleService {
     public void save(RoleRequestParam param) {
         SysRole sysRole = new SysRole();
         BeanUtils.copyProperties(param, sysRole);
+        sysRole.setStatus((short) 1);
 
         sysRoleMapper.save(sysRole);
         Long roleId = sysRole.getRoleId();

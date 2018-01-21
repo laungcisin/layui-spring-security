@@ -15,7 +15,7 @@
             <input type="text" name="roleName" placeholder="请输入角色名称" class="layui-input">
         </div>
         <div class="layui-input-inline">
-            <button class="layui-btn search-btn" table-id="roleListTable" lay-submit="" lay-filter="search">
+            <button class="layui-btn search-btn" lay-submit="" lay-filter="search">
                 <i class="fa fa-search">&nbsp;</i>查询
             </button>
             <button type="reset" class="layui-btn layui-btn-primary"><i class="fa fa-refresh">&nbsp;</i>重置</button>
@@ -24,7 +24,7 @@
 </form>
 
 <div class="layui-btn-group">
-    <button class="layui-btn" onclick="showWindows('新增角色','/role/addRolePage', '893', '600')"
+    <button class="layui-btn" onclick="showWindows('新增角色','/role/addRolePage', '893', '600', function() { $('.search-btn').click(); })"
             style="margin-left: 5px!important;">
         <i class="fa fa-plus">&nbsp;</i>新增
     </button>

@@ -8,7 +8,7 @@
     w       弹出层宽度（缺省调默认值）
     h       弹出层高度（缺省调默认值）
 */
-function showWindows(title, url, w, h) {
+function showWindows(title, url, w, h, callback) {
     if (title == null || title == '') {
         title = false;
     }
@@ -30,11 +30,17 @@ function showWindows(title, url, w, h) {
         area: [w + 'px', h + 'px'],
         fix: true, //固定
         maxmin: false,
+        move: false,
         resize: false,
         shadeClose: false,
         shade: [0.3, '#000'],
         title: title,
-        content: url
+        content: url,
+        end: function () {
+            if (typeof callback === "function") {
+                callback();
+            }
+        }
     });
 }
 

@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class ImoocLogoutSuccessHandler implements LogoutSuccessHandler {
+public class LaungcisinDefaultLogoutSuccessHandler implements LogoutSuccessHandler {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private String signOutUrl;
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    public ImoocLogoutSuccessHandler(String signOutUrl) {
+    public LaungcisinDefaultLogoutSuccessHandler(String signOutUrl) {
         this.signOutUrl = signOutUrl;
     }
 
@@ -29,7 +29,7 @@ public class ImoocLogoutSuccessHandler implements LogoutSuccessHandler {
 
         if (StringUtils.isBlank(signOutUrl)) {
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(500, "退出成功")));
+            response.getWriter().write(objectMapper.writeValueAsString(new SimpleResponse(200, "退出成功")));
         } else {
             response.sendRedirect(signOutUrl);
         }

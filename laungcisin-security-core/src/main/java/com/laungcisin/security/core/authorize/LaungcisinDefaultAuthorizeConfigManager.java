@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @Component
-public class ImoocAuthorizeConfigManager implements AuthorizeConfigManager {
+public class LaungcisinDefaultAuthorizeConfigManager implements AuthorizeConfigManager {
 
     @Autowired
     private List<AuthorizeConfigProvider> authorizeConfigProviders;

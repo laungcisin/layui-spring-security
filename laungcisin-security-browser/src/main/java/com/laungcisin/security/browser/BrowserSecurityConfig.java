@@ -87,10 +87,11 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .userDetailsService(userDetailsService)//获取到用户名后，用userDetailsService做登录
                 .and()
 
+                //退出功能
                 .logout()
-                .logoutUrl("/logout")
+                .logoutUrl("/logout")//自定义退出的地址
                 .logoutSuccessHandler(logoutSuccessHandler)
-                .deleteCookies("JSESSIONID")
+                .deleteCookies("JSESSIONID")//删除当前的JSESSIONID
                 .and()
 
                 //session相关配置

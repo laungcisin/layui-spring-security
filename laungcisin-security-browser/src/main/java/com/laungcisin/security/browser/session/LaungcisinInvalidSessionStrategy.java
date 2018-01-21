@@ -11,9 +11,9 @@ import java.io.IOException;
  * session过期处理Strategy
  * @author laungcisin
  */
-public class ImoocInvalidSessionStrategy extends AbstractSessionStrategy implements InvalidSessionStrategy {
+public class LaungcisinInvalidSessionStrategy extends AbstractSessionStrategy implements InvalidSessionStrategy {
 
-    public ImoocInvalidSessionStrategy(String invalidSessionUrl) {
+    public LaungcisinInvalidSessionStrategy(String invalidSessionUrl) {
         super(invalidSessionUrl);
     }
 

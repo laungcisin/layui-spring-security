@@ -3,9 +3,9 @@
  */
 package com.laungcisin.security.browser;
 
-import com.laungcisin.security.browser.logout.ImoocLogoutSuccessHandler;
-import com.laungcisin.security.browser.session.ImoocExpiredSessionStrategy;
-import com.laungcisin.security.browser.session.ImoocInvalidSessionStrategy;
+import com.laungcisin.security.browser.logout.LaungcisinDefaultLogoutSuccessHandler;
+import com.laungcisin.security.browser.session.LaungcisinExpiredSessionStrategy;
+import com.laungcisin.security.browser.session.LaungcisinInvalidSessionStrategy;
 import com.laungcisin.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -27,19 +27,19 @@ public class BrowserSecurityBeanConfig {
     @Bean
     @ConditionalOnMissingBean(InvalidSessionStrategy.class)
     public InvalidSessionStrategy invalidSessionStrategy() {
-        return new ImoocInvalidSessionStrategy(securityProperties.getBrowser().getSession().getSessionInvalidUrl());
+        return new LaungcisinInvalidSessionStrategy(securityProperties.getBrowser().getSession().getSessionInvalidUrl());
     }
 
     @Bean
     @ConditionalOnMissingBean(SessionInformationExpiredStrategy.class)
     public SessionInformationExpiredStrategy sessionInformationExpiredStrategy() {
-        return new ImoocExpiredSessionStrategy(securityProperties.getBrowser().getSession().getSessionInvalidUrl());
+        return new LaungcisinExpiredSessionStrategy(securityProperties.getBrowser().getSession().getSessionInvalidUrl());
     }
 
     @Bean
     @ConditionalOnMissingBean(LogoutSuccessHandler.class)
     public LogoutSuccessHandler logoutSuccessHandler() {
-        return new ImoocLogoutSuccessHandler(securityProperties.getBrowser().getSignOutUrl());
+        return new LaungcisinDefaultLogoutSuccessHandler(securityProperties.getBrowser().getSignOutUrl());
     }
 
 }
