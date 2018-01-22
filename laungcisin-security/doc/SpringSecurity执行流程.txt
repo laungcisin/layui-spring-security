@@ -8,7 +8,7 @@ SpringSecurity过滤器链:
 	(以上过滤器链可以配置)
 	-----------------------------------------
 	(以下过滤器链不可以配置)
-	-->ExeptionTranslationFilter(捕获FilterSecurityInterceptor抛出的异常)
+	-->ExceptionTranslationFilter(捕获FilterSecurityInterceptor抛出的异常)
 	-->FilterSecurityInterceptor
 	
 ##########################################################################################
@@ -27,7 +27,7 @@ SpringSecurity过滤器链:
 ####################################################################################################################
 自定义登录页
 
-1. HttpSecurity.loginPage指定的url，当需要身份认证时，跳转到BrowserSecurityController.requireAuthentication方法处理，
+1. HttpSecurity.loginPage 指定的url，当需要身份认证时，跳转到BrowserSecurityController.requireAuthentication方法处理，
    HttpSecurity.loginProcessingUrl指定的url由UsernamePasswordAuthenticationFilter处理认证，
    SecurityCoreConfig的作用是让SecurityProperties类生效。
 
