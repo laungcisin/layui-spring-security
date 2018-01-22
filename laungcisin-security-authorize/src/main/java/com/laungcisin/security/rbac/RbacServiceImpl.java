@@ -5,6 +5,7 @@ import com.laungcisin.security.rbac.mybatis.mapper.SysMenuMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.CollectionUtils;
@@ -27,8 +28,9 @@ public class RbacServiceImpl implements RbacService {
         Object principal = authentication.getPrincipal();
         boolean hasPermission = false;
 
-        if (principal instanceof UserDetails) {
-            String username = ((UserDetails) principal).getUsername();
+        //web|app权限判断
+        if (principal instanceof UserDetails || authentication instanceof OAuth2Authentication) {
+            String username = principal instanceof UserDetails ? ((UserDetails) principal).getUsername() : (String)authentication.getPrincipal();
 
             //读取用户所拥有权限的所有URL
             List<SysMenu> menuList = sysMenuMapper.getAllMenuByUsername(username);

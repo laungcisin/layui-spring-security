@@ -9,11 +9,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
 import org.springframework.social.security.SpringSocialConfigurer;
 
+/**
+ * 资源服务器
+ */
 @Configuration
 @EnableResourceServer
-public class ImoocResourceServerConfig extends ResourceServerConfigurerAdapter {
+public class LaungcisinResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private SecurityProperties securityProperties;
 
@@ -29,6 +34,9 @@ public class ImoocResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Autowired
     private AuthorizeConfigManager authorizeConfigManager;
 
+    @Autowired
+    private OAuth2WebSecurityExpressionHandler expressionHandler;
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.apply(validateCodeSecurityConfig)//验证码校验配置[图形|短信]
@@ -41,5 +49,10 @@ public class ImoocResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .csrf().disable();
 
         authorizeConfigManager.config(http.authorizeRequests());
+    }
+
+    @Override
+    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+        resources.expressionHandler(expressionHandler);
     }
 }

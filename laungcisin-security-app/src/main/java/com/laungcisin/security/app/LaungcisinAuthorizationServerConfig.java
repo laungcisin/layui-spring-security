@@ -20,9 +20,12 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * EnableAuthorizationServer注解将类标记为认证服务器
+ */
 @Configuration
 @EnableAuthorizationServer
-public class ImoocAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+public class LaungcisinAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -69,7 +72,7 @@ public class ImoocAuthorizationServerConfig extends AuthorizationServerConfigure
             for (OAuth2ClientProperties clientProperties : securityProperties.getOauth2().getClients()) {
                 builder.withClient(clientProperties.getClientId())
                         .secret(clientProperties.getClientSecret())
-                        .authorizedGrantTypes("refresh_token","authorization_code", "password")
+                        .authorizedGrantTypes("refresh_token", "authorization_code", "password")
                         .accessTokenValiditySeconds(clientProperties.getAccessTokenValiditySeconds())
                         .refreshTokenValiditySeconds(2592000)
                         .scopes("all", "write", "read");
