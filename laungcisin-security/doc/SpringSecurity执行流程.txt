@@ -27,9 +27,9 @@ SpringSecurity过滤器链:
 ####################################################################################################################
 自定义登录页
 
-1. HttpSecurity.loginPage 指定的url，当需要身份认证时，跳转到BrowserSecurityController.requireAuthentication方法处理，
-   HttpSecurity.loginProcessingUrl指定的url由UsernamePasswordAuthenticationFilter处理认证，
-   SecurityCoreConfig的作用是让SecurityProperties类生效。
+1. HttpSecurity.loginPage 指定登录页，
+   HttpSecurity.loginProcessingUrl ，当需要身份认证时，跳转到loginProcessingUrl指定的url处理
+   SecurityCoreConfig类的作用是让SecurityProperties类生效。
 
    HttpSecurity.successHandler()//登录成功时由此handler处理
    HttpSecurity.failureHandler()//登录失败时由此handler处理
@@ -43,10 +43,10 @@ SpringSecurity过滤器链:
 	    -->ProviderManager.authenticate循环所有的Providers,遍历查看provider是否supports传入的Authentication认证
 	
 	-->AuthenticationProvider
-		-->[DaoAuthenticationProvider.authenticate]
-		-->[AbstractUserDetailsAuthenticationProvider.authenticate]
+		-->[DaoAuthenticationProvider.authenticate]【DaoAuthenticationProvider 继承 AbstractUserDetailsAuthenticationProvider】
+		-->实际调用[AbstractUserDetailsAuthenticationProvider.authenticate]
 			-- 获取UserDetails
-			-->[DaoAuthenticationProvider.retrieveUser]
+			-->[DaoAuthenticationProvider.retrieveUser]---retrieveUser为抽象方法，在子类中实现
 				-->密码[UserDetailsService.loadUserByUsername]
 		
 			--预检查
@@ -56,6 +56,7 @@ SpringSecurity过滤器链:
 				--密码匹配
 				--UserDetails对象是从数据库中读取的，
 				--UsernamePasswordAuthenticationToken由前端传进来，
+				    //页面传进来的密码
 				    String presentedPassword = UsernamePasswordAuthenticationToken.getCredentials().toString();
 
 				(!passwordEncoder.isPasswordValid(UserDetails.getPassword(), presentedPassword, salt)
