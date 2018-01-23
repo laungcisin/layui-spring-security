@@ -1,21 +1,32 @@
-http://127.0.0.1:8161/oauth/authorize?response_type=code&client_id=laungcisin&redirect_uri=http://www.baidu.com&scope=all
-
-http://127.0.0.1:8161/oauth/token
-
-==========================================================================================================
-cd /usr/local/devTool/redis-4.0.2
-/usr/local/devTool/redis-4.0.2/src/redis-server /usr/local/devTool/redis-4.0.2/redis.conf
-/usr/local/devTool/redis-4.0.2/src/redis-cli -h 192.168.100.24 -p 6379
-killall redis-server
-==========================================================================================================
-curl -i -X POST \
-   -H "Content-Type:application/x-www-form-urlencoded" \
-   -H "Authorization:Basic aW1vb2M6aW1vb2NzZWNyZXQ=" \
-   -H "deviceId:007" \
-   -d "mobile=13012345678" \
-   -d "smsCode=527967" \
- 'http://127.0.0.1:8161/authentication/mobile'
-
-==========================================================================================================
-    -->访问/oauth/token
+//以下为密码模式流程分析:
+-->访问/oauth/token
     -->TokenEndpoint.postAccessToken
+        --> 1.//获取第三方应用的详细配置信息
+            获取 ClientDetails: (ClientDetailsService)InMemoryClientDetailsService.loadClientByClientId(clientId);
+
+        --> 2.//使用第三方应用信息创建 TokenRequest
+            获取 TokenRequest: DefaultOAuth2RequestFactory.createTokenRequest(RequestParameters, ClientDetails)
+                具体: TokenRequest tokenRequest = new TokenRequest(RequestParameters, clientId, scopes, grantType);
+
+        --> 3.//获取OAuth2AccessToken
+            OAuth2AccessToken token = getTokenGranter().grant(GrantType, TokenRequest);
+        拆解:
+            (TokenGranter)CompositeTokenGranter.grant(GrantType, TokenRequest)
+                -->
+                for (TokenGranter granter : tokenGranters) {
+                    3.1 根据 grantType， 获取特定的 TokenGranter(密码模式(Password)对应 ResourceOwnerPasswordTokenGranter)
+                        -->ResourceOwnerPasswordTokenGranter.grant(String grantType, TokenRequest tokenRequest)
+                        实际调用 AbstractTokenGranter.grant(String grantType, TokenRequest tokenRequest)
+
+                    3.2 拆解 AbstractTokenGranter.grant:
+                          调用: AbstractTokenGranter.getAccessToken
+                          调用: DefaultTokenServices.createAccessToken(getOAuth2Authentication(client, tokenRequest))
+                          调用: AbstractTokenGranter.getOAuth2Authentication, 调用完后返回 DefaultTokenServices.createAccessToken 方法;
+                            拆解: AbstractTokenGranter.getOAuth2Authentication
+                                    ResourceOwnerPasswordTokenGranter.getOAuth2Authentication
+                                    --> 3.2.1. authenticationManager.authenticate 认证用户
+                                        3.2.2. 构建 OAuth2Request
+                                            OAuth2Request storedOAuth2Request = getRequestFactory().createOAuth2Request(client, tokenRequest);
+                                        3.2.3. 构建 OAuth2Authentication
+                                            return new OAuth2Authentication(OAuth2Request, Authentication);
+                }
