@@ -17,3 +17,5 @@ curl -i -X POST \
  'http://127.0.0.1:8161/authentication/mobile'
 
 ==========================================================================================================
+    -->访问/oauth/token
+    -->TokenEndpoint.postAccessToken

@@ -8,10 +8,9 @@ import org.springframework.security.web.authentication.preauth.AbstractPreAuthen
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import javax.servlet.Filter;
 
 /**
- * 验证码验证配置
+ * 验证码过滤器配置
  * @author laungcisin
  */
 @Component("validateCodeSecurityConfig")
