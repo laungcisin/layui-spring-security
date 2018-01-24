@@ -40,25 +40,19 @@ public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenti
     @Autowired
     private SecurityProperties securityProperties;
 
+    //ClientDetailsService由Spring管理的
     @Autowired
     private ClientDetailsService clientDetailsService;
 
+    //AuthorizationServerTokenServices由Spring管理的
     @Autowired
     private AuthorizationServerTokenServices authorizationServerTokenServices;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.springframework.security.web.authentication.
-     * AuthenticationSuccessHandler#onAuthenticationSuccess(javax.servlet.http.
-     * HttpServletRequest, javax.servlet.http.HttpServletResponse,
-     * org.springframework.security.core.Authentication)
-     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
 
-        //校验ClientDetails
+        //1.从请求头中获取ClientId和ClientSecret
         String header = request.getHeader("Authorization");
         if (header == null || !header.startsWith("Basic ")) {
             throw new UnapprovedClientAuthenticationException("请求头中无client信息");
@@ -70,8 +64,10 @@ public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenti
         String clientId = tokens[0];
         String clientSecret = tokens[1];
 
+        //获取第三方应用的详细配置信息
         ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
 
+        //校验ClientDetails
         if (clientDetails == null) {
             throw new UnapprovedClientAuthenticationException("clientId对应的配置信息不存在:" + clientId);
         } else if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret)) {
@@ -96,6 +92,7 @@ public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenti
     }
 
     /**
+     * 用 Base64 解码请求头信息
      * @param header
      * @param request
      * @return
@@ -109,8 +106,7 @@ public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenti
         try {
             decoded = Base64.decode(base64Token);
         } catch (IllegalArgumentException e) {
-            throw new BadCredentialsException(
-                    "Failed to decode basic authentication token");
+            throw new BadCredentialsException( "Failed to decode basic authentication token");
         }
 
         String token = new String(decoded, "UTF-8");

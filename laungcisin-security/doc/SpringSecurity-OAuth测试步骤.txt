@@ -8,6 +8,8 @@ cd /usr/local/devTool/redis-4.0.2
 /usr/local/devTool/redis-4.0.2/src/redis-cli -h 192.168.100.24 -p 6379
 killall redis-server
 ==========================================================================================================
+Alt + G 快捷键生成curl脚本
+
 curl -i -X POST \
    -H "Content-Type:application/x-www-form-urlencoded" \
    -H "Authorization:Basic aW1vb2M6aW1vb2NzZWNyZXQ=" \
