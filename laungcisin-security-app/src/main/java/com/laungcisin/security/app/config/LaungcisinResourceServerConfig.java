@@ -1,4 +1,4 @@
-package com.laungcisin.security.app;
+package com.laungcisin.security.app.config;
 
 import com.laungcisin.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.laungcisin.security.core.authorize.AuthorizeConfigManager;

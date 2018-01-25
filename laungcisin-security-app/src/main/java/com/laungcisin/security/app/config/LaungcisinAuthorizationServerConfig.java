@@ -1,4 +1,4 @@
-package com.laungcisin.security.app;
+package com.laungcisin.security.app.config;
 
 import com.laungcisin.security.core.properties.OAuth2ClientProperties;
 import com.laungcisin.security.core.properties.SecurityProperties;
@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
+import org.springframework.security.oauth2.config.annotation.builders.JdbcClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -17,6 +18,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,11 +47,14 @@ public class LaungcisinAuthorizationServerConfig extends AuthorizationServerConf
     @Autowired(required = false)
     private TokenEnhancer jwtTokenEnhancer;
 
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager)
-                .tokenStore(tokenStore)
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsService)
+                .tokenStore(tokenStore);
 
         if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
             TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
@@ -65,18 +70,22 @@ public class LaungcisinAuthorizationServerConfig extends AuthorizationServerConf
         }
     }
 
+    /**
+     * @param clients
+     * @throws Exception
+     */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
+
         if (ArrayUtils.isNotEmpty(securityProperties.getOauth2().getClients())) {
             for (OAuth2ClientProperties clientProperties : securityProperties.getOauth2().getClients()) {
                 builder.withClient(clientProperties.getClientId())
                         .secret(clientProperties.getClientSecret())
                         .authorizedGrantTypes("refresh_token", "authorization_code", "password")
-                        .accessTokenValiditySeconds(clientProperties.getAccessTokenValiditySeconds())
+                        .accessTokenValiditySeconds(clientProperties.getAccessTokenValiditySeconds())//令牌有效时间
                         .refreshTokenValiditySeconds(2592000)
                         .scopes("all", "write", "read");
-                ;
             }
         }
 

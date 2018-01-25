@@ -47,6 +47,6 @@ public class SsoAuthorizationServerConfig extends AuthorizationServerConfigurerA
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.tokenKeyAccess("isAuthenticated()");
+        security.tokenKeyAccess("isAuthenticated()");//经过认证后，才可以拿到服务器的签名密钥
     }
 }

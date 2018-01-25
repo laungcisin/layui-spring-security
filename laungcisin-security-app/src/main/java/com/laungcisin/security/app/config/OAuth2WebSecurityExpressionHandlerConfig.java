@@ -1,4 +1,4 @@
-package com.laungcisin.security.app;
+package com.laungcisin.security.app.config;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -7,7 +7,8 @@ import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurity
 
 /**
  * 此配置解决以下bug
- * org.springframework.expression.spel.SpelEvaluationException: EL1057E:(pos 8): No bean resolver registered in the context to resolve access to bean 'xxx'.
+ * org.springframework.expression.spel.SpelEvaluationException: EL1057E:(pos 8):
+ * No bean resolver registered in the context to resolve access to bean 'xxx'.
  */
 @Configuration
 public class OAuth2WebSecurityExpressionHandlerConfig {

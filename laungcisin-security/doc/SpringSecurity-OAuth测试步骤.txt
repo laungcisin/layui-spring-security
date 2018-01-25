@@ -12,10 +12,11 @@ Alt + G 快捷键生成curl脚本
 
 curl -i -X POST \
    -H "Content-Type:application/x-www-form-urlencoded" \
-   -H "Authorization:Basic aW1vb2M6aW1vb2NzZWNyZXQ=" \
+   -H "Authorization:Basic bGF1bmdjaXNpbjppbW9vY3NlY3JldA==" \
    -H "deviceId:007" \
-   -d "mobile=13012345678" \
-   -d "smsCode=527967" \
- 'http://127.0.0.1:8161/authentication/mobile'
+   -d "username=admin" \
+   -d "password=123456" \
+   -d "imageCode=xg2cn" \
+ 'http://192.168.230.53:8162/authentication/form'
 
 ==========================================================================================================
