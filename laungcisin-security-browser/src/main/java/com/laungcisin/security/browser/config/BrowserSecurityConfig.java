@@ -1,4 +1,4 @@
-package com.laungcisin.security.browser;
+package com.laungcisin.security.browser.config;
 
 import com.laungcisin.security.core.authentication.AbstractChannelSecurityConfig;
 import com.laungcisin.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;

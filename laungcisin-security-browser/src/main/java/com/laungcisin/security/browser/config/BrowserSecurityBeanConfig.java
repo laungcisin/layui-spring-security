@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.laungcisin.security.browser;
+package com.laungcisin.security.browser.config;
 
 import com.laungcisin.security.browser.logout.LaungcisinDefaultLogoutSuccessHandler;
 import com.laungcisin.security.browser.session.LaungcisinExpiredSessionStrategy;

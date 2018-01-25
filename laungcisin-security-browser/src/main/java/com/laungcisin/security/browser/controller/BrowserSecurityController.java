@@ -1,4 +1,4 @@
-package com.laungcisin.security.browser;
+package com.laungcisin.security.browser.controller;
 
 import com.laungcisin.security.browser.support.SocialUserInfo;
 import com.laungcisin.security.core.properties.SecurityConstants;
