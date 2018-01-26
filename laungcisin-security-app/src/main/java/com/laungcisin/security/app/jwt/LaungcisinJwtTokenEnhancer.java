@@ -8,10 +8,11 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ImoocJwtTokenEnhancer implements TokenEnhancer {
+public class LaungcisinJwtTokenEnhancer implements TokenEnhancer {
 
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
+        //TODO:根据实际情况修改
         Map<String, Object> info = new HashMap<>();
         info.put("company", "imooc");
 

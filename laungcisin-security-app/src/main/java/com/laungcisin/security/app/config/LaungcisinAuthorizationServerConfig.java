@@ -8,17 +8,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
-import org.springframework.security.oauth2.config.annotation.builders.JdbcClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +47,8 @@ public class LaungcisinAuthorizationServerConfig extends AuthorizationServerConf
     @Autowired(required = false)
     private TokenEnhancer jwtTokenEnhancer;
 
-    @Autowired
-    private DataSource dataSource;
+    @Autowired(required = false)
+    private ClientDetailsService clientDetailsService;
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
@@ -56,6 +56,7 @@ public class LaungcisinAuthorizationServerConfig extends AuthorizationServerConf
                 .userDetailsService(userDetailsService)
                 .tokenStore(tokenStore);
 
+        // 2. JWT配置
         if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
             TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
 
@@ -68,6 +69,11 @@ public class LaungcisinAuthorizationServerConfig extends AuthorizationServerConf
                     .tokenEnhancer(enhancerChain)
                     .accessTokenConverter(jwtAccessTokenConverter);
         }
+
+        // 2. 如果是JDBC配置，设置clientDetailsService
+        if (tokenStore instanceof JdbcTokenStore) {
+            endpoints.setClientDetailsService(clientDetailsService);
+        }
     }
 
     /**
@@ -76,18 +82,19 @@ public class LaungcisinAuthorizationServerConfig extends AuthorizationServerConf
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
-
-        if (ArrayUtils.isNotEmpty(securityProperties.getOauth2().getClients())) {
-            for (OAuth2ClientProperties clientProperties : securityProperties.getOauth2().getClients()) {
-                builder.withClient(clientProperties.getClientId())
-                        .secret(clientProperties.getClientSecret())
-                        .authorizedGrantTypes("refresh_token", "authorization_code", "password")
-                        .accessTokenValiditySeconds(clientProperties.getAccessTokenValiditySeconds())//令牌有效时间
-                        .refreshTokenValiditySeconds(2592000)
-                        .scopes("all", "write", "read");
+        //不是JDBC配置的话，要设置clients信息
+        if (!(tokenStore instanceof JdbcTokenStore)) {
+            InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
+            if (ArrayUtils.isNotEmpty(securityProperties.getOauth2().getClients())) {
+                for (OAuth2ClientProperties clientProperties : securityProperties.getOauth2().getClients()) {
+                    builder.withClient(clientProperties.getClientId())
+                            .secret(clientProperties.getClientSecret())
+                            .authorizedGrantTypes("refresh_token", "authorization_code", "password")
+                            .accessTokenValiditySeconds(clientProperties.getAccessTokenValiditySeconds())//令牌有效时间
+                            .refreshTokenValiditySeconds(2592000)
+                            .scopes("all", "write", "read");
+                }
             }
         }
-
     }
 }

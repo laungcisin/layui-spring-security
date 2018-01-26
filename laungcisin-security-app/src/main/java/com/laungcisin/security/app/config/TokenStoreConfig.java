@@ -1,18 +1,25 @@
 package com.laungcisin.security.app.config;
 
-import com.laungcisin.security.app.jwt.ImoocJwtTokenEnhancer;
+import com.laungcisin.security.app.jwt.LaungcisinJwtTokenEnhancer;
 import com.laungcisin.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+import org.springframework.util.Assert;
+
+import javax.sql.DataSource;
 
 /**
  * 令牌存储配置
@@ -21,29 +28,57 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 public class TokenStoreConfig {
 
     /**
-     * redis 配置
+     * 1.JDBC 配置
      */
-    @Autowired
-    private RedisConnectionFactory redisConnectionFactory;
+    @Configuration
+    @ConditionalOnProperty(prefix = "laungcisin.security.oauth2", name = "storeType", havingValue = "jdbc")
+    public static class JDBCTokenConfig {
+        @Autowired
+        private DataSource dataSource;
 
-    @Bean
-    @ConditionalOnProperty(prefix = "imooc.security.oauth2", name = "storeType", havingValue = "redis")
-    public TokenStore redisTokenStore() {
-        return new RedisTokenStore(redisConnectionFactory);
+        @Bean
+        public TokenStore jdbcTokenStore() {
+            Assert.state(dataSource != null, "数据源必须配置");
+            return new JdbcTokenStore(dataSource);
+        }
+
+        @Primary
+        @Bean // 声明 JdbcClientDetailsService 实现
+        public ClientDetailsService clientDetailsService() {
+            return new JdbcClientDetailsService(dataSource);
+        }
     }
 
     /**
-     * matchIfMissing = true， 如果配置文件没有改配置，默认生效，除非有配置其它值。
+     * 2.Redis 配置
+     */
+    @Configuration
+    @ConditionalOnProperty(prefix = "laungcisin.security.oauth2", name = "storeType", havingValue = "redis")
+    public static class RedisTokenConfig {
+        @Autowired
+        private RedisConnectionFactory redisConnectionFactory;
+
+        @Bean
+        public TokenStore redisTokenStore() {
+            Assert.state(redisConnectionFactory != null, "Redis必须配置");
+            return new RedisTokenStore(redisConnectionFactory);
+        }
+    }
+
+    /**
+     * 3.JWT 配置
+     * matchIfMissing = true， 如果配置文件没有该配置，默认生效，除非有配置其它值。
      * jwt配置
      */
     @Configuration
-    @ConditionalOnProperty(prefix = "imooc.security.oauth2", name = "storeType", havingValue = "jwt", matchIfMissing = true)
+    @ConditionalOnProperty(prefix = "laungcisin.security.oauth2", name = "storeType", havingValue = "jwt", matchIfMissing = true)
     public static class JwtTokenConfig {
         @Autowired
         private SecurityProperties securityProperties;
 
         /**
          * 负责 token 存储，不关心 token 生成， token 由 JwtAccessTokenConverter 负责生成。
+         *
          * @return
          */
         @Bean
@@ -53,6 +88,7 @@ public class TokenStoreConfig {
 
         /**
          * JwtAccessTokenConverter 负责生成 token 生成
+         *
          * @return
          */
         @Bean
@@ -65,12 +101,13 @@ public class TokenStoreConfig {
         /**
          * token 增强器
          * ConditionalOnMissingBean 注解--业务系统可以加入自定义增强器替换系统默认的增强器
+         *
          * @return
          */
         @Bean
         @ConditionalOnMissingBean(name = "jwtTokenEnhancer")
         public TokenEnhancer jwtTokenEnhancer() {
-            return new ImoocJwtTokenEnhancer();
+            return new LaungcisinJwtTokenEnhancer();
         }
 
     }

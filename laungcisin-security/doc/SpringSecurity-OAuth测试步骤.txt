@@ -1,6 +1,8 @@
-http://127.0.0.1:8161/oauth/authorize?response_type=code&client_id=laungcisin&redirect_uri=http://www.baidu.com&scope=all
+1.授权码模式 - 获取授权码:
+    http://127.0.0.1:8162/oauth/authorize?response_type=code&client_id=laungcisin&redirect_uri=http://www.baidu.com&scope=all
 
-http://127.0.0.1:8161/oauth/token
+2. 获取令牌
+    http://127.0.0.1:8162/oauth/token
 
 ==========================================================================================================
 cd /usr/local/devTool/redis-4.0.2
