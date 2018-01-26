@@ -50,6 +50,11 @@ public class LaungcisinAuthorizationServerConfig extends AuthorizationServerConf
     @Autowired(required = false)
     private ClientDetailsService clientDetailsService;
 
+    /**
+     * 声明授权和token的端点以及token的服务的一些配置信息，比如采用什么存储方式、token的有效期等
+     * @param endpoints
+     * @throws Exception
+     */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.authenticationManager(authenticationManager)
@@ -69,19 +74,22 @@ public class LaungcisinAuthorizationServerConfig extends AuthorizationServerConf
                     .tokenEnhancer(enhancerChain)
                     .accessTokenConverter(jwtAccessTokenConverter);
         }
-
-        // 2. 如果是JDBC配置，设置clientDetailsService
-        if (tokenStore instanceof JdbcTokenStore) {
-            endpoints.setClientDetailsService(clientDetailsService);
-        }
     }
 
     /**
+     * client客户端的信息配置.
+     * client的信息的读取.
+     * jdbc方式需要调用 JdbcClientDetailsService 类.
      * @param clients
      * @throws Exception
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+        // 如果是JDBC配置，设置clientDetailsService
+        if (tokenStore instanceof JdbcTokenStore) {
+            clients.withClientDetails(clientDetailsService);
+        }
+
         //不是JDBC配置的话，要设置clients信息
         if (!(tokenStore instanceof JdbcTokenStore)) {
             InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
