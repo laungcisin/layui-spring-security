@@ -49,6 +49,7 @@ public class TokenStoreConfig {
         }
     }
 
+    //-----------------------------------------------------------------------------------------------------------
     /**
      * 2.Redis 配置
      */
@@ -65,10 +66,12 @@ public class TokenStoreConfig {
         }
     }
 
+    //-----------------------------------------------------------------------------------------------------------
     /**
      * 3.JWT 配置
+     * 如果使用 JWTTokenStore，资源服务器需要一个解码 Token 令牌的类 JwtAccessTokenConverter，
+     * JwtTokenStore 依赖这个类进行编码以及解码，授权服务、资源服务都需要配置这个转换类。
      * matchIfMissing = true， 如果配置文件没有该配置，默认生效，除非有配置其它值。
-     * jwt配置
      */
     @Configuration
     @ConditionalOnProperty(prefix = "laungcisin.security.oauth2", name = "storeType", havingValue = "jwt", matchIfMissing = true)
@@ -77,7 +80,7 @@ public class TokenStoreConfig {
         private SecurityProperties securityProperties;
 
         /**
-         * 负责 token 存储，不关心 token 生成， token 由 JwtAccessTokenConverter 负责生成。
+         *JwtTokenStore 依赖 JwtAccessTokenConverter 进行编码以及解码 Token。
          *
          * @return
          */
@@ -87,7 +90,7 @@ public class TokenStoreConfig {
         }
 
         /**
-         * JwtAccessTokenConverter 负责生成 token 生成
+         * JwtAccessTokenConverter 负责编码及解码 Token 。
          *
          * @return
          */

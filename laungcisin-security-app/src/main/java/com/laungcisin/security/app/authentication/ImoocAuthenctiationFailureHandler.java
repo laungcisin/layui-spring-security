@@ -2,7 +2,6 @@ package com.laungcisin.security.app.authentication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laungcisin.security.core.exception.ExceptionTranslateUtils;
-import com.laungcisin.security.core.properties.SecurityProperties;
 import com.laungcisin.security.core.support.SimpleResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +28,6 @@ public class ImoocAuthenctiationFailureHandler extends SimpleUrlAuthenticationFa
 
     @Autowired
     private ObjectMapper objectMapper;
-
-    @Autowired
-    private SecurityProperties securityProperties;
-
 
     /**
      * app端返回json格式数据

@@ -12,7 +12,9 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -21,14 +23,17 @@ import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenCo
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
- * EnableAuthorizationServer注解将类标记为认证服务器
+ * 使用 @EnableAuthorizationServer 来配置授权服务机制，
+ * 并继承 AuthorizationServerConfigurerAdapter 类，重写 configure 方法定义授权服务器策略
  */
 @Configuration
 @EnableAuthorizationServer
-public class LaungcisinAuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
 
+    //认证管理器，当你选择了密码授权类型时，需注入一个 AuthenticationManager 对象
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -51,7 +56,10 @@ public class LaungcisinAuthorizationServerConfig extends AuthorizationServerConf
     private ClientDetailsService clientDetailsService;
 
     /**
-     * 声明授权和token的端点以及token的服务的一些配置信息，比如采用什么存储方式、token的有效期等
+     * 授权是使用 AuthorizationEndpoint 这个端点来进行控制的，
+     * 使用 AuthorizationServerEndpointsConfigurer来声明授权和token的端点以及token的服务的一些配置信息，
+     * 比如采用什么存储方式、token的有效期等
+     *
      * @param endpoints
      * @throws Exception
      */
@@ -74,21 +82,28 @@ public class LaungcisinAuthorizationServerConfig extends AuthorizationServerConf
                     .tokenEnhancer(enhancerChain)
                     .accessTokenConverter(jwtAccessTokenConverter);
         }
+
+        // 配置TokenServices参数
+        DefaultTokenServices tokenServices = new DefaultTokenServices();
+        tokenServices.setTokenStore(endpoints.getTokenStore());
+        tokenServices.setSupportRefreshToken(true);
+        tokenServices.setClientDetailsService(endpoints.getClientDetailsService());
+        tokenServices.setTokenEnhancer(endpoints.getTokenEnhancer());
+        tokenServices.setAccessTokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30)); // 30天
+        endpoints.tokenServices(tokenServices);
     }
 
     /**
-     * client客户端的信息配置.
+     * 配置客户端详情（ClientDetails）.
      * client的信息的读取.
      * jdbc方式需要调用 JdbcClientDetailsService 类.
+     *
      * @param clients
      * @throws Exception
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        // 如果是JDBC配置，设置clientDetailsService
-        if (tokenStore instanceof JdbcTokenStore) {
-            clients.withClientDetails(clientDetailsService);
-        }
+        clients.withClientDetails(clientDetailsService);
 
         //不是JDBC配置的话，要设置clients信息
         if (!(tokenStore instanceof JdbcTokenStore)) {
@@ -104,5 +119,19 @@ public class LaungcisinAuthorizationServerConfig extends AuthorizationServerConf
                 }
             }
         }
+    }
+
+    /**
+     * /oauth/token_key 用于获取签名使用的 signingKey，
+     * 默认 /oauth/token_key 的访问安全规则是 "denyAll()" 即关闭的，
+     * 可以注入一个标准的 SpringEL 表达式到 AuthorizationServerSecurityConfigurer 配置类中将它开启，
+     * 例如 permitAll() 或者 isAuthenticated()
+     *
+     * @param security
+     * @throws Exception
+     */
+    @Override
+    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+        security.tokenKeyAccess("isAuthenticated()");//经过认证后，才可以访问 /oauth/token_key
     }
 }

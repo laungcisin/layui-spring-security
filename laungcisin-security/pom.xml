@@ -47,10 +47,11 @@
 
     <modules>
         <module>../laungcisin-security-app</module>
+        <module>../laungcisin-security-appWeb</module>
         <module>../laungcisin-security-authorize</module>
+        <module>../laungcisin-security-app-oauth-server</module>
         <module>../laungcisin-security-browser</module>
         <module>../laungcisin-security-core</module>
         <module>../laungcisin-security-web</module>
-        <module>../laungcisin-security-webapp</module>
     </modules>
 </project>

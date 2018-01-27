@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.laungcisin.security</groupId>
+        <artifactId>laungcisin-security</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../laungcisin-security</relativePath>
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>laungcisin-security-app-oauth-server</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.laungcisin.security</groupId>
+            <artifactId>laungcisin-security-authorize</artifactId>
+            <version>${laungcisin.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.laungcisin.security</groupId>
+            <artifactId>laungcisin-security-core</artifactId>
+            <version>${laungcisin.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.laungcisin.security</groupId>
+            <artifactId>laungcisin-security-app</artifactId>
+            <version>${laungcisin.security.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.7.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 如果没有该项配置，devtools不会起作用，即应用不会restart -->
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+
+            <!--springboot-web打包插件-->
+            <!--开发时，注释此插件-->
+            <!--
+                        <plugin>
+                            <groupId>org.springframework.boot</groupId>
+                            <artifactId>spring-boot-maven-plugin</artifactId>
+                            <version>1.3.3.RELEASE</version>
+                            <executions>
+                                <execution>
+                                    <goals>
+                                        <goal>repackage</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+            -->
+        </plugins>
+        <finalName>app-oauth-server</finalName>
+    </build>
+</project>

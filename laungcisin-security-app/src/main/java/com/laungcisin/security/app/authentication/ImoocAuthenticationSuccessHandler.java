@@ -51,6 +51,7 @@ public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenti
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
+        logger.info("登录成功");
 
         //1.从请求头中获取ClientId和ClientSecret
         String header = request.getHeader("Authorization");

@@ -1,0 +1,8 @@
+#创建证书
+keytool -genkey -alias laungcisinKey -keyalg RSA -keystore D:/laungcisinKeyStore.keystore -keysize 1024 -validity 36500
+
+#查看证书库中的证书
+keytool -list -keystore D:/laungcisinKeyStore.keystore
+
+#导出公钥文件
+keytool -export -alias laungcisinKey -keystore D:/laungcisinKeyStore.keystore -file D:/laungcisinPublicKey.cer  
