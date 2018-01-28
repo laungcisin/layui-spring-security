@@ -5,6 +5,7 @@ import com.laungcisin.security.core.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.cloud.bootstrap.encrypt.KeyProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -16,10 +17,13 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.util.Assert;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
+import java.security.KeyPair;
 
 /**
  * 令牌存储配置
@@ -79,6 +83,14 @@ public class TokenStoreConfig {
         @Autowired
         private SecurityProperties securityProperties;
 
+        @Bean("keyProp")
+        public KeyProperties keyProperties(){
+            return new KeyProperties();
+        }
+
+        @Resource(name = "keyProp")
+        private KeyProperties keyProperties;
+
         /**
          *JwtTokenStore 依赖 JwtAccessTokenConverter 进行编码以及解码 Token。
          *
@@ -97,7 +109,11 @@ public class TokenStoreConfig {
         @Bean
         public JwtAccessTokenConverter jwtAccessTokenConverter() {
             JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-            accessTokenConverter.setSigningKey(securityProperties.getOauth2().getJwtSigningKey());//签名用的密钥
+//            accessTokenConverter.setSigningKey(securityProperties.getOauth2().getJwtSigningKey());//签名用的密钥
+            KeyPair keyPair = new KeyStoreKeyFactory
+                    (keyProperties.getKeyStore().getLocation(), keyProperties.getKeyStore().getSecret().toCharArray())
+                    .getKeyPair(keyProperties.getKeyStore().getAlias());
+            accessTokenConverter.setKeyPair(keyPair);
             return accessTokenConverter;
         }
 

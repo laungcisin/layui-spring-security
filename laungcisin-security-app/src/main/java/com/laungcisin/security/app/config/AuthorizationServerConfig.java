@@ -2,7 +2,7 @@ package com.laungcisin.security.app.config;
 
 import com.laungcisin.security.core.properties.OAuth2ClientProperties;
 import com.laungcisin.security.core.properties.SecurityProperties;
-import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,14 +13,18 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.A
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetails;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.util.CollectionUtils;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -54,6 +58,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Autowired(required = false)
     private ClientDetailsService clientDetailsService;
+
+    @Autowired
+    private DataSource dataSource;
 
     /**
      * 授权是使用 AuthorizationEndpoint 这个端点来进行控制的，
@@ -103,21 +110,35 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.withClientDetails(clientDetailsService);
-
         //不是JDBC配置的话，要设置clients信息
+        //FIXME:可以改成都从数据库中读取clients信息
         if (!(tokenStore instanceof JdbcTokenStore)) {
             InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
-            if (ArrayUtils.isNotEmpty(securityProperties.getOauth2().getClients())) {
-                for (OAuth2ClientProperties clientProperties : securityProperties.getOauth2().getClients()) {
-                    builder.withClient(clientProperties.getClientId())
-                            .secret(clientProperties.getClientSecret())
-                            .authorizedGrantTypes("refresh_token", "authorization_code", "password")
-                            .accessTokenValiditySeconds(clientProperties.getAccessTokenValiditySeconds())//令牌有效时间
-                            .refreshTokenValiditySeconds(2592000)
-                            .scopes("all", "write", "read");
+//            if (ArrayUtils.isNotEmpty(securityProperties.getOauth2().getClients())) {
+//                for (OAuth2ClientProperties clientProperties : securityProperties.getOauth2().getClients()) {
+//                    builder.withClient(clientProperties.getClientId())
+//                            .secret(clientProperties.getClientSecret())
+//                            .authorizedGrantTypes("refresh_token", "authorization_code", "password")
+//                            .accessTokenValiditySeconds(clientProperties.getAccessTokenValiditySeconds())//令牌有效时间
+//                            .refreshTokenValiditySeconds(2592000)
+//                            .scopes("all", "write", "read");
+//                }
+//            }
+
+            JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
+            List<ClientDetails> clientDetailsList = jdbcClientDetailsService.listClientDetails();
+            if (!CollectionUtils.isEmpty(clientDetailsList)) {
+                for (ClientDetails clientDetails : clientDetailsList) {
+                    builder.withClient(clientDetails.getClientId())
+                            .secret(clientDetails.getClientSecret())
+                            .authorizedGrantTypes(clientDetails.getAuthorizedGrantTypes().toArray(new String[]{}))
+                            .accessTokenValiditySeconds(clientDetails.getAccessTokenValiditySeconds())
+                            .refreshTokenValiditySeconds(clientDetails.getRefreshTokenValiditySeconds())
+                            .scopes(clientDetails.getScope().toArray(new String[]{}));
                 }
             }
+        } else {
+            clients.withClientDetails(clientDetailsService);
         }
     }
 
