@@ -16,6 +16,11 @@ public enum ValidateCodeType {
         public String getParamNameOnValidate() {
             return SecurityConstants.DEFAULT_PARAMETER_NAME_CODE_SMS;
         }
+
+        @Override
+        public String getTypeName() {
+            return SecurityConstants.DEFAULT_TYPE_NAME_CODE_IMAGE;
+        }
     },
 
     /**
@@ -26,6 +31,11 @@ public enum ValidateCodeType {
         public String getParamNameOnValidate() {
             return SecurityConstants.DEFAULT_PARAMETER_NAME_CODE_IMAGE;
         }
+
+        @Override
+        public String getTypeName() {
+            return SecurityConstants.DEFAULT_TYPE_NAME_CODE_SMS;
+        }
     };
 
     /**
@@ -35,4 +45,10 @@ public enum ValidateCodeType {
      */
     public abstract String getParamNameOnValidate();
 
+    /**
+     * 类型名称
+     *
+     * @return
+     */
+    public abstract String getTypeName();
 }

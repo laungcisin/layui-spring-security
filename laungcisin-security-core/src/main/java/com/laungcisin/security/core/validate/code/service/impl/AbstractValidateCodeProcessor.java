@@ -127,20 +127,20 @@ public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> impl
         }
 
         if (StringUtils.isBlank(codeInRequest)) {
-            throw new ValidateCodeException(codeType + "验证码的值不能为空");
+            throw new ValidateCodeException(codeType.getTypeName() + "验证码的值不能为空");
         }
 
         if (codeInSession == null) {
-            throw new ValidateCodeException(codeType + "验证码不存在");
+            throw new ValidateCodeException(codeType.getTypeName() + "验证码不存在");
         }
 
         if (codeInSession.isExpired()) {
             validateCodeRepository.remove(request, codeType);
-            throw new ValidateCodeException(codeType + "验证码已过期");
+            throw new ValidateCodeException(codeType.getTypeName() + "验证码已过期");
         }
 
         if (!StringUtils.equals(codeInSession.getCode(), codeInRequest)) {
-            throw new ValidateCodeException(codeType + "验证码不匹配");
+            throw new ValidateCodeException(codeType.getTypeName() + "验证码不匹配");
         }
 
         validateCodeRepository.remove(request, codeType);
