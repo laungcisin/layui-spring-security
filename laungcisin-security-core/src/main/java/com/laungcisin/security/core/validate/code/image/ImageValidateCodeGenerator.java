@@ -15,7 +15,6 @@ import java.util.Random;
  * 图形验证码生产器
  * @author laungcisin
  */
-@Component("imageValidateCodeGenerator")
 public class ImageValidateCodeGenerator implements ValidateCodeGenerator {
 
     /**
