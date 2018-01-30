@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
     <meta charset="UTF-8"/>
     <title>OAuth2 SSO Demo</title>
@@ -12,10 +12,7 @@
     <div class="uk-width-1-5"></div>
     <div class="uk-width-3-5">
         <h1>Demo</h1>
-        <a th:href="@{${@environment.getProperty('ui.url', 'http://localhost:9993')}}">Go back to UI</a>
-        <form th:action="@{/logout}" method="post">
-            <button class="uk-button">Logout</button>
-        </form>
+        <a href="/logout">注销</a>
     </div>
     <div class="uk-width-1-5"></div>
 </div>
