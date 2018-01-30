@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.OAuth2AutoConfiguration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@SpringBootApplication(scanBasePackages = {"com.laungcisin"}, exclude = OAuth2AutoConfiguration.class)
+@SpringBootApplication(scanBasePackages = {"com.laungcisin"})
 @EnableTransactionManagement
 public class JwtOauthServerApplication {
     /**

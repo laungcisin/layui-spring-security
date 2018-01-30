@@ -19,7 +19,6 @@ import org.springframework.security.oauth2.provider.client.JdbcClientDetailsServ
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.util.CollectionUtils;
 
@@ -75,18 +74,16 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .userDetailsService(userDetailsService)
                 .tokenStore(tokenStore);
 
-        // 2. JWT配置
-        if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
-            TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-            List<TokenEnhancer> enhancers = new ArrayList<>();
-            enhancers.add(jwtTokenEnhancer);
-            enhancers.add(jwtAccessTokenConverter);
-            enhancerChain.setTokenEnhancers(enhancers);
+        // JWT配置
+        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+        List<TokenEnhancer> enhancers = new ArrayList<>();
+        enhancers.add(jwtTokenEnhancer);
+        enhancers.add(jwtAccessTokenConverter);
+        enhancerChain.setTokenEnhancers(enhancers);
 
-            endpoints
-                    .tokenEnhancer(enhancerChain)
-                    .accessTokenConverter(jwtAccessTokenConverter);
-        }
+        endpoints
+                .tokenEnhancer(enhancerChain)
+                .accessTokenConverter(jwtAccessTokenConverter);
     }
 
     /**
@@ -100,24 +97,20 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         //不是JDBC配置的话，要设置clients信息
-        if (!(tokenStore instanceof JdbcTokenStore)) {
-            InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
-            JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
-            List<ClientDetails> clientDetailsList = jdbcClientDetailsService.listClientDetails();
-            if (!CollectionUtils.isEmpty(clientDetailsList)) {
-                for (ClientDetails clientDetails : clientDetailsList) {
-                    builder.withClient(clientDetails.getClientId())
-                            .secret(clientDetails.getClientSecret())
-                            .authorizedGrantTypes(clientDetails.getAuthorizedGrantTypes().toArray(new String[]{}))
-                            .accessTokenValiditySeconds(clientDetails.getAccessTokenValiditySeconds())
-                            .refreshTokenValiditySeconds(clientDetails.getRefreshTokenValiditySeconds())
-                            .scopes(clientDetails.getScope().toArray(new String[]{}))
-                            .autoApprove(clientDetails.isAutoApprove(Boolean.TRUE.toString()))//自动登录
-                    ;
-                }
+        InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
+        JdbcClientDetailsService jdbcClientDetailsService = new JdbcClientDetailsService(dataSource);
+        List<ClientDetails> clientDetailsList = jdbcClientDetailsService.listClientDetails();
+        if (!CollectionUtils.isEmpty(clientDetailsList)) {
+            for (ClientDetails clientDetails : clientDetailsList) {
+                builder.withClient(clientDetails.getClientId())
+                        .secret(clientDetails.getClientSecret())
+                        .authorizedGrantTypes(clientDetails.getAuthorizedGrantTypes().toArray(new String[]{}))
+                        .accessTokenValiditySeconds(clientDetails.getAccessTokenValiditySeconds())
+                        .refreshTokenValiditySeconds(clientDetails.getRefreshTokenValiditySeconds())
+                        .scopes(clientDetails.getScope().toArray(new String[]{}))
+                        .autoApprove(clientDetails.isAutoApprove(Boolean.TRUE.toString()))//自动登录
+                ;
             }
-        } else {
-            clients.withClientDetails(clientDetailsService);
         }
     }
 
@@ -131,7 +124,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
      * @throws Exception
      */
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    public void configure(AuthorizationServerSecurityConfigurer security) {
         security.tokenKeyAccess(authorizationServerProperties.getTokenKeyAccess());//经过认证后，才可以访问 /oauth/token_key
     }
 }

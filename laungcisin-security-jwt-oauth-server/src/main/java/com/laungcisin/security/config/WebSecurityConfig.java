@@ -17,11 +17,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .authorizeRequests()
-                .antMatchers(
-                        "/oauth/**", "/oauth/token", "/oauth/check_token", "/oauth/authorize", "/oauth/confirm_access", "/oauth/error"
-                ).permitAll()
+//                .antMatchers(
+//                        "/oauth/**", "/oauth/token", "/oauth/check_token", "/oauth/authorize", "/oauth/confirm_access", "/oauth/error"
+//                ).permitAll()
                 .anyRequest().authenticated()
-                .and().csrf().disable();
+                .and().csrf().disable()
+        ;
     }
 
 }

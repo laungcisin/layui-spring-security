@@ -21,7 +21,7 @@
 
         <dependency>
             <groupId>com.laungcisin.security</groupId>
-            <artifactId>laungcisin-security-browser</artifactId>
+            <artifactId>laungcisin-security-app</artifactId>
             <version>${laungcisin.security.version}</version>
         </dependency>
 
