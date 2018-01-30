@@ -16,7 +16,7 @@ import org.springframework.web.context.request.ServletWebRequest;
  * @author laungcisin
  */
 @Component("smsValidateCodeGenerator")
-public class SmsCodeGenerator implements ValidateCodeGenerator {
+public class SmsValidateCodeGenerator implements ValidateCodeGenerator {
 
     @Autowired
     private SecurityProperties securityProperties;

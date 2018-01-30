@@ -1,11 +1,9 @@
-/**
- *
- */
 package com.laungcisin.security.core.validate.code.image;
 
 import com.laungcisin.security.core.properties.SecurityProperties;
 import com.laungcisin.security.core.validate.code.generator.ValidateCodeGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
 
@@ -17,7 +15,8 @@ import java.util.Random;
  * 图形验证码生产器
  * @author laungcisin
  */
-public class ImageCodeGenerator implements ValidateCodeGenerator {
+@Component("imageValidateCodeGenerator")
+public class ImageValidateCodeGenerator implements ValidateCodeGenerator {
 
     /**
      * 系统配置

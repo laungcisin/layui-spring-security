@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.laungcisin.code;
 
 import com.google.code.kaptcha.Producer;
@@ -18,7 +15,8 @@ import java.awt.image.BufferedImage;
 import java.util.Properties;
 
 /**
- * @author imooc
+ * 图形验证码生成器
+ * @author laungcisn
  */
 @Component("imageValidateCodeGenerator")
 public class LaungcisinImageCodeGenerator implements ValidateCodeGenerator {
