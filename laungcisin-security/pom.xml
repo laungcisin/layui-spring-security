@@ -51,7 +51,7 @@
         <module>../laungcisin-security-authorize</module>
         <module>../laungcisin-security-browser</module>
         <module>../laungcisin-security-core</module>
-        <module>../laungcisin-security-jwt-oauth-server</module>
+        <module>../laungcisin-security-sso-jwt-server</module>
         <module>../laungcisin-security-web</module>
     </modules>
 </project>

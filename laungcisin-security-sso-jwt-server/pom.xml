@@ -10,7 +10,7 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>laungcisin-security-jwt-oauth-server</artifactId>
+    <artifactId>laungcisin-security-sso-jwt-server</artifactId>
 
     <dependencies>
         <dependency>
