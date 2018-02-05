@@ -76,7 +76,7 @@ create table oauth_refresh_token (
 
 alter table oauth_refresh_token modify column token_id VARCHAR(256) comment 'MD5加密过的refresh_token的值';
 alter table oauth_refresh_token modify column token BLOB comment 'OAuth2RefreshToken.java对象序列化后的二进制数据';
-alter table oauth_refresh_token modify column authentication VARCHAR(256) comment 'OAuth2Authentication.java对象序列化后的二进制数据';
+alter table oauth_refresh_token modify column authentication BLOB comment 'OAuth2Authentication.java对象序列化后的二进制数据';
 
 DROP TABLE IF EXISTS `oauth_code`;
 create table oauth_code (
