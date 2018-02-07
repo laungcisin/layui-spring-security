@@ -21,35 +21,35 @@ import org.springframework.stereotype.Component;
 @Component
 public class SmsCodeAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
+    // 由具体的子项目中定义 SuccessHandler 和 FailureHandler
     @Autowired
-    private AuthenticationSuccessHandler laungcisinAuthenticationSuccessHandler;
+    private AuthenticationSuccessHandler authenticationSuccessHandler;
 
     @Autowired
-    private AuthenticationFailureHandler laungcisinAuthenticationFailureHandler;
+    private AuthenticationFailureHandler authenticationFailureHandler;
 
     @Autowired
     private UserDetailsService userDetailsService;
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        //1.先配置SmsCodeAuthenticationFilter，SmsCodeAuthenticationFilter相当于UsernamePasswordAuthenticationFilter
+        //1.先配置 SmsCodeAuthenticationFilter，SmsCodeAuthenticationFilter 相当于 UsernamePasswordAuthenticationFilter
         SmsCodeAuthenticationFilter smsCodeAuthenticationFilter = new SmsCodeAuthenticationFilter();
-        //加入AuthenticationManager
-        smsCodeAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
-        smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(laungcisinAuthenticationSuccessHandler);
-        smsCodeAuthenticationFilter.setAuthenticationFailureHandler(laungcisinAuthenticationFailureHandler);
 
-        //2.配置SmsCodeAuthenticationProvider
+        smsCodeAuthenticationFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));//加入 AuthenticationManager
+        smsCodeAuthenticationFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler);
+        smsCodeAuthenticationFilter.setAuthenticationFailureHandler(authenticationFailureHandler);
+
+        //2.配置 SmsCodeAuthenticationProvider
         SmsCodeAuthenticationProvider smsCodeAuthenticationProvider = new SmsCodeAuthenticationProvider();
         smsCodeAuthenticationProvider.setUserDetailsService(userDetailsService);
 
         /*
-        3.将SmsCodeAuthenticationProvider放入到AuthenticationManager管理的Provider集合中，
-        SmsCodeAuthenticationFilter在UsernamePasswordAuthenticationFilter过滤前执行，顺序无所谓
-        SpringSecurity是根据AuthenticationToken类型来选择相应的Provider来认证
+        3.将 SmsCodeAuthenticationProvider 放入到 AuthenticationManager 管理的 Provider 集合中。
+        SmsCodeAuthenticationFilter 加入过滤器链中，顺序无所谓
+        SpringSecurity 是根据 AuthenticationToken 类型来选择相应的 Provider 来认证
          */
-        http.authenticationProvider(smsCodeAuthenticationProvider)
-                .addFilterAfter(smsCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.authenticationProvider(smsCodeAuthenticationProvider).addFilterAfter(smsCodeAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 

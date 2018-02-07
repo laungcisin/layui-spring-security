@@ -35,7 +35,7 @@ public class SmsCodeAuthenticationToken extends AbstractAuthenticationToken {
     }
 
     /**
-     * 登认证后使用此构造函数
+     * 认证后使用此构造函数构造认证的 Token
      *
      * @param principal
      * @param authorities
