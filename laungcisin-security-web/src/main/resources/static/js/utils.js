@@ -24,21 +24,36 @@ function showWindows(title, url, w, h, callback) {
     if (h == null || h == '') {
         h = ($(window).height() - 50);
     }
-
-    parent.layer.open({
-        type: 2,
-        area: [w + 'px', h + 'px'],
-        fix: true, //固定
-        maxmin: false,
-        move: false,
-        resize: false,
-        shadeClose: false,
-        shade: [0.3, '#000'],
-        title: title,
-        content: url,
-        end: function () {
-            if (typeof callback === "function") {
-                callback();
+    $.ajax({
+        async: false,
+        cache: false,
+        type: 'GET',
+        url: url,
+        success: function (data) {
+            debugger;
+            try {
+                var res = jQuery.parseJSON(data);
+                if (res.code === 403) {
+                    parent.layui.layer.msg(res.content, {shade: [0.3], scrollbar: false, time: 1300});
+                }
+            } catch (err) {
+                parent.layer.open({
+                    type: 2,
+                    area: [w + 'px', h + 'px'],
+                    fix: true, //固定
+                    maxmin: false,
+                    move: false,
+                    resize: false,
+                    shadeClose: false,
+                    shade: [0.3, '#000'],
+                    title: title,
+                    content: url,
+                    end: function () {
+                        if (typeof callback === "function") {
+                            callback();
+                        }
+                    }
+                });
             }
         }
     });
