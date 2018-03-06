@@ -66,20 +66,23 @@ layui.use(['form', 'table'], function () {
                 //向服务端发送删除指令
             });
         } else if (layEvent === 'edit') { //编辑
-            parent.layer.open({
-                type: 2,
-                area: ['793px', '500px'],
-                fix: true, //固定
-                maxmin: false,
-                resize: false,
-                shadeClose: false,
-                shade: [0.3, '#000'],
-                title: '修改角色',
-                content: '/role/updateRolePage/' + data.roleId,
-                end: function () {
-                    $('.search-btn').click();
-                }
+            showWindows('修改角色', '/role/updateRolePage/' + data.roleId, 793, 500, function () {
+                $('.search-btn').click();
             });
+            // parent.layer.open({
+            //     type: 2,
+            //     area: ['793px', '500px'],
+            //     fix: true, //固定
+            //     maxmin: false,
+            //     resize: false,
+            //     shadeClose: false,
+            //     shade: [0.3, '#000'],
+            //     title: '修改角色',
+            //     content: '/role/updateRolePage/' + data.roleId,
+            //     end: function () {
+            //         $('.search-btn').click();
+            //     }
+            // });
         }
     });
 });

@@ -1,12 +1,13 @@
-/*弹出层*/
-
 /*
+    弹出层
+
     参数解释：
-    title   标题
-    url     请求的url
-    id      需要操作的数据id
-    w       弹出层宽度（缺省调默认值）
-    h       弹出层高度（缺省调默认值）
+    title       标题
+    url         请求的url
+    id          需要操作的数据id
+    w           弹出层宽度（缺省调默认值）
+    h           弹出层高度（缺省调默认值）
+    callback    回调函数
 */
 function showWindows(title, url, w, h, callback) {
     if (title == null || title == '') {
@@ -24,13 +25,13 @@ function showWindows(title, url, w, h, callback) {
     if (h == null || h == '') {
         h = ($(window).height() - 50);
     }
+
     $.ajax({
         async: false,
         cache: false,
         type: 'GET',
         url: url,
         success: function (data) {
-            debugger;
             try {
                 var res = jQuery.parseJSON(data);
                 if (res.code === 403) {

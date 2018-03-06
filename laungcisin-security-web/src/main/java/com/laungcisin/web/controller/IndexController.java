@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * 首页
  * @author laungcisin
  */
 @Controller
@@ -20,7 +21,7 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping("/noPermission/welcome")
+    @RequestMapping("/welcome")
     public String welcome() {
         logger.info("访问欢迎页");
         return "welcome";

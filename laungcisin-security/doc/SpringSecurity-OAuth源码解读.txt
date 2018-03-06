@@ -1,5 +1,8 @@
 //以下为密码模式流程分析:
--->访问/oauth/token
+-->1.验证第三方应用的用户名和密码
+    验证通过继续执行2步骤
+
+-->2.访问/oauth/token
     -->TokenEndpoint.postAccessToken
         --> 1.//获取第三方应用的详细配置信息
             获取 ClientDetails: (ClientDetailsService)InMemoryClientDetailsService.loadClientByClientId(clientId);

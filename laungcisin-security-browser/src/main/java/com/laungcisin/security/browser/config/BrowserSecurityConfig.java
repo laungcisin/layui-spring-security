@@ -1,15 +1,19 @@
 package com.laungcisin.security.browser.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.laungcisin.security.browser.handler.RestAuthenticationAccessDeniedHandler;
 import com.laungcisin.security.core.authentication.AbstractChannelSecurityConfig;
 import com.laungcisin.security.core.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
 import com.laungcisin.security.core.authorize.AuthorizeConfigManager;
 import com.laungcisin.security.core.properties.SecurityProperties;
 import com.laungcisin.security.core.validate.code.config.ValidateCodeSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
@@ -57,6 +61,17 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
     @Autowired
     private DataSource dataSource;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Value("${authorization.failed.msg}")
+    private String authorizationFailedMsg;
+
+    @Bean
+    public AccessDeniedHandler getAccessDeniedHandler() {
+        return new RestAuthenticationAccessDeniedHandler(objectMapper, authorizationFailedMsg);
+    }
+
     /**
      * 记住我功能-数据库存储相关cookies
      *
@@ -78,6 +93,8 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
                 .apply(smsCodeAuthenticationSecurityConfig)//短信登录配置
                 .and()
                 .apply(laungcisinSocialSecurityConfig)//第三方账号登录
+                .and()
+                .exceptionHandling().accessDeniedHandler(getAccessDeniedHandler())
                 .and()
 
                 //记住我功能

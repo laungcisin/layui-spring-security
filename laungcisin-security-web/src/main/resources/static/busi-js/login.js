@@ -1,6 +1,5 @@
 layui.use(['layer', 'form', 'element', 'layer'], function () {
     var form = layui.form;
-    var element = layui.element;
 
     function loginSuccess() {
         layer.msg("登录成功", {icon: 6, time: 1000}, function (index) {

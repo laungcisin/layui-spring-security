@@ -1,8 +1,10 @@
 package com.laungcisin.service.menu;
 
+import com.laungcisin.bean.ZtreeBean;
 import com.laungcisin.security.rbac.mybatis.entity.SysMenu;
 import com.laungcisin.security.rbac.mybatis.mapper.SysMenuMapper;
-import com.laungcisin.bean.ZtreeBean;
+import com.laungcisin.utils.PageData;
+import com.laungcisin.utils.menu.MenuRequestParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +35,16 @@ public class MenuServiceImpl implements MenuService {
         return this.buildTree(menuList);
     }
 
+    @Override
+    public PageData getMenuList(MenuRequestParam param) {
+        PageData pageData = new PageData();
+        pageData.setCount(sysMenuMapper.getAllMenuCount());
+        List<SysMenu> list = sysMenuMapper.getMenuPageData(param.getPage(), param.getLimit(), param.getMenuName());
+        pageData.setData(list);
+
+        return pageData;
+    }
+
     private List<ZtreeBean> buildTree(List<SysMenu> menuList) {
         if (!CollectionUtils.isEmpty(menuList)) {
             List<ZtreeBean> ztreeBeans = new ArrayList<>();
@@ -40,8 +52,8 @@ public class MenuServiceImpl implements MenuService {
                 ZtreeBean tree = new ZtreeBean();
                 tree.setpId(menu.getParentId() + "");
                 tree.setName(menu.getName());
-                tree.setOpen("");
                 tree.setChkDisabled("false");
+                tree.setOpen("");
                 tree.setId(menu.getMenuId() + "");
                 ztreeBeans.add(tree);
             }

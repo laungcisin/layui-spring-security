@@ -49,8 +49,8 @@ public class NoPermissionController {
                 node.setId(menu.getMenuId().toString());
                 node.setPid(menu.getParentId().toString());
                 node.setTitle(menu.getName());
-                node.setIcon(menu.getIcon());
                 node.setHref(menu.getUrl());
+                node.setIcon(menu.getIcon());
                 treeNode.add(node);
             }
 

@@ -21,6 +21,7 @@ public class LaungcisinAuthorizeConfigProvider implements AuthorizeConfigProvide
                 "/images/**",
                 "/js/**",
                 "/lib/**",
+                "/welcome",
                 "/noPermission/**"
         ).permitAll().anyRequest().access("@rbacService.hasPermission(request, authentication)");
     }

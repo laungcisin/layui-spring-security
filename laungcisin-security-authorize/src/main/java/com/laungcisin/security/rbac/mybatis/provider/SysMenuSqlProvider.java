@@ -46,4 +46,20 @@ public class SysMenuSqlProvider {
                 "   order by m.menu_id, m.show_sort ";
     }
 
+    public String getMenuPageData(@Param("page") Integer page, @Param("limit") Integer limit, @Param("menuName") String menuName) {
+        Integer start = (page - 1) * limit;
+        Integer end = page * limit;
+        StringBuilder sql = new StringBuilder();
+        sql.append("select ");
+        sql.append("	m.*, t.`name` as parent_name ");
+        sql.append("from ");
+        sql.append("	sys_menu m ");
+        sql.append("left join sys_menu t on t.menu_id = m.parent_id ");
+        sql.append("where 1 = 1 ");
+        sql.append("order by m.show_sort asc");
+        sql.append(" limit " + start + ", " + end);
+
+        return sql.toString();
+    }
+
 }

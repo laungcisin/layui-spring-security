@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>菜单管理</title>
+    <#include "/common/resource-css.html"/>
+</head>
+
+<body>
+
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">类型</label>
+        <div cyType="selectTool" cyProps="codeName:'menuType',search:'true'" name="type" value="" lay-verify=""
+             class="layui-input-inline"></div>
+        <label class="layui-form-label">菜单名称:</label>
+        <div class="layui-input-inline">
+            <input type="text" name="name" placeholder="请输入菜单名称" class="layui-input">
+        </div>
+        <label class="layui-form-label">上级菜单:</label>
+        <div class="layui-input-inline">
+            <input value="" id="parent" cyType="treeTool" placeholder="请选择上级菜单" class="layui-input"/>
+        </div>
+        <div class="layui-input-inline">
+            <button class="layui-btn search-btn" table-id="menuTable" lay-submit="" lay-filter="search"><i
+                    class="fa fa-search">&nbsp;</i>查询
+            </button>
+            <button type="reset" class="layui-btn layui-btn-primary"><i class="fa fa-refresh">&nbsp;</i>重置</button>
+        </div>
+    </div>
+</form>
+
+<div class="layui-btn-group">
+    <button class="layui-btn" onclick="showWindows('新增菜单','/menu/addMenuPage', '893', '600', function() { $('.search-btn').click(); })"
+            style="margin-left: 5px!important;">
+        <i class="fa fa-plus">&nbsp;</i>新增
+    </button>
+    <button class="layui-btn" onclick="showWindows('修改菜单','/menu/updateMenuPage', '893', '600', function() { $('.search-btn').click(); })"
+            style="margin-left: 5px!important;">
+        <i class="fa fa-plus">&nbsp;</i>修改
+    </button>
+    <button class="layui-btn" onclick="showWindows('删除菜单','/menu/deleteMenuPage', '893', '600', function() { $('.search-btn').click(); })"
+            style="margin-left: 5px!important;">
+        <i class="fa fa-plus">&nbsp;</i>删除
+    </button>
+</div>
+
+<div class="layui-form ">
+    <table id="menuListTable" lay-filter="menuTable"></table>
+</div>
+
+<#include "/common/resource-js.html"/>
+<script src="/busi-js/menu/listMenu.js" charset="utf-8"></script>
+
+</body>
+
+</html>

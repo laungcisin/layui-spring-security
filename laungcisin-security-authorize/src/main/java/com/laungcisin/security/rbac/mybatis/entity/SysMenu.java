@@ -21,6 +21,8 @@ public class SysMenu implements Serializable{
 
     private String remark;
 
+    private String parentName;
+
     public Long getMenuId() {
         return menuId;
     }
@@ -91,5 +93,13 @@ public class SysMenu implements Serializable{
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
     }
 }

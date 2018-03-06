@@ -19,7 +19,5 @@ public class LaungcisinDefaultAuthorizeConfigManager implements AuthorizeConfigM
         for (AuthorizeConfigProvider authorizeConfigProvider : authorizeConfigProviders) {
             authorizeConfigProvider.config(config);
         }
-
-//        config.anyRequest().authenticated();//剩下的request都需要认证
     }
 }
