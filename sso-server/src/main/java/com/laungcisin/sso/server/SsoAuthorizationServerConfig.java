@@ -29,14 +29,14 @@ public class SsoAuthorizationServerConfig extends AuthorizationServerConfigurerA
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("imooc1")
-                .secret("imoocsecrect1")
+                .withClient("laungcisin1")
+                .secret("imoocsecret1")
                 .authorizedGrantTypes("authorization_code", "refresh_code")
                 .scopes("all")
                 .autoApprove(true)
                 .and()
-                .withClient("imooc2")
-                .secret("imoocsecrect2")
+                .withClient("laungcisin2")
+                .secret("imoocsecret2")
                 .authorizedGrantTypes("authorization_code", "refresh_code")
                 .scopes("all")
                 .autoApprove(true);         //登录后绕过批准询问(/oauth/confirm_access)

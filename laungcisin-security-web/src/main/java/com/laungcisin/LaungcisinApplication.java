@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@SpringBootApplication(scanBasePackages = {"com.laungcisin", "com.imooc"})
+@SpringBootApplication(scanBasePackages = {"com.laungcisin"})
 @EnableTransactionManagement
 @EnableSwagger2
 public class LaungcisinApplication {
