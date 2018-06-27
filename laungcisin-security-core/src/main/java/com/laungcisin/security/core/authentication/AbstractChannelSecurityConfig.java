@@ -13,10 +13,10 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    protected AuthenticationSuccessHandler laungcisinAuthenticationSuccessHandler;
+    protected AuthenticationSuccessHandler successHandler;
 
     @Autowired
-    protected AuthenticationFailureHandler laungcisinAuthenticationFailureHandler;
+    protected AuthenticationFailureHandler failureHandler;
 
     protected void applyPasswordAuthenticationConfig(HttpSecurity http) throws Exception {
         http.formLogin()//使用表单登录，不再使用默认httpBasic方式
@@ -28,8 +28,8 @@ public class AbstractChannelSecurityConfig extends WebSecurityConfigurerAdapter 
                     由 BrowserSecurityController.requireAuthentication方法处理
                  */
                 .loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM)//需要认证时，跳转到此URL
-                .successHandler(laungcisinAuthenticationSuccessHandler)
-                .failureHandler(laungcisinAuthenticationFailureHandler)
+                .successHandler(successHandler)
+                .failureHandler(failureHandler)
                 .and().headers().frameOptions().disable()// 解决IFrame拒绝的问题
         ;
     }
