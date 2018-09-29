@@ -53,7 +53,7 @@ public class LaungcisinUserDetailsService implements UserDetailsService, SocialU
 
     @Override
     public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
-        logger.info("设计登录用户Id:" + userId);
+        logger.info("登录用户Id:" + userId);
         return buildUser(userId);
     }
 

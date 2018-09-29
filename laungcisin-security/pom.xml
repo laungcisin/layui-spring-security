@@ -46,12 +46,9 @@
     </build>
 
     <modules>
-        <module>../laungcisin-security-app</module>
-        <module>../laungcisin-security-appWeb</module>
         <module>../laungcisin-security-authorize</module>
         <module>../laungcisin-security-browser</module>
         <module>../laungcisin-security-core</module>
-        <module>../laungcisin-security-sso-jwt-server</module>
         <module>../laungcisin-security-web</module>
     </modules>
 </project>

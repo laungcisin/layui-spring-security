@@ -15,10 +15,11 @@ import org.springframework.web.context.request.ServletWebRequest;
 import java.awt.image.BufferedImage;
 
 /**
- * @author imooc
+ * 图片生成器
+ * @author laungcisin
  */
 @Component("imageValidateCodeGenerator")
-public class LaungcisinImageCodeGenerator implements ValidateCodeGenerator {
+public class ImageCodeGenerator implements ValidateCodeGenerator {
     /**
      * 系统配置
      */

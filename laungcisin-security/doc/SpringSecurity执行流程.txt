@@ -24,11 +24,13 @@ SpringSecurity过滤器链:
 3.[处理密码加解密-PasswordEncoder]
 
 ####################################################################################################################
-自定义登录页
+Web 配置入口配置类: [BrowserSecurityConfig extends AbstractChannelSecurityConfig]
+
+自定义登录相关逻辑(AbstractChannelSecurityConfig 中定义)
 
 1. HttpSecurity.loginPage 指定登录页，
    HttpSecurity.loginProcessingUrl ，当需要身份认证时，跳转到loginProcessingUrl指定的url处理
-   SecurityCoreConfig类的作用是让SecurityProperties类生效。
+   SecurityCoreConfig 类的作用是让 SecurityProperties 类生效。
 
    HttpSecurity.successHandler()//登录成功时由此handler处理
    HttpSecurity.failureHandler()//登录失败时由此handler处理
