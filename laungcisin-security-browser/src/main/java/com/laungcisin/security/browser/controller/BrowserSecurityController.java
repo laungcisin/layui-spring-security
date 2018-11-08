@@ -1,6 +1,5 @@
 package com.laungcisin.security.browser.controller;
 
-import com.laungcisin.security.browser.support.SocialUserInfo;
 import com.laungcisin.security.core.properties.SecurityConstants;
 import com.laungcisin.security.core.properties.SecurityProperties;
 import com.laungcisin.security.core.support.SimpleResponse;
@@ -13,13 +12,9 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
-import org.springframework.social.connect.Connection;
-import org.springframework.social.connect.web.ProviderSignInUtils;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,7 +55,7 @@ public class BrowserSecurityController {
             String targetUrl = savedRequest.getRedirectUrl();
             logger.info("引发跳转的请求是:" + targetUrl);
 //            if (StringUtils.endsWithIgnoreCase(targetUrl, ".html")) {
-                redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
+            redirectStrategy.sendRedirect(request, response, securityProperties.getBrowser().getLoginPage());
 //            }
         }
 
