@@ -22,8 +22,8 @@ import java.io.IOException;
  *
  * @author laungcisin
  */
-@Component("imoocAuthenticationSuccessHandler")
-public class ImoocAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
+@Component("authenticationSuccessHandler")
+public class DefaultAuthenticationSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 

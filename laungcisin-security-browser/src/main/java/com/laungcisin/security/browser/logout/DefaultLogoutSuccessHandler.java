@@ -13,13 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class LaungcisinDefaultLogoutSuccessHandler implements LogoutSuccessHandler {
+public class DefaultLogoutSuccessHandler implements LogoutSuccessHandler {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private String signOutUrl;
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    public LaungcisinDefaultLogoutSuccessHandler(String signOutUrl) {
+    public DefaultLogoutSuccessHandler(String signOutUrl) {
         this.signOutUrl = signOutUrl;
     }
 

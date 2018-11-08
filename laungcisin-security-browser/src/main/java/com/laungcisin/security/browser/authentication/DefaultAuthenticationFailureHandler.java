@@ -26,8 +26,8 @@ import java.io.IOException;
  *
  * @author laungcisin
  */
-@Component("imoocAuthenctiationFailureHandler")
-public class ImoocAuthenctiationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+@Component("authenticationFailureHandler")
+public class DefaultAuthenticationFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 

@@ -3,7 +3,7 @@
  */
 package com.laungcisin.security.browser.config;
 
-import com.laungcisin.security.browser.logout.LaungcisinDefaultLogoutSuccessHandler;
+import com.laungcisin.security.browser.logout.DefaultLogoutSuccessHandler;
 import com.laungcisin.security.browser.session.LaungcisinExpiredSessionStrategy;
 import com.laungcisin.security.browser.session.LaungcisinInvalidSessionStrategy;
 import com.laungcisin.security.core.properties.SecurityProperties;
@@ -39,7 +39,7 @@ public class BrowserSecurityBeanConfig {
     @Bean
     @ConditionalOnMissingBean(LogoutSuccessHandler.class)
     public LogoutSuccessHandler logoutSuccessHandler() {
-        return new LaungcisinDefaultLogoutSuccessHandler(securityProperties.getBrowser().getSignOutUrl());
+        return new DefaultLogoutSuccessHandler(securityProperties.getBrowser().getSignOutUrl());
     }
 
 }

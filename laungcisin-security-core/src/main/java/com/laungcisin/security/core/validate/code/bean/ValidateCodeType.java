@@ -19,7 +19,7 @@ public enum ValidateCodeType {
 
         @Override
         public String getTypeName() {
-            return SecurityConstants.DEFAULT_TYPE_NAME_CODE_IMAGE;
+            return SecurityConstants.DEFAULT_TYPE_NAME_CODE_SMS;
         }
     },
 
@@ -34,7 +34,7 @@ public enum ValidateCodeType {
 
         @Override
         public String getTypeName() {
-            return SecurityConstants.DEFAULT_TYPE_NAME_CODE_SMS;
+            return SecurityConstants.DEFAULT_TYPE_NAME_CODE_IMAGE;
         }
     };
 
