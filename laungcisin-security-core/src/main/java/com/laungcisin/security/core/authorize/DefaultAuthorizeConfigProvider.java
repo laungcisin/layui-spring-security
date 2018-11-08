@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Order(Integer.MIN_VALUE)
-public class LaungcisinDefaultAuthorizeConfigProvider implements AuthorizeConfigProvider {
+public class DefaultAuthorizeConfigProvider implements AuthorizeConfigProvider {
     @Autowired
     private SecurityProperties securityProperties;
 
@@ -18,14 +18,14 @@ public class LaungcisinDefaultAuthorizeConfigProvider implements AuthorizeConfig
     public void config(ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry config) {
         // 以下web资源不用授权验证
         config.antMatchers(
-                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
-                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
-                        securityProperties.getBrowser().getLoginPage(),
-                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
-                        securityProperties.getBrowser().getSignUpUrl(),
-                        securityProperties.getBrowser().getSignOutUrl(),
-                        securityProperties.getBrowser().getSession().getSessionInvalidUrl()
-                ).permitAll();
+                SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
+                SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+                securityProperties.getBrowser().getLoginPage(),
+                SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX + "/*",
+                securityProperties.getBrowser().getSignUpUrl(),
+                securityProperties.getBrowser().getSignOutUrl(),
+                securityProperties.getBrowser().getSession().getSessionInvalidUrl()
+        ).permitAll();
 
     }
 }

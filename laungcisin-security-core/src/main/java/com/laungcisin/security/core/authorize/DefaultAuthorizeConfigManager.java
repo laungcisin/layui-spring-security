@@ -6,10 +6,9 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Set;
 
 @Component
-public class LaungcisinDefaultAuthorizeConfigManager implements AuthorizeConfigManager {
+public class DefaultAuthorizeConfigManager implements AuthorizeConfigManager {
 
     @Autowired
     private List<AuthorizeConfigProvider> authorizeConfigProviders;

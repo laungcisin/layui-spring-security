@@ -1,4 +1,4 @@
-package com.laungcisin.security.core;
+package com.laungcisin.security.core.config;
 
 import com.laungcisin.security.core.properties.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
