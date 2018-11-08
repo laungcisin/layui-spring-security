@@ -76,12 +76,15 @@ Web 配置入口配置类: [BrowserSecurityConfig extends AbstractChannelSecurit
             http.addFilterBefore(validateCodeFilter, AbstractPreAuthenticatedProcessingFilter.class);
         }
 
-    2.图形校验码验证先到 ValidateCodeFilter 过滤器，如果校验通过了，继续走剩下的过滤器;没有通过抛出 ValidateCodeException 异常。
+    2.验证码生效
+    HttpSecurity.apply(validateCodeSecurityConfig)//验证码校验配置[图形|短信]--在认证Filter前先做校验
 
-    3.ValidateCodeFilter 实现 InitializingBean 接口实现 afterPropertiesSet 方法，目的在于等其它参数都初始化了后，
+    3.图形校验码验证先到 ValidateCodeFilter 过滤器，如果校验通过了，继续走剩下的过滤器;没有通过抛出 ValidateCodeException 异常。
+
+    4.ValidateCodeFilter 实现 InitializingBean 接口实现 afterPropertiesSet 方法，目的在于等其它参数都初始化了后，
         初始化要拦截的url配置信息，将所有需要校验验证码的url放到urlMap中。
 
-    4.图形验证码生成可配置：
+    5.图形验证码生成可配置：
         定义 ValidateCodeGenerator 接口，
         定义验证码生成配置类 ValidateCodeBeanConfig ，在获取生成校验码类上加上 @ConditionalOnMissingBean(name = "imageValidateCodeGenerator") 注解
         如果系统有名称为 imageValidateCodeGenerator 的类，就用此类；否则使用系统默认配置的。
