@@ -1,27 +1,35 @@
 package com.laungcisin.security;
 
+import com.laungcisin.security.rbac.mybatis.entity.SysUser;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.social.security.SocialUser;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-public class LaungcisinSocialUser extends SocialUser {
-    private Long id;
+public class LaungcisinSocialUser extends SysUser implements UserDetails {
 
-    public LaungcisinSocialUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
-    public LaungcisinSocialUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        super(username, password, authorities);
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public Long getId() {
-        return id;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

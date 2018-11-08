@@ -6,7 +6,6 @@
         <groupId>com.laungcisin.security</groupId>
         <artifactId>laungcisin-security</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../laungcisin-security</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 

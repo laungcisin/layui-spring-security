@@ -1,0 +1,9 @@
+1.
+	@ConfigurationProperties(prefix = "laungcisin.security")
+    把配置文件的信息，读取并自动封装成实体类。
+	
+    通过@EnableConfigurationProperties(ConnectionSettings.class)来明确指定需要用哪个实体类来装载配置信息
+2.
+	@Configuration//通过该注解来表明该类是一个Spring的配置，相当于一个xml文件
+	
+	ConditionalOnMissingBean

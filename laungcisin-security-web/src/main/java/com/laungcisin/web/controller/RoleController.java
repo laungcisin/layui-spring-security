@@ -1,8 +1,8 @@
 package com.laungcisin.web.controller;
 
+import com.laungcisin.security.LaungcisinSocialUser;
 import com.laungcisin.security.rbac.mybatis.entity.SysRole;
 import com.laungcisin.bean.ZtreeBean;
-import com.laungcisin.security.LaungcisinSocialUser;
 import com.laungcisin.service.menu.MenuService;
 import com.laungcisin.service.role.RoleService;
 import com.laungcisin.utils.PageData;
@@ -56,7 +56,7 @@ public class RoleController {
         logger.info("保存角色数据");
         try {
             LaungcisinSocialUser laungcisinSocialUser = (LaungcisinSocialUser) user;
-            param.setCreateUserId(laungcisinSocialUser.getId());
+            param.setCreateUserId(laungcisinSocialUser.getUserId());
             param.setCreateTime(new Date());
             roleService.save(param);
         } catch (Exception e) {

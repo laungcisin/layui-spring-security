@@ -1,10 +1,10 @@
 package com.laungcisin.web.controller;
 
+import com.laungcisin.security.LaungcisinSocialUser;
 import com.laungcisin.security.rbac.mybatis.entity.SysMenu;
 import com.laungcisin.security.rbac.mybatis.mapper.SysMenuMapper;
 import com.laungcisin.security.rbac.utils.TreeBuilder;
 import com.laungcisin.bean.ZtreeBean;
-import com.laungcisin.security.LaungcisinSocialUser;
 import com.laungcisin.service.menu.MenuService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,14 +33,14 @@ public class NoPermissionController {
     public List<ZtreeBean> listRole(@AuthenticationPrincipal UserDetails user) {
         logger.info("NoPermissionController.listRole()列表数据");
         LaungcisinSocialUser laungcisinSocialUser = (LaungcisinSocialUser) user;
-        return menuService.getAllMenuByUserId(laungcisinSocialUser.getId());
+        return menuService.getAllMenuByUserId(laungcisinSocialUser.getUserId());
     }
 
     @GetMapping("/noPermission/menuList")
     public List<TreeBuilder.Node> menuList(@AuthenticationPrincipal UserDetails user) {
         logger.info("NoPermissionController.menuList()列表数据");
         LaungcisinSocialUser laungcisinSocialUser = (LaungcisinSocialUser) user;
-        List<SysMenu> list = sysMenuMapper.getAllMenuByUserId(laungcisinSocialUser.getId());
+        List<SysMenu> list = sysMenuMapper.getAllMenuByUserId(laungcisinSocialUser.getUserId());
 
         if (!CollectionUtils.isEmpty(list)) {
             List<TreeBuilder.Node> treeNode = new ArrayList<>();

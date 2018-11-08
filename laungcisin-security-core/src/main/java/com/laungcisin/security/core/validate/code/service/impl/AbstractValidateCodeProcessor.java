@@ -9,8 +9,6 @@ import com.laungcisin.security.core.validate.code.repository.ValidateCodeReposit
 import com.laungcisin.security.core.validate.code.service.ValidateCodeProcessor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.social.connect.web.HttpSessionSessionStrategy;
-import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -21,11 +19,6 @@ import java.util.Map;
  * @author laungcisin
  */
 public abstract class AbstractValidateCodeProcessor<C extends ValidateCode> implements ValidateCodeProcessor {
-
-    /**
-     * 操作session的工具类
-     */
-    private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
     /**
      * 收集系统中所有的 {@link ValidateCodeGenerator} 接口的实现。

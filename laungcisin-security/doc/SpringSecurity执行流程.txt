@@ -76,15 +76,15 @@ Web 配置入口配置类: [BrowserSecurityConfig extends AbstractChannelSecurit
             http.addFilterBefore(validateCodeFilter, AbstractPreAuthenticatedProcessingFilter.class);
         }
 
-    2.图形校验码验证先到 ValidateCodeFilter 过滤器，如果校验通过了，继续走剩下的过滤器;没有通过抛出ValidateCodeException异常。
+    2.图形校验码验证先到 ValidateCodeFilter 过滤器，如果校验通过了，继续走剩下的过滤器;没有通过抛出 ValidateCodeException 异常。
 
-    3.ValidateCodeFilter实现InitializingBean接口实现afterPropertiesSet方法，目的在于等其它参数都初始化了后，
+    3.ValidateCodeFilter 实现 InitializingBean 接口实现 afterPropertiesSet 方法，目的在于等其它参数都初始化了后，
         初始化要拦截的url配置信息，将所有需要校验验证码的url放到urlMap中。
 
     4.图形验证码生成可配置：
-        定义ValidateCodeGenerator接口，
-        定义验证码生成配置类ValidateCodeBeanConfig，在获取生成校验码类上加上@ConditionalOnMissingBean(name = "imageValidateCodeGenerator")注解
-        如果系统有名称为imageValidateCodeGenerator的类，就用此类；否则使用系统默认配置的。
+        定义 ValidateCodeGenerator 接口，
+        定义验证码生成配置类 ValidateCodeBeanConfig ，在获取生成校验码类上加上 @ConditionalOnMissingBean(name = "imageValidateCodeGenerator") 注解
+        如果系统有名称为 imageValidateCodeGenerator 的类，就用此类；否则使用系统默认配置的。
 
 ##########################################图形校验码校验逻辑-end#######################################################################
 
@@ -111,7 +111,7 @@ UsernamePasswordAuthenticationFilter.attemptAuthentication
 发送短信验证码请求:/code/sms
 -->ValidateCodeController.createCode	
 	-->ValidateCodeProcessorHolder.findValidateCodeProcessor
-		--> 从 urlMap 中根据url取相应的ValidateCodeProcessor--->SmsCodeProcessor
+		--> 从 urlMap 中根据url取相应的 ValidateCodeProcessor--->SmsCodeProcessor
 		-->SmsCodeProcessor 继承 AbstractValidateCodeProcessor
 			-->SmsCodeProcessor.create
 				-->AbstractValidateCodeProcessor.generate
@@ -135,7 +135,7 @@ SmsCodeGenerator-短信验证码生成器
 
 
 ##############################短信验证码校验短信功能源码解析-begin##########################################
-在UsernamePasswordAuthenticationFilter前添加 ValidateCodeFilter
+在 UsernamePasswordAuthenticationFilter 前添加 ValidateCodeFilter
 -->ValidateCodeFilter.doFilterInternal
 	-->ValidateCodeProcessorHolder.findValidateCodeProcessor
 	-->AbstractValidateCodeProcessor.validate
@@ -143,7 +143,7 @@ SmsCodeGenerator-短信验证码生成器
 
 
 ##############################短信验证码登录源码解析-begin##################################################
-SmsCodeAuthenticationSecurityConfig连接SmsCodeAuthenticationFilter|SmsCodeAuthenticationProvider|SmsCodeAuthenticationToken等类
+SmsCodeAuthenticationSecurityConfig 连接 SmsCodeAuthenticationFilter|SmsCodeAuthenticationProvider|SmsCodeAuthenticationToken等类
 ##############################短信验证码登录源码解析-end####################################################
 
 

@@ -6,7 +6,6 @@
         <groupId>com.laungcisin.security</groupId>
         <artifactId>laungcisin-security</artifactId>
         <version>1.0.0-SNAPSHOT</version>
-        <relativePath>../laungcisin-security</relativePath>
     </parent>
 
     <dependencies>
@@ -20,6 +19,11 @@
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.social</groupId>
+            <artifactId>spring-social-web</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

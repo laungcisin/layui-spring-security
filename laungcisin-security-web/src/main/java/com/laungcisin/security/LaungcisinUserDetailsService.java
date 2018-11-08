@@ -4,6 +4,7 @@ import com.laungcisin.security.rbac.mybatis.entity.SysRole;
 import com.laungcisin.security.rbac.mybatis.entity.SysUser;
 import com.laungcisin.security.rbac.mybatis.mapper.SysRoleMapper;
 import com.laungcisin.security.rbac.mybatis.mapper.SysUserMapper;
+import org.apache.commons.beanutils.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +14,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.social.security.SocialUserDetails;
-import org.springframework.social.security.SocialUserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import java.util.List;
  * @author laungcisin
  */
 @Component
-public class LaungcisinUserDetailsService implements UserDetailsService, SocialUserDetailsService {
+public class LaungcisinUserDetailsService implements UserDetailsService {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     //密码加密器-用于加密,密码匹配
@@ -48,16 +48,16 @@ public class LaungcisinUserDetailsService implements UserDetailsService, SocialU
     @Override
     public UserDetails loadUserByUsername(String usernameOrMobile) throws UsernameNotFoundException {
         logger.info("登录用户名:" + usernameOrMobile);
-        return buildUser(usernameOrMobile);
+        try {
+            return buildUser(usernameOrMobile);
+        } catch (InvocationTargetException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
-    @Override
-    public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
-        logger.info("登录用户Id:" + userId);
-        return buildUser(userId);
-    }
-
-    private SocialUserDetails buildUser(String userIdOrUsernameOrMobile) {
+    private UserDetails buildUser(String userIdOrUsernameOrMobile) throws InvocationTargetException, IllegalAccessException {
         // 1.查找用户信息
         SysUser user = sysUserMapper.getUserByUserIdOrUsernameOrMobile(userIdOrUsernameOrMobile);
 
@@ -91,10 +91,8 @@ public class LaungcisinUserDetailsService implements UserDetailsService, SocialU
         }
 
         grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));//ROLE_USER-OAuth协议用到
-        LaungcisinSocialUser socialUser = new LaungcisinSocialUser(user.getUsername(), user.getPassword(),
-                enabled, accountNonExpired, credentialsNonExpired, accountNonLocked,
-                grantedAuthorities);
-        socialUser.setId(user.getUserId());
+        LaungcisinSocialUser socialUser = new LaungcisinSocialUser();
+        BeanUtils.copyProperties(socialUser, user);
         return socialUser;
     }
 

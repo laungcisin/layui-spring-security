@@ -19,13 +19,13 @@ import org.springframework.security.web.authentication.rememberme.JdbcTokenRepos
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.session.InvalidSessionStrategy;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
-import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**
  * 浏览器相关配置类
+ *
  * @author laungcisin
  */
 @Configuration//通过该注解来表明该类是一个Spring的配置，相当于一个xml文件
@@ -42,9 +42,6 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
     @Resource(name = "validateCodeSecurityConfig")
     private ValidateCodeSecurityConfig validateCodeSecurityConfig;
-
-    @Autowired
-    private SpringSocialConfigurer laungcisinSocialSecurityConfig;
 
     @Autowired
     private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
@@ -91,8 +88,6 @@ public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
         http.apply(validateCodeSecurityConfig)//验证码校验配置[图形|短信]--在认证Filter前先做校验
                 .and()
                 .apply(smsCodeAuthenticationSecurityConfig)//短信登录配置
-                .and()
-                .apply(laungcisinSocialSecurityConfig)//第三方账号登录
                 .and()
                 .exceptionHandling().accessDeniedHandler(getAccessDeniedHandler())
                 .and()
